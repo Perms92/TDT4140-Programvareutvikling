@@ -1,3 +1,7 @@
 Skriv ditt navn her:
+<<<<<<< HEAD
 Per Morten
 Trym Blaauw
+=======
+Per Morten - tested og godkjent
+>>>>>>> 92df39d64b0d56f3d24dbed96bae015394ce0c59
