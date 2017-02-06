@@ -1,7 +1,11 @@
 Skriv ditt navn her:
 <<<<<<< HEAD
 Per Morten
+<<<<<<< HEAD
 Kristian Langvann
+=======
+Trym Blaauw
+>>>>>>> 9c717114e69c4bed4fab764421bf1be185c558e4
 =======
 Per Morten - tested og godkjent
 >>>>>>> 92df39d64b0d56f3d24dbed96bae015394ce0c59
