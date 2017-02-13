@@ -1,6 +1,6 @@
 package RooME;
 
-public class Room {
+public class RoomList {
 
 	private static int roomCapacity;
 	private static String roomName;
