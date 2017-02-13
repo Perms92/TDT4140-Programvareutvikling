@@ -2,13 +2,17 @@ package RooME;
 
 public class RoomList {
 
-	private static int roomCapacity;
-	private static String roomName;
-	private boolean projector;
-	private boolean blackboard;
+	//attributes for liste of rooms
+	private int roomCount;
+	private String building;
 	
-	public static void roomInfo(){
-		System.out.println(roomName + " can have " + roomCapacity + " people");
+	public RoomList(String name) {
+		this.building = name;
+		
 	}
+	
+	
+	//getters and setters
+	
 	
 }
