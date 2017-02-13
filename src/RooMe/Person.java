@@ -1,4 +1,4 @@
-package RooMe;
+package RooME;
 
 public class Person {
 	
