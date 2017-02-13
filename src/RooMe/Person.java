@@ -3,6 +3,7 @@ package RooME;
 public class Person {
 	
 	private String firstName, lastName;
+	private int personId;
 	
 	public Person(String fistName, String lastName) {
 		this.firstName = firstName;
