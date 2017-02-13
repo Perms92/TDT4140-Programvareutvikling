@@ -1,12 +1,13 @@
 package RooMe;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Person {
 	
 	private String firstName, lastName;
 	private int personId;
-	private ArrayList<Integer> list;
+	private List<Integer> idList;
 	
 	public Person(String firstName, String lastName) {
 		this.firstName = firstName;
@@ -15,14 +16,21 @@ public class Person {
 	}
 	
 	public int personIdCounter() { // Denne funker ikke enda
-		int id = (int) (Math.random() * 1000 + 1); // Tilfeldig tall i [1, ..., 100]
-		if (list.contains(id)){
-			this.personId = (int) (Math.random() * 1000 + 2); // Tilfeldig tall i [1, ..., 100]
-			list.add(id);
+		int id = checkIdList();
+		System.out.println("ID: " + id);
+		if (idList.contains(id)){
 			return id;
 		} else {
-			list.add(id);
 			return personId;
+		}
+	}
+	
+	public List checkIdList() {
+		int id = (int) (Math.random() * 1000 + 1); // Tilfeldig tall i [1, ..., 1000]
+		List<Integer> idList = new ArrayList<>();
+		this.idList.add(id);
+		if (this.idList.contains(id)) {
+			
 		}
 	}
 	
@@ -39,7 +47,6 @@ public class Person {
 	}
 	
 	public static void main(String[] args) {
-		ArrayList<Integer> list = new ArrayList<>();
 		Person Per = new Person("Per Morten", "Solheim");
 		System.out.println(Per.toString());
 		Person Ola = new Person("Ola", "Nordman");
