@@ -5,6 +5,8 @@ public class Room{
 	private int space;
 	private boolean projector;
 	private boolean experimentable;
+	private boolean blackboard;
+	private boolean whiteboard;
 	
 	
 	public int getSpace() {
