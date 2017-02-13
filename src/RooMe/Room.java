@@ -42,7 +42,6 @@ public class Room{
 	}
 	
 	public Room(int space, boolean projector, boolean experimentable, boolean blackboard, boolean whiteboard) {
-		super();
 		this.space = space;
 		this.projector = projector;
 		this.experimentable = experimentable;
