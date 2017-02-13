@@ -1,4 +1,4 @@
-package RooME;
+package RooMe;
 
 public class Room{
 
@@ -7,6 +7,7 @@ public class Room{
 	private boolean experimentable;
 	private boolean blackboard;
 	private boolean whiteboard;
+	
 	
 	
 	public int getSpace() {
@@ -27,6 +28,29 @@ public class Room{
 	public void setExperimentable(boolean experimentable) {
 		this.experimentable = experimentable;
 	}
+	public boolean isBlackboard() {
+		return blackboard;
+	}
+	public void setBlackboard(boolean blackboard) {
+		this.blackboard = blackboard;
+	}
+	public boolean isWhiteboard() {
+		return whiteboard;
+	}
+	public void setWhiteboard(boolean whiteboard) {
+		this.whiteboard = whiteboard;
+	}
+	
+	public Room(int space, boolean projector, boolean experimentable, boolean blackboard, boolean whiteboard) {
+		super();
+		this.space = space;
+		this.projector = projector;
+		this.experimentable = experimentable;
+		this.blackboard = blackboard;
+		this.whiteboard = whiteboard;
+	}
+	
+	
 	
 	
 
