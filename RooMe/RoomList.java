@@ -39,7 +39,7 @@ public class RoomList {
 		System.out.println(romliste.getName());
 		Room rom = new Room(10, true, true, true, true);
 		romliste.addRoom(rom);
-		System.out.println(romliste.getName());
+		System.out.println(rom);
 	}
 
 
