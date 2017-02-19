@@ -1,5 +1,7 @@
 package RooMe;
 
+import java.util.ArrayList;
+import java.util.List;
 
 public class Person {
 
@@ -27,7 +29,7 @@ public class Person {
 			throw new IllegalArgumentException("Something went wrong"
 					+ " with making your ID number, please try again");
 		}
->>>>>>> master
+
 	}
 
 	public String getName() {
@@ -48,6 +50,7 @@ public class Person {
 		Person Ola = new Person("Ola", "Nordman");
 		System.out.println(Ola.toString());
 		System.out.println(Ola.getPersonId());
+
 	}
 
 }
