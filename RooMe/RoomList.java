@@ -30,10 +30,12 @@ public class RoomList {
 	
 	public static void main(String[] args) {
 		RoomList romliste = new RoomList("Gløshaugen");
-		Room rom = new Room("Test",10, true, true, true, true);
+		Room rom = new Room("Rom 1",10, true, true, true, true);
 		romliste.addRoom(rom);
-		Room rom2 = new Room("Test",20, true, false, false, true);
+		Room rom2 = new Room("Rom 2",20, true, false, false, true);
 		romliste.addRoom(rom2);
+		Room rom3 = new Room("Rom 3",50, false, false, false, false);
+		romliste.addRoom(rom3);
 		System.out.println(romliste);
 	}	
 }
