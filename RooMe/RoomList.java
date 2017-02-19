@@ -1,29 +1,21 @@
 package RooMe;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class RoomList {
 
 	//attributes for liste of rooms
-	private int roomCount;
+	//private int roomCount;
 	private String name;
-	static ArrayList<Room> romliste = new ArrayList<Room>(); //add Room as type specification
+	static ArrayList<Room> romliste = new ArrayList<Room>();
 	
 	public RoomList(String name) {
 		this.name = name;
-		
 	}
 	
-	public static void findRooms(String name, int space, boolean projector, boolean experimentable, boolean blackboard, boolean whiteboard){
-		for (int i = 0; i > romliste.size(); i++) {
-			 System.out.println(romliste.get(i));
-		}
-	}
-	
-	public ArrayList<Room> addRoom(Room room){ //add Room room as input
+	public ArrayList<Room> addRoom(Room room){
 		romliste.add(room);
-		return (ArrayList<Room>) romliste;
+		return romliste;
 	}
 	
 	//getters and setters
@@ -32,21 +24,16 @@ public class RoomList {
 	}
 
 	//possible that name should be unchangeable
-	void setName(String building) {
-		this.name = building;
+	void setName(String buildingName) {
+		this.name = buildingName;
 	}
-
 	
 	public static void main(String[] args) {
 		RoomList romliste = new RoomList("Gløshaugen");
-		//System.out.println(romliste.getName());
 		Room rom = new Room("Test",10, true, true, true, true);
 		romliste.addRoom(rom);
-		//System.out.println(rom);
-		findRooms("Test",10, true, true, true, true);
-		System.out.println(romliste.getLength());
-	}
-
-
-	
+		Room rom2 = new Room("Test",20, true, false, false, true);
+		romliste.addRoom(rom2);
+		System.out.println(romliste);
+	}	
 }
