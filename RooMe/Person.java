@@ -30,7 +30,7 @@ public class Person {
 		System.out.println(Per.toString());
 		Person Ola = new Person("Ola", "Nordman");
 		System.out.println(Ola.toString());
-		System.out.println(Ola.getPersonId());
+		System.out.println(Per.getPersonId());
 	}
 
 }
