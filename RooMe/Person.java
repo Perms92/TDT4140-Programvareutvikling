@@ -43,16 +43,12 @@ public class Person {
 		return "Name: " + getName() + "\nPerson ID: " + personId;
 	}
 	
-	public List<Integer> getPersonIdList() {
-		return personIdList;
-	}
-	
 	public static void main(String[] args) {
 		Person Per = new Person("Per Morten", "Solheim");
 		System.out.println(Per.toString());
 		Person Ola = new Person("Ola", "Nordman");
 		System.out.println(Ola.toString());
+		System.out.println(Per.getPersonId());
 	}
-
 
 }
