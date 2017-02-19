@@ -17,12 +17,12 @@ public class Person {
 	}
 	
 	public int compareId() {
-		int x = (int) (Math.random() * 100000 + 1); // Tilfeldig tall i [1, ..., 100000]
+		int x = (int) (Math.random() * 100000 + 1); // Tilfeldig tall i [1, ..., 50]
 		if (! personIdList.contains(x)){
 			personIdList.add(x);
 			return x;
 		} else if (personIdList.contains(x)){
-			x = (int) (Math.random() * 900000 + 1); // Tilfeldig tall i [1, ..., 900000]
+			x = (int) (Math.random() * 900000 + 1); // Tilfeldig tall i [1, ..., 50]
 			personIdList.add(x);
 			return x;
 		} else {

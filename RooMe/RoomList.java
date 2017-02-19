@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class RoomList {
 
 	//attributes for liste of rooms
-	//private int roomCount;
+	//private int roomCount; //if we want to know how many rooms a building/place has
 	private String name;
 	static ArrayList<Room> romliste = new ArrayList<Room>();
 	
