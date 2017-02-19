@@ -58,29 +58,28 @@ public class Room{
 		this.name = name;
 	}
 	
-private String toEnglish(boolean value){
-	if (value == true) {
+	private String toEnglish(boolean value){
+		if (value == true) {
 		return "has a";
+		}
+		else return "does not have a";
 	}
-	else return "does not have a";
-}
-private String expSentence(){
-	if (experimentable == true) {
-		return "It is possible to do experiments in this room";
-	}
-	else return "It is not possible to do experiments in this room"; 
-	}
+	private String expSentence(){
+		if (experimentable == true) {
+			return "It is possible to do experiments in this room";
+		}
+		else return "It is not possible to do experiments in this room"; 
+		}
 	
 @Override
 	public String toString() {
 		return name + " has room for " + space + " persons, " + toEnglish(projector) + " projector, " 
 		+ toEnglish(blackboard) + " blackboard, " + toEnglish(whiteboard) + " whiteboard.\n" + expSentence();
 	}
-
-public static void main(String[] args) {
-	Room test = new Room("Test1", 100, true, false, false, true);
-	System.out.println(test);
-}
 	
+	public static void main(String[] args) {
+		Room test = new Room("Test1", 100, true, false, false, true);
+		System.out.println(test);
+	}
 
 }
