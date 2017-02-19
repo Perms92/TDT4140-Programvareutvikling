@@ -7,7 +7,7 @@ public class Person {
 	
 	private String firstName, lastName;
 	private int personId;
-	List<Integer> personIdList = new ArrayList<Integer>();
+	static List<Integer> personIdList = new ArrayList<Integer>();
 	
 	
 	public Person(String firstName, String lastName) {
@@ -18,17 +18,11 @@ public class Person {
 	
 	public int compareId() {
 		int x = (int) (Math.random() * 100000 + 1); // Tilfeldig tall i [1, ..., 100000]
-		if (! personIdList.contains(x)){
-			personIdList.add(x);
-			return x;
-		} else if (personIdList.contains(x)){
-			x = (int) (Math.random() * 900000 + 1); // Tilfeldig tall i [1, ..., 900000]
-			personIdList.add(x);
-			return x;
-		} else {
-			throw new IllegalArgumentException("Something went wrong"
-					+ " with making your ID number, please try again");
+		while (personIdList.contains(x)){
+			x = (int) (Math.random() * 100000 + 1); // Tilfeldig tall i [1, ..., 100000]
 		}
+		personIdList.add(x);
+		return x;
 	}
 	
 	public String getName() {
@@ -52,6 +46,7 @@ public class Person {
 		System.out.println(Per.toString());
 		Person Ola = new Person("Ola", "Nordman");
 		System.out.println(Ola.toString());
+		System.out.println(personIdList);
 	}
 
 
