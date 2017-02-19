@@ -7,7 +7,7 @@ public class RoomList {
 	//attributes for liste of rooms
 	private int roomCount;
 	private String name;
-	ArrayList liste = new ArrayList(); //add Room as type specification
+	ArrayList liste = new ArrayList<Room>(); //add Room as type specification
 	
 	public RoomList(String name) {
 		this.name = name;
@@ -18,8 +18,8 @@ public class RoomList {
 		
 	}
 	
-	public ArrayList addRoom(){ //add Room room as input
-		liste.add("room");
+	public ArrayList addRoom(Room room){ //add Room room as input
+		liste.add(room);
 		return liste;
 	}
 	
@@ -36,6 +36,9 @@ public class RoomList {
 	
 	public static void main(String[] args) {
 		RoomList romliste = new RoomList("Gløshaugen");
+		System.out.println(romliste.getName());
+		Room rom = new Room(10, true, true, true, true);
+		romliste.addRoom(rom);
 		System.out.println(romliste.getName());
 	}
 
