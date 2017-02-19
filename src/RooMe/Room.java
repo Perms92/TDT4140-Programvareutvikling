@@ -54,6 +54,7 @@ public class Room{
 		this.experimentable = experimentable;
 		this.blackboard = blackboard;
 		this.whiteboard = whiteboard;
+		this.name = name;
 	}
 	
 
