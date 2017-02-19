@@ -5,6 +5,10 @@ public class Person {
 	
 	private String firstName, lastName;
 	private int personId;
+<<<<<<< HEAD
+=======
+	List<Integer> personIdList = new ArrayList<Integer>();
+>>>>>>> 762b7a9ebf7859af8deea20b78784ed2741cfeeb
 	
 	
 	public Person(String firstName, String lastName) {
