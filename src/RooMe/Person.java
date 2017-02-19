@@ -6,7 +6,7 @@ import java.util.List;
 public class Person {
 	
 	private String firstName, lastName;
-	int idCounter, personId;
+	private int personId;
 	List<Integer> personIdList = new ArrayList<Integer>();
 	
 	
