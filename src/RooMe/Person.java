@@ -32,5 +32,7 @@ public class Person {
 		System.out.println(Ola.toString());
 		System.out.println(Per.getPersonId());
 	}
+	
+
 
 }
