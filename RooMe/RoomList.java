@@ -37,7 +37,7 @@ public class RoomList {
 	public static void main(String[] args) {
 		RoomList romliste = new RoomList("Gløshaugen");
 		System.out.println(romliste.getName());
-		Room rom = new Room(10, true, true, true, true);
+		Room rom = new Room("Test",10, true, true, true, true);
 		romliste.addRoom(rom);
 		System.out.println(rom);
 	}
