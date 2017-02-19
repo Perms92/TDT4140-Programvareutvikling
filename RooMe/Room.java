@@ -32,6 +32,7 @@ public class Room{
 	public boolean isExperimentable() {
 		return experimentable;
 	}
+	
 	public void setExperimentable(boolean experimentable) {
 		this.experimentable = experimentable;
 	}
@@ -57,11 +58,23 @@ public class Room{
 		this.name = name;
 	}
 	
-
+private String toEnglish(boolean value){
+	if (value == true) {
+		return "has a";
+	}
+	else return "does not have a";
+}
+private String expSentence(){
+	if (experimentable == true) {
+		return "It is possible to do experiments in this room";
+	}
+	else return "It is not possible to do experiments in this room"; 
+	}
+	
 @Override
 	public String toString() {
-		return "Room [space=" + space + ", projector=" + projector + ", experimentable=" + experimentable
-				+ ", blackboard=" + blackboard + ", whiteboard=" + whiteboard + ", name=" + name + "]";
+		return name + " has room for " + space + " persons, " + toEnglish(projector) + " projector, " 
+		+ toEnglish(blackboard) + " blackboard, " + toEnglish(whiteboard) + " whiteboard.\n" + expSentence();
 	}
 
 public static void main(String[] args) {
