@@ -7,9 +7,16 @@ public class Room{
 	private boolean experimentable;
 	private boolean blackboard;
 	private boolean whiteboard;
+	private String name;
 	
 	
 	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	public int getSpace() {
 		return space;
 	}
@@ -41,7 +48,7 @@ public class Room{
 		this.whiteboard = whiteboard;
 	}
 	
-	public Room(int space, boolean projector, boolean experimentable, boolean blackboard, boolean whiteboard) {
+	public Room(String name, int space, boolean projector, boolean experimentable, boolean blackboard, boolean whiteboard) {
 		this.space = space;
 		this.projector = projector;
 		this.experimentable = experimentable;
@@ -49,8 +56,17 @@ public class Room{
 		this.whiteboard = whiteboard;
 	}
 	
-	
-	
+
+@Override
+	public String toString() {
+		return "Room [space=" + space + ", projector=" + projector + ", experimentable=" + experimentable
+				+ ", blackboard=" + blackboard + ", whiteboard=" + whiteboard + ", name=" + name + "]";
+	}
+
+public static void main(String[] args) {
+	Room test = new Room("Test1", 100, true, false, false, true);
+	System.out.println(test);
+}
 	
 
 }
