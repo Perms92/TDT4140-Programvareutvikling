@@ -14,8 +14,8 @@ public class RoomList {
 		
 	}
 	
-	public void findRooms(){
-		
+	public void findRooms(int space, boolean projector, boolean experimentable, boolean blackboard, boolean whiteboard){
+		//if ();// sjekk rom mot egenskaper
 	}
 	
 	public ArrayList addRoom(Room room){ //add Room room as input
