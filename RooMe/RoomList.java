@@ -7,15 +7,15 @@ public class RoomList {
 	//attributes for liste of rooms
 	//private int roomCount; //if we want to know how many rooms a building/place has
 	private String name;
-	static ArrayList<Room> romliste = new ArrayList<Room>();
+	static ArrayList<Room> roomlist = new ArrayList<Room>();
 	
 	public RoomList(String name) {
 		this.name = name;
 	}
 	
 	public ArrayList<Room> addRoom(Room room){
-		romliste.add(room);
-		return romliste;
+		roomlist.add(room);
+		return roomlist;
 	}
 	
 	//getters and setters
@@ -29,13 +29,13 @@ public class RoomList {
 	}
 	
 	public static void main(String[] args) {
-		RoomList romliste = new RoomList("Gløshaugen");
+		RoomList roomlist = new RoomList("Gløshaugen");
 		Room rom = new Room("Rom 1",10, true, true, true, true);
-		romliste.addRoom(rom);
+		roomlist.addRoom(rom);
 		Room rom2 = new Room("Rom 2",20, true, false, false, true);
-		romliste.addRoom(rom2);
+		roomlist.addRoom(rom2);
 		Room rom3 = new Room("Rom 3",50, false, false, false, false);
-		romliste.addRoom(rom3);
-		System.out.println(romliste);
+		roomlist.addRoom(rom3);
+		System.out.println(roomlist);
 	}	
 }
