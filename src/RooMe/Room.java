@@ -1,5 +1,9 @@
 package RooMe;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Hashtable;
+
 public class Room{
 
 	private int space;
@@ -8,6 +12,7 @@ public class Room{
 	private boolean blackboard;
 	private boolean whiteboard;
 	private String name;
+	private int roomID;
 	
 	public Room(String name, int space, boolean projector, boolean experimentable, boolean blackboard, boolean whiteboard) {
 		this.space = space;
@@ -17,45 +22,51 @@ public class Room{
 		this.whiteboard = whiteboard;
 		this.name = name;
 	}
-		
+	
+	public static int getRoomID(Room room) {
+		return room.roomID;
+	}
+	protected void setRoomID(int ID) {
+		this.roomID = ID;
+	}
+
 	public String getName() {
 		return name;
 	}
-	public void setName(String name) {
+	private void setName(String name) {
 		this.name = name;
 	}
 	public int getSpace() {
 		return space;
 	}
-	public void setSpace(int space) {
+	private void setSpace(int space) {
 		this.space = space;
 	}
 	public boolean isProjector() {
 		return projector;
 	}
-	public void setProjector(boolean projector) {
+	private void setProjector(boolean projector) {
 		this.projector = projector;
 	}
 	public boolean isExperimentable() {
 		return experimentable;
 	}
 	
-	public void setExperimentable(boolean experimentable) {
+	private void setExperimentable(boolean experimentable) {
 		this.experimentable = experimentable;
 	}
 	public boolean isBlackboard() {
 		return blackboard;
 	}
-	public void setBlackboard(boolean blackboard) {
+	private void setBlackboard(boolean blackboard) {
 		this.blackboard = blackboard;
 	}
 	public boolean isWhiteboard() {
 		return whiteboard;
 	}
-	public void setWhiteboard(boolean whiteboard) {
+	private void setWhiteboard(boolean whiteboard) {
 		this.whiteboard = whiteboard;
 	}
-
 	
 	private String toEnglish(boolean value){
 		if (value == true) {
@@ -79,12 +90,14 @@ public class Room{
 	@Override
 	public String toString() {
 		return name + " has room for " + space + " persons, " + toEnglish(projector) + " projector, " 
-		+ toEnglish(blackboard) + " blackboard, " + toEnglish(whiteboard) + " whiteboard.\n" + expSentence();
+		+ toEnglish(blackboard) + " blackboard, " + toEnglish(whiteboard) + " whiteboard.\n" + expSentence() +".";
 	}
 */	
 	public static void main(String[] args) {
 		Room test = new Room("Test1", 100, true, false, false, true);
 		System.out.println(test);
+		System.out.println(test.roomID);
+		System.out.println(getRoomID(test));
 	}
 
 }

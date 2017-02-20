@@ -7,8 +7,7 @@ public class RoomRequest {
 	
 	public RoomRequest(Person person, int tid, String subject){
 		personID = person.getPersonId();
-		
-		
+				
 	}
 	
 	private void generateReqID(){
