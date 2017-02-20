@@ -8,10 +8,12 @@ public class Person {
 
 	private String firstName, lastName, proffesion;
 	private int personId;
-	static List<Integer> personIdList = new ArrayList<Integer>();
+	public static List<Integer> personIdList = new ArrayList<Integer>();
+	public static ArrayList<Person> personList = new ArrayList<Person>();
+	
+	Scanner reader = new Scanner(System.in);
 	
 	public Person() {
-		Scanner reader = new Scanner(System.in);
 		System.out.println("Enter your first name: ");
 		String firstName = reader.nextLine();
 		System.out.println(firstName);
@@ -21,11 +23,13 @@ public class Person {
 		System.out.println("Enter your proffesion: ");
 		String proffesion = reader.nextLine();
 		System.out.println(proffesion);
+		
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.proffesion = proffesion;
 		this.personId = compareId();
-		reader.close();
+		
+		Person.personList.add(this);
 	}
 
 	public int compareId() {
@@ -51,8 +55,8 @@ public class Person {
 	}
 
 	public String toString() {
-		return "Name: " + getName() + "\nProffesion: " 
-	+ getProffesion() + "\nPerson ID: " + personId;
+		return "\nName: " + getName() + ", Proffesion: " 
+	+ getProffesion() + ", Person ID: " + personId;
 	}
 
 	public static void main(String[] args) {
@@ -61,5 +65,7 @@ public class Person {
 		Person Ola = new Person();
 		System.out.println(Ola.toString());
 		System.out.println(personIdList);
+		System.out.println(personList);
 	}
+	
 }
