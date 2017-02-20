@@ -1,16 +1,17 @@
 package RooMe;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 public class RoomList {
 
-	//attributes for liste of rooms
-	private int roomCount;
+	//attributes for list of rooms
 	private String name;
-	ArrayList liste = new ArrayList(); //add Room as type specification
+	private Hashtable<Integer, Room> roomIDList; 
 	
 	public RoomList(String name) {
-		this.name = name;
+		setName(name);
+		this.roomIDList = new Hashtable<Integer, Room>();
 		
 	}
 	
@@ -18,10 +19,18 @@ public class RoomList {
 		
 	}
 	
-	public ArrayList addRoom(){ //add Room room as input
-		liste.add("room");
-		return liste;
+	public void addRoom(Room room){ //add Room room as input
+		int RoomID = room.getRoomID(room);
+		if (RoomID == 0) {
+			RoomID = roomIDList.size() +1;
+			while (roomIDList.containsKey(RoomID)){
+				RoomID++;
+				}
+		}
+		room.setRoomID(roomIDList.size()+1);
+		roomIDList.put(RoomID, room);
 	}
+	
 	
 	//getters and setters
 	String getName() {
@@ -29,14 +38,18 @@ public class RoomList {
 	}
 
 	//possible that name should be unchangeable
-	void setName(String building) {
+	private void setName(String building) {
 		this.name = building;
 	}
 
-	
+	public String toString() {
+		System.out.println(roomIDList);
+		return "kuk";
+	}
 	public static void main(String[] args) {
 		RoomList romliste = new RoomList("Gløshaugen");
-		System.out.println(romliste.getName());
+		romliste.addRoom(new Room("R1", 500, true, true, true, false));
+		System.out.println(romliste);
 	}
 
 
