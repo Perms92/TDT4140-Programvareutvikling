@@ -8,7 +8,7 @@ public class Main {
 	
 	public void start(){
 		Person lektor = new Person("ole", "runar");
-		Room rom = new Room(30, true, true,false,false);
+		Room rom = new Room("Rom 1", 30, true, true,false,false);
 	}
 	
 	public static void main(String[] args) {
