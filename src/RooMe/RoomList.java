@@ -3,11 +3,10 @@ package RooMe;
 import java.util.ArrayList;
 
 public class RoomList {
-
-	//attributes for liste of rooms
+	
 	private int roomCount;
 	private String name;
-	ArrayList liste = new ArrayList(); //add Room as type specification
+	public static ArrayList<Room> roomlist = new ArrayList<Room>();
 	
 	public RoomList(String name) {
 		this.name = name;
@@ -16,27 +15,27 @@ public class RoomList {
 	
 	public void findRooms(){
 		
+	}	
+	
+	public void addRoom(Room rom){
+		roomlist.add(rom);
 	}
 	
-	public ArrayList addRoom(){ //add Room room as input
-		liste.add("room");
-		return liste;
-	}
-	
-	//getters and setters
 	String getName() {
 		return name;
 	}
 
-	//possible that name should be unchangeable
 	void setName(String building) {
 		this.name = building;
 	}
 
 	
 	public static void main(String[] args) {
-		RoomList romliste = new RoomList("Gløshaugen");
-		System.out.println(romliste.getName());
+		RoomList roomlist = new RoomList("Gløshaugen");
+		Room rom = new Room("s22", 50, false,false,false,false);
+		roomlist.addRoom(rom);
+		System.out.println(roomlist.getName());
+		System.out.println(roomlist.roomlist);
 	}
 
 

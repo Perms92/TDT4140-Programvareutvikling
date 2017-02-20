@@ -9,8 +9,15 @@ public class Room{
 	private boolean whiteboard;
 	private String name;
 	
-	
-	
+	public Room(String name, int space, boolean projector, boolean experimentable, boolean blackboard, boolean whiteboard) {
+		this.space = space;
+		this.projector = projector;
+		this.experimentable = experimentable;
+		this.blackboard = blackboard;
+		this.whiteboard = whiteboard;
+		this.name = name;
+	}
+		
 	public String getName() {
 		return name;
 	}
@@ -48,15 +55,7 @@ public class Room{
 	public void setWhiteboard(boolean whiteboard) {
 		this.whiteboard = whiteboard;
 	}
-	
-	public Room(String name, int space, boolean projector, boolean experimentable, boolean blackboard, boolean whiteboard) {
-		this.space = space;
-		this.projector = projector;
-		this.experimentable = experimentable;
-		this.blackboard = blackboard;
-		this.whiteboard = whiteboard;
-		this.name = name;
-	}
+
 	
 	private String toEnglish(boolean value){
 		if (value == true) {
@@ -71,12 +70,18 @@ public class Room{
 		else return "It is not possible to do experiments in this room"; 
 		}
 	
-@Override
+	@Override 
+	public String toString(){
+		return "name: " + name + " space: " + space + " people," + " projector: " + projector +  
+				", blackboard: " + blackboard + ", whiteboard: " + whiteboard + ", experimentable: " + experimentable;
+	}
+/*
+	@Override
 	public String toString() {
 		return name + " has room for " + space + " persons, " + toEnglish(projector) + " projector, " 
 		+ toEnglish(blackboard) + " blackboard, " + toEnglish(whiteboard) + " whiteboard.\n" + expSentence();
 	}
-	
+*/	
 	public static void main(String[] args) {
 		Room test = new Room("Test1", 100, true, false, false, true);
 		System.out.println(test);

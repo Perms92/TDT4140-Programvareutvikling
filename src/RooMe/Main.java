@@ -12,12 +12,9 @@ public class Main {
 	public void start(){
 		Person person = new Person();
 		System.out.println(person);
-		Person person2 = new Person();
-		System.out.println(person2);
-		Person person3 = new Person();
-		System.out.println(person3);
 		System.out.println(Person.personIdList);
 		System.out.println(Person.personList);
+		
 	}
 	
 	public static void main(String[] args) {
