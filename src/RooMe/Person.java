@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Person {
 
-	private String firstName, lastName, proffesion;
+	public String firstName, lastName, proffesion;
 	private int personId;
 	public static List<Integer> personIdList = new ArrayList<Integer>();
 	public static ArrayList<Person> personList = new ArrayList<Person>();
@@ -28,7 +28,6 @@ public class Person {
 		proffesion = checkProffesion(proffesion);
 		this.proffesion = proffesion;
 		this.personId = compareId();
-		
 		Person.personList.add(this);
 	}
 	
