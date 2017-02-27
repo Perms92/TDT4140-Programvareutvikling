@@ -30,7 +30,7 @@ public class Subject {
 		File fnew = new File("/Users/Creztian/Documents/workspace/RooME/src/Timetable/relatedClasses.txt");
 		BufferedWriter writer = null;
 		try{
-		    writer = new BufferedWriter( new FileWriter(fnew, true));
+		    writer = new BufferedWriter( new FileWriter(fnew, true)); //true or false turns on/off overwriting
 		    writer.write( text + "\n");
 		}
 		catch ( IOException e){
