@@ -3,6 +3,8 @@ package RooMe;
 import java.util.ArrayList;
 
 public class sokRom {
+	
+	//FILE NOT IN USE AT THE MOMENT
 
 	static ArrayList<Room> roomlist = new ArrayList<Room>(); //might be removed
 	static ArrayList time = new ArrayList<>();
@@ -15,11 +17,11 @@ public class sokRom {
 	}
 	
 	//old function most likely not useable
-	public static void findRooms(String name, int space, boolean projector, boolean experimentable, boolean blackboard, boolean whiteboard){
+/*	public static void findRooms(String name, int space, boolean projector, boolean experimentable, boolean blackboard, boolean whiteboard){
 		for (int i = 0; i < roomlist.size(); i++) {
 			System.out.println(roomlist.get(i));
 		}
-	}
+	}*/
 	
 	// if subject2.start is before subject1.end we have a problem
 	
@@ -38,7 +40,7 @@ public class sokRom {
 	
 	public static void main(String[] args) {
 		updateTime();
-		System.out.println(time);
+		System.out.println("tidsintervall man kan booke " + time);
 		checkTime(3,2); //checkTime(start,end)
 		
 	}
