@@ -1,4 +1,4 @@
-package RooMe;
+package Prototype1;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,14 +14,6 @@ public class Room{
 	private String name;
 	private int roomID;
 	
-	public Room(String name, int space, boolean projector, boolean experimentable, boolean blackboard, boolean whiteboard) {
-		this.space = space;
-		this.projector = projector;
-		this.experimentable = experimentable;
-		this.blackboard = blackboard;
-		this.whiteboard = whiteboard;
-		this.name = name;
-	}
 	
 	public static int getRoomID(Room room) {
 		return room.roomID;
@@ -29,11 +21,7 @@ public class Room{
 	protected void setRoomID(int ID) {
 		this.roomID = ID;
 	}
-<<<<<<< HEAD
 	
-=======
-
->>>>>>> 2001a9ee99c959f06e32be697a8d01b1204bf02d
 	public String getName() {
 		return name;
 	}
@@ -70,7 +58,6 @@ public class Room{
 	}
 	private void setWhiteboard(boolean whiteboard) {
 		this.whiteboard = whiteboard;
-<<<<<<< HEAD
 	}
 	
 	
@@ -81,8 +68,6 @@ public class Room{
 		setBlackboard(blackboard);
 		setWhiteboard(whiteboard);
 		setName(name);
-=======
->>>>>>> 2001a9ee99c959f06e32be697a8d01b1204bf02d
 	}
 	
 	private String toEnglish(boolean value){
@@ -98,18 +83,12 @@ public class Room{
 		else return "It is not possible to do experiments in this room"; 
 		}
 	
-	@Override 
-	public String toString(){
-		return "name: " + name + " space: " + space + " people," + " projector: " + projector +  
-				", blackboard: " + blackboard + ", whiteboard: " + whiteboard + ", experimentable: " + experimentable;
-	}
-/*
-	@Override
+@Override
 	public String toString() {
 		return name + " has room for " + space + " persons, " + toEnglish(projector) + " projector, " 
 		+ toEnglish(blackboard) + " blackboard, " + toEnglish(whiteboard) + " whiteboard.\n" + expSentence() +".";
 	}
-*/	
+	
 	public static void main(String[] args) {
 		Room test = new Room("Test1", 100, true, false, false, true);
 		System.out.println(test);

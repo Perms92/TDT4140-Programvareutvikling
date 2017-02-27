@@ -1,26 +1,23 @@
-package RooMe;
+package Prototype1;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
 
 public class RoomList {
 
-	private int RoomCount;
+	//attributes for list of rooms
 	private String name;
 	private Hashtable<Integer, Room> roomIDList; 
-		
+	
 	public RoomList(String name) {
 		setName(name);
 		this.roomIDList = new Hashtable<Integer, Room>();
-		roomIDList.size();
+		
 	}
 	
-	public void getSize(){
-		int RoomCount = roomIDList.size();
+	public void findRooms(){
+		
 	}
-	
-	public void findRooms(){		
-	}	
 	
 	public void addRoom(Room room){ //add Room room as input
 		int RoomID = room.getRoomID(room);
@@ -34,10 +31,13 @@ public class RoomList {
 		roomIDList.put(RoomID, room);
 	}
 	
+	
+	//getters and setters
 	String getName() {
 		return name;
 	}
 
+	//possible that name should be unchangeable
 	private void setName(String building) {
 		this.name = building;
 	}
@@ -47,11 +47,9 @@ public class RoomList {
 		return "kuk";
 	}
 	public static void main(String[] args) {
-		RoomList roomlist = new RoomList("Gløshaugen");
-		Room rom = new Room("s22", 50, false,false,false,false);
-		roomlist.addRoom(rom);
-		System.out.println(roomlist.getName());
-		System.out.println(roomlist.roomIDList);
+		RoomList romliste = new RoomList("Gløshaugen");
+		romliste.addRoom(new Room("R1", 500, true, true, true, false));
+		System.out.println(romliste);
 	}
 
 
