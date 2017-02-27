@@ -20,3 +20,7 @@ Olav var syk, og ble hjemmeværende. Resten av gruppa arbeidet med prosjektrappo
 
 Uke7:
 Alle samlet på mandag. Møte på mandager avtalte vi gjennom en sammarbeidsavtale vi satt i uke 5. 
+
+Hadde også 4 timer gruppearbeid søndag i uke7, Trym ble litt sen. Kakekryss?
+
+Uke 8: Olav og Kristian ble litt for sen. 

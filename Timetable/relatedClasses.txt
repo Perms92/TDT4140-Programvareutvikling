@@ -1,5 +1,8 @@
 Informatikk
+<<<<<<< HEAD
 Komtek
 Informatikk
 Komtek
 Informatikk
+=======
+>>>>>>> 2f8fbd5475cdb7bf2b7df2595e4a3163faa07b69
