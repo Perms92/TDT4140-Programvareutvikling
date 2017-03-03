@@ -61,9 +61,31 @@ public class RoomCriteria {
 				+ "\nExperiment table: " + experimentTable;
 	}
 	
+
+	public boolean isProjector() {
+		return projector;
+	}
+
+	public boolean isBlackBoard() {
+		return blackBoard;
+	}
+
+	public boolean isWhiteBoard() {
+		return whiteBoard;
+	}
+
+	public boolean isExperimentTable() {
+		return experimentTable;
+	}
+
+	public int getStudentNumbers() {
+		return studentNumbers;
+	}
+	
 	public static void main(String[] args) {
 		RoomCriteria room1 = new RoomCriteria();
 		System.out.println(room1.toString());
+		System.out.println(room1.isBlackBoard());
 		
 	}
 
