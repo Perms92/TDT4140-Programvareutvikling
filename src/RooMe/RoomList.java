@@ -1,42 +1,57 @@
 package RooMe;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 public class RoomList {
 
-	//attributes for liste of rooms
-	private int roomCount;
+	private int RoomCount;
 	private String name;
-	ArrayList liste = new ArrayList(); //add Room as type specification
-	
+	private Hashtable<Integer, Room> roomIDList; 
+		
 	public RoomList(String name) {
-		this.name = name;
-		
+		setName(name);
+		this.roomIDList = new Hashtable<Integer, Room>();
+		roomIDList.size();
 	}
 	
-	public void findRooms(){
-		
+	public void getSize(){
+		int RoomCount = roomIDList.size();
 	}
 	
-	public ArrayList addRoom(){ //add Room room as input
-		liste.add("room");
-		return liste;
+	public void findRooms(){		
+	}	
+	
+	public void addRoom(Room room){ //add Room room as input
+		int RoomID = room.getRoomID(room);
+		if (RoomID == 0) {
+			RoomID = roomIDList.size() +1;
+			while (roomIDList.containsKey(RoomID)){
+				RoomID++;
+				}
+		}
+		room.setRoomID(roomIDList.size()+1);
+		roomIDList.put(RoomID, room);
 	}
 	
-	//getters and setters
 	String getName() {
 		return name;
 	}
 
-	//possible that name should be unchangeable
-	void setName(String building) {
+	private void setName(String building) {
 		this.name = building;
 	}
 
-	
+	public String toString() {
+		System.out.println(roomIDList);
+		return "kuk";
+	}
 	public static void main(String[] args) {
-		RoomList romliste = new RoomList("Gløshaugen");
-		System.out.println(romliste.getName());
+		RoomList roomlist = new RoomList("Gløshaugen");
+		Room rom = new Room("s22", 50, false,false,false,false);
+		roomlist.addRoom(rom);
+		System.out.println(roomlist.getName());
+		System.out.println(roomlist.roomIDList);
 	}
 
 

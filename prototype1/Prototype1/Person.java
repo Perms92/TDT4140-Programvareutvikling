@@ -1,4 +1,4 @@
-package RooMe;
+package Prototype1;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Person {
 
-	public String firstName, lastName, proffesion;
+	private String firstName, lastName, proffesion;
 	private int personId;
 	public static List<Integer> personIdList = new ArrayList<Integer>();
 	public static ArrayList<Person> personList = new ArrayList<Person>();
@@ -28,30 +28,17 @@ public class Person {
 		proffesion = checkProffesion(proffesion);
 		this.proffesion = proffesion;
 		this.personId = compareId();
+		
 		Person.personList.add(this);
 	}
 	
 	public String checkName(String name) {
 		name.toLowerCase();
 	    char[] chars = name.toCharArray();
-	    try {
-		    for (char c : chars) {
-		        if((!Character.isLetter(c) && !Character.isDefined(' ')) || Character.isDigit(c)) {
-		        	throw new IllegalArgumentException();
-		        }
-		    }
-	    } catch (Exception e) {
-	    	System.out.println("Only letters in your name, test exception");
-	    	name = name.replace("0", "");
-	    	name = name.replace("1", "");
-	    	name = name.replace("2", "");
-	    	name = name.replace("3", "");
-	    	name = name.replace("4", "");
-	    	name = name.replace("5", "");
-	    	name = name.replace("6", "");
-	    	name = name.replace("7", "");
-	    	name = name.replace("8", "");
-	    	name = name.replace("9", "");
+	    for (char c : chars) {
+	        if((!Character.isLetter(c) && !Character.isDefined(' ')) || Character.isDigit(c)) {
+	            throw new IllegalArgumentException("Only letters in your name");
+	        }
 	    }
 	    return name;
 	}
@@ -98,8 +85,8 @@ public class Person {
 	}
 
 	public static void main(String[] args) {
-		Person person = new Person();
-		//Person person2 = new Person();
+		Person person1 = new Person();
+		Person person2 = new Person();
 		System.out.println(personIdList);
 		System.out.println(personList);
 	}
