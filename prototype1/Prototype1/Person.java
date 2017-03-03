@@ -1,4 +1,4 @@
-package RooMe;
+package Prototype1;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Person {
 
-	public String firstName, lastName, proffesion;
+	private String firstName, lastName, proffesion;
 	private int personId;
 	public static List<Integer> personIdList = new ArrayList<Integer>();
 	public static ArrayList<Person> personList = new ArrayList<Person>();
@@ -28,6 +28,7 @@ public class Person {
 		proffesion = checkProffesion(proffesion);
 		this.proffesion = proffesion;
 		this.personId = compareId();
+		
 		Person.personList.add(this);
 	}
 	
