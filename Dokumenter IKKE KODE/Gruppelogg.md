@@ -23,4 +23,8 @@ Alle samlet på mandag. Møte på mandager avtalte vi gjennom en sammarbeidsavta
 
 Hadde også 4 timer gruppearbeid søndag i uke7, Trym ble litt sen. Kakekryss?
 
-Uke 8: Olav og Kristian ble litt for sen. 
+Uke 8: Olav og Kristian ble litt for sen.
+
+Uke 9: Fredag - Møte med stud.ass om hvordan vi lå an i prosjektet.
+
+Uke 10: Bytte av gruppeleder fra Olav til Kristian.
