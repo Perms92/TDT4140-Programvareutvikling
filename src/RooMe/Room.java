@@ -1,9 +1,5 @@
 package RooMe;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Hashtable;
-
 public class Room{
 
 	private int space;
@@ -14,22 +10,21 @@ public class Room{
 	private String name;
 	private int roomID;
 	
-	public Room(String name, int space, boolean projector, boolean experimentable, boolean blackboard, boolean whiteboard) {
-		this.space = space;
-		this.projector = projector;
-		this.experimentable = experimentable;
-		this.blackboard = blackboard;
-		this.whiteboard = whiteboard;
-		this.name = name;
+	protected Room(String name, int space, boolean projector, boolean experimentable, boolean blackboard, boolean whiteboard) {
+		setSpace(space);
+		setProjector(projector);
+		setExperimentable(experimentable);
+		setBlackboard(blackboard);
+		setWhiteboard(whiteboard);
+		setName(name);
 	}
 	
-	public static int getRoomID(Room room) {
-		return room.roomID;
+	public int getRoomID() {
+		return roomID;
 	}
 	protected void setRoomID(int ID) {
 		this.roomID = ID;
 	}
-
 	public String getName() {
 		return name;
 	}
@@ -51,7 +46,6 @@ public class Room{
 	public boolean isExperimentable() {
 		return experimentable;
 	}
-	
 	private void setExperimentable(boolean experimentable) {
 		this.experimentable = experimentable;
 	}
@@ -66,25 +60,14 @@ public class Room{
 	}
 	private void setWhiteboard(boolean whiteboard) {
 		this.whiteboard = whiteboard;
+
 	}
+
 	
-	private String toEnglish(boolean value){
-		if (value == true) {
-		return "has a";
-		}
-		else return "does not have a";
-	}
-	private String expSentence(){
-		if (experimentable == true) {
-			return "It is possible to do experiments in this room";
-		}
-		else return "It is not possible to do experiments in this room"; 
-		}
 	
 	@Override 
 	public String toString(){
-		return "name: " + name + " space: " + space + " people," + " projector: " + projector +  
-				", blackboard: " + blackboard + ", whiteboard: " + whiteboard + ", experimentable: " + experimentable;
+		return "Name: " + name + "\t" + space + "\t" + projector + "\t" + whiteboard + "\t" + blackboard + "\t" + experimentable + "\t";
 	}
 /*
 	@Override
@@ -95,9 +78,10 @@ public class Room{
 */	
 	public static void main(String[] args) {
 		Room test = new Room("Test1", 100, true, false, false, true);
+		System.out.println(test.isProjector());
 		System.out.println(test);
 		System.out.println(test.roomID);
-		System.out.println(getRoomID(test));
+		System.out.println(test.getRoomID());
 	}
 
 }
