@@ -35,10 +35,12 @@ public class RoomList {
 		this.name = building;
 	}
 
-	public String toString() {
+	/* IKKE NØDVENDIG
 		System.out.println(roomIDList);
 		return "kuk";
 	}
+	*/
+	
 	public static void main(String[] args) {
 		RoomList roomlist = new RoomList("Gløshaugen");
 		Room room = new Room("s22", 50, false,false,false,false);
