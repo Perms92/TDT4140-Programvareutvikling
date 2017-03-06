@@ -1,59 +1,41 @@
 package RooMe;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
 
 public class RoomList {
 
-	private int RoomCount;
+	//attributes for liste of rooms
+	//private int roomCount; //if we want to know how many rooms a building/place has
 	private String name;
-	private Hashtable<Integer, Room> roomIDList; 
-		
+	static ArrayList<Room> roomlist = new ArrayList<Room>();
+	
 	public RoomList(String name) {
-		setName(name);
-		this.roomIDList = new Hashtable<Integer, Room>();
-		roomIDList.size();
+		this.name = name;
 	}
 	
-	public void getSize(){
-		int RoomCount = roomIDList.size();
+	public ArrayList<Room> addRoom(Room room){
+		roomlist.add(room);
+		return roomlist;
 	}
 	
-	public void findRooms(){		
-	}	
-	
-	public void addRoom(Room room){ //add Room room as input
-		int RoomID = room.getRoomID(room);
-		if (RoomID == 0) {
-			RoomID = roomIDList.size() +1;
-			while (roomIDList.containsKey(RoomID)){
-				RoomID++;
-				}
-		}
-		room.setRoomID(roomIDList.size()+1);
-		roomIDList.put(RoomID, room);
-	}
-	
+	//getters and setters
 	String getName() {
 		return name;
 	}
 
-	private void setName(String building) {
-		this.name = building;
+	//possible that name should be unchangeable
+	void setName(String buildingName) {
+		this.name = buildingName;
 	}
-
-	public String toString() {
-		System.out.println(roomIDList);
-		return "kuk";
-	}
+	
 	public static void main(String[] args) {
 		RoomList roomlist = new RoomList("Gløshaugen");
-		Room rom = new Room("s22", 50, false,false,false,false);
+		Room rom = new Room("Rom 1",10, true, true, true, true);
 		roomlist.addRoom(rom);
-		System.out.println(roomlist.getName());
-		System.out.println(roomlist.roomIDList);
-	}
-
-
-	
+		Room rom2 = new Room("Rom 2",20, true, false, false, true);
+		roomlist.addRoom(rom2);
+		Room rom3 = new Room("Rom 3",50, false, false, false, false);
+		roomlist.addRoom(rom3);
+		System.out.println(roomlist);
+	}	
 }
