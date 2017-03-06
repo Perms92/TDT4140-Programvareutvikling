@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class RoomDatabase {
 	
 	private String Databasename;
-	private static ArrayList<Room> Database = new ArrayList<>();
+	static ArrayList<Room> Database = new ArrayList<>(); //to access from other classes
 	
 	//constructor
 	public RoomDatabase(String name) {
@@ -55,14 +55,6 @@ public class RoomDatabase {
 			return Database.get(0).isProjector();
 		}
 	}
-	
-	/* for i for j 
-	 * for (Object day : days) {
-			for (Object t : time) {
-				System.out.println(day + " : " + t);
-			}
-		}
-	 */
 	
 	String getDatabasename() {
 		return Databasename;
