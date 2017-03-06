@@ -13,6 +13,8 @@ public class Main {
 	}
 	
 	public void start(){
+		Person lektor = new Person();
+		Room rom = new Room("Rom 1", 30, true, true,false,false);
 		Person person = new Person();
 		System.out.println(person);
 		RoomRequest req = new RoomRequest(person, 1300, "data" );
