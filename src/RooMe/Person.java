@@ -34,10 +34,24 @@ public class Person {
 	public String checkName(String name) {
 		name.toLowerCase();
 	    char[] chars = name.toCharArray();
-	    for (char c : chars) {
-	        if((!Character.isLetter(c) && !Character.isDefined(' ')) || Character.isDigit(c)) {
-	            throw new IllegalArgumentException("Only letters in your name");
-	        }
+	    try {
+		    for (char c : chars) {
+		        if((!Character.isLetter(c) && !Character.isDefined(' ')) || Character.isDigit(c)) {
+		        	throw new IllegalArgumentException();
+		        }
+		    }
+	    } catch (Exception e) {
+	    	System.out.println("Only letters in your name, test exception");
+	    	name = name.replace("0", "");
+	    	name = name.replace("1", "");
+	    	name = name.replace("2", "");
+	    	name = name.replace("3", "");
+	    	name = name.replace("4", "");
+	    	name = name.replace("5", "");
+	    	name = name.replace("6", "");
+	    	name = name.replace("7", "");
+	    	name = name.replace("8", "");
+	    	name = name.replace("9", "");
 	    }
 	    return name;
 	}
@@ -84,8 +98,8 @@ public class Person {
 	}
 
 	public static void main(String[] args) {
-		Person person1 = new Person();
-		Person person2 = new Person();
+		Person person = new Person();
+		//Person person2 = new Person();
 		System.out.println(personIdList);
 		System.out.println(personList);
 	}
