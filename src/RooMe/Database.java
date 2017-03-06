@@ -1,25 +1,25 @@
-package RooMEbeta;
+package RooMe;
 
 import java.util.ArrayList;
 
-public class RoomDatabase {
+public class Database {
 	
 	private String Databasename;
 	static ArrayList<Room> Database = new ArrayList<>(); //to access from other classes
 	
 	//constructor
-	public RoomDatabase(String name) {
+	public Database(String name) {
 		this.Databasename = name;
 		initializeDatabase();
 	}
 	
 	//setup list with 5 rooms, testdatabase
 	public static void initializeDatabase() {
-		Room room1 = new Room("R1", 50, false, false);
-		Room room2 = new Room("R2", 50, true, true);
-		Room room3 = new Room("R3", 50, true, false);
-		Room room4 = new Room("R4", 50, false, true);
-		Room room5 = new Room("R5", 40, true, true);
+		Room room1 = new Room("R1", 80, false, false, false, false);
+		Room room2 = new Room("R2", 70, true, true, false, false);
+		Room room3 = new Room("R3", 60, true, true, true, true);
+		Room room4 = new Room("R4", 50, false, true, false, false);
+		Room room5 = new Room("R5", 40, true, true, true, true);
 		Database.add(room1);
 		Database.add(room2);
 		Database.add(room3);
@@ -41,7 +41,11 @@ public class RoomDatabase {
 	//test search in list (database)
 	public static void IterateList() {
 		for (int i = 0; i < Database.size(); i++) {
-			System.out.println("Rom " + Database.get(i).getName() + ", kapasitet " + Database.get(i).getCapacity());
+			System.out.println("Rom " + Database.get(i).getName() + 
+					", kapasitet " + Database.get(i).getSpace() + 
+					", prosjektor " + Database.get(i).isProjector() +
+					", whiteboard " + Database.get(i).isWhiteboard() +
+					", blackboard " + Database.get(i).isBlackboard());
 		}
 	}
 	
@@ -65,9 +69,9 @@ public class RoomDatabase {
 	}
 
 	public static void main(String[] args) {
-		RoomDatabase base = new RoomDatabase("Gløs");
+		Database base = new Database("Gløs");
 		System.out.println("Det er " + base.countRooms() + " rom i denne listen");
-		base.addRoom(new Room("R6", 10, true, true)); //adding a new room in the database
+		base.addRoom(new Room("R6", 10, true, true, false, false)); //adding a new room in the database
 		System.out.println("Det er " + base.countRooms() + " rom i denne listen");
 		System.out.println(base.getDatabasename());
 		base.IterateList();
