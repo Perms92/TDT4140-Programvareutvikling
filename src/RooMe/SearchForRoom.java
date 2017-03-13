@@ -3,80 +3,101 @@ package RooMe;
 import java.util.ArrayList;
 
 public class SearchForRoom {
+	/*
+	 * Cannot search for experimentable rooms yet
+	 */
+	
 	private static ArrayList<Room> acceptedRooms = new ArrayList<>();
 	
 	public SearchForRoom(Database database, int space, boolean projector, boolean blackboard, boolean whiteboard) {
-		//must fix so it doesnt add rooms that are too small
-		if (space < space) {
-			CheckSize(database, space);
-		}
+		//make temporary list for different criteria
+		ArrayList<Room> okRooms = new ArrayList<>();
+		ArrayList<Room> projectorRooms = new ArrayList<>();
+		ArrayList<Room> blackboardRooms = new ArrayList<>();
+		ArrayList<Room> whiteboardRooms = new ArrayList<>();
+		ArrayList<Room> sizeRooms = new ArrayList<>();
+		
+		//list of all rooms big enough
+		sizeRooms = CheckSize(database, space);
+		
+		//list of all rooms that passes projector criteria
 		if (projector == true) {
-			CheckProjector(database, projector);
+			projectorRooms = CheckProjector(database, projector);
 		}
-		if (blackboard == true) {
-			CheckBlackboard(database, blackboard);
-		}
-		if (whiteboard == true) {
-			CheckWhiteboard(database, whiteboard);
+		else {
+			projectorRooms = sizeRooms;
 		}
 		
-		/*for (Object room : Database.Database) {
-			if (((Room) room).getSpace() >= capacity) {
-				acceptedRooms.add((Room) room);
-				System.out.println((((Room) room).getName()));
+		//list of all rooms that passes blackboard criteria
+		if (blackboard == true) {
+			blackboardRooms = CheckBlackboard(database, blackboard);
+		}
+		else {
+			blackboardRooms = sizeRooms;
+		}
+		
+		//list of all rooms that passes whiteboard criteria
+		if (whiteboard == true) {
+			whiteboardRooms = CheckWhiteboard(database, whiteboard);
+		}
+		else {
+			whiteboardRooms = sizeRooms;
+		}
+		
+		//iterating throgh all list making temporary lists with all accepted rooms
+		for (Object room : sizeRooms) {
+			if (projectorRooms.contains(room)) {
+				if (whiteboardRooms.contains(room)) {
+					if (blackboardRooms.contains(room)) {
+						okRooms.add((Room) room);
+					}
+				}
 			}
 		}
-		for (Object room : acceptedRooms) {
-			if (((Room) room).getCapacity() >= capacity) {
-				acceptedRooms.add((Room) room);
-				//System.out.println((((Room) room).getName()));
-			}
-		}*/
+		//setting list to all accepted rooms.
+		this.acceptedRooms = okRooms;
+	
 	}
 	
 	//check if room is big enough
-	public static ArrayList CheckSize(Database database, int capacity) {
+	public static ArrayList<Room> CheckSize(Database database, int capacity) {
 		acceptedRooms = new ArrayList<>();
 		for (Object room : Database.Database) {
 			if (((Room) room).getSpace() >= capacity) {
 				acceptedRooms.add((Room) room);
-				//System.out.println((((Room) room).getName()));
 			}
 		}
 		return acceptedRooms;
 	}
 	
 	//check if room has blackboard
-	public static ArrayList CheckBlackboard(Database database, boolean blackboard) {
+	public static ArrayList<Room> CheckBlackboard(Database database, boolean blackboard) {
 		acceptedRooms = new ArrayList<>();
 		for (Object room : Database.Database) {
 			if (((Room) room).isBlackboard() == blackboard) {
 				acceptedRooms.add((Room) room);
-				//System.out.println((((Room) room).getName()));
 			}
 		}
 		return acceptedRooms;
 	}
 	
 	//check if room has whiteboard
-	public static ArrayList CheckWhiteboard(Database database, boolean whiteboard) {
+	public static ArrayList<Room> CheckWhiteboard(Database database, boolean whiteboard) {
 		acceptedRooms = new ArrayList<>();
 		for (Object room : Database.Database) {
 			if (((Room) room).isWhiteboard() == whiteboard) {
 				acceptedRooms.add((Room) room);
-				//System.out.println((((Room) room).getName()));
 			}
 		}
 		return acceptedRooms;
 	}
 		
 	//check if room has projector
-	public static ArrayList CheckProjector(Database database, boolean projector) {
+	public static ArrayList<Room> CheckProjector(Database database, boolean projector) {
 		acceptedRooms = new ArrayList<>();
 		for (Object room : Database.Database) {
 			if (((Room) room).isProjector() == projector) {
 				acceptedRooms.add((Room) room);
-				//System.out.println((((Room) room).getName()));
 			}
 		}
 		return acceptedRooms;
@@ -86,16 +107,19 @@ public class SearchForRoom {
 		for (int i = 0; i < acceptedRooms.size(); i++) {
 			System.out.println("Godkjente rom er: Rom " + acceptedRooms.get(i).getName() + 
 					", kapasitet " + acceptedRooms.get(i).getSpace() + 
-					", prosjektor " + acceptedRooms.get(i).isProjector() +
-					", whiteboard " + acceptedRooms.get(i).isWhiteboard() +
-					", blackboard " + acceptedRooms.get(i).isBlackboard());
+					", prosjektor " + acceptedRooms.get(i).isProjector()  +
+					", experimentable " + acceptedRooms.get(i).isExperimentable() +
+					", blackboard " + acceptedRooms.get(i).isBlackboard() +
+					", whiteboard " + acceptedRooms.get(i).isWhiteboard());
 		}
 	}
 	
 	public static void main(String[] args) {
 		Database database = new Database("Test");
-		Database.IterateList();
-		new SearchForRoom(database, 50, true, false, true); //SearchForRoom sok = trenger ikke opprette en klasse
+		//Database.IterateList();
+		new SearchForRoom(database, 50, true, false, true);
+		IterateList();
+		new SearchForRoom(database, 60, false, true, false);
 		IterateList();
 	}
 
