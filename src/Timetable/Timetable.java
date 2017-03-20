@@ -1,19 +1,17 @@
 package Timetable;
 
-//Test
 import java.util.ArrayList;
+import java.util.List;
 
 public class Timetable {
-
-	public Timetable(){
-		Timetable timetable = new Timetable();
-	}
 	
 	//different subjects with the same professor cannot be active at the same time
 	//timetable should be monday - friday, 08:15 - 20:00
-	private static ArrayList days = new ArrayList<>();
+	private static ArrayList<String> days = new ArrayList<>();
+	private static ArrayList<String> time = new ArrayList<>();
+	private static List<String> timeTable = new ArrayList<>();
 	
-	public static ArrayList daysList() {
+	public static ArrayList<String> daysList() {
 		days.add("Monday");
 		days.add("Tuesday");
 		days.add("Wednesday");
@@ -22,9 +20,7 @@ public class Timetable {
 		return days;
 	}
 	
-private static ArrayList time = new ArrayList<>();
-	
-	public static ArrayList timeList() {
+	public static ArrayList<String> timeList() {
 		time.add("08:15 - 09:00");
 		time.add("09:15 - 10:00");
 		time.add("10:15 - 11:00");
@@ -41,17 +37,20 @@ private static ArrayList time = new ArrayList<>();
 	}
 	
 	public static void createTimetable() {
-		ArrayList time = timeList();
-		ArrayList days = daysList();
+		ArrayList<String> time = timeList();
+		ArrayList<String> days = daysList();
 		
 		for (Object day : days) {
 			for (Object t : time) {
-				System.out.println(day + " : " + t);
+				//System.out.println(day + " : " + t);
+				timeTable.add(day + " ! " + t);
 			}
 		}
 	}
 	
 	public static void main(String[] args) {
 		createTimetable();
+		System.out.println(timeTable);
+		System.out.println("Timetable as a list!");
 	}
 }
