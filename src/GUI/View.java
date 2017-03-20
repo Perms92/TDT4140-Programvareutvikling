@@ -35,27 +35,35 @@ public class View extends Application{
 		fag.getStyleClass().add("description");
 		grid.add(fag, 0, 0);
 
-		Text room = new Text("Trenger du projector?");
-		room.getStyleClass().add("description");
-		grid.add(room, 0, 1);
+		Text projector = new Text("Trenger du projector?");
+		projector.getStyleClass().add("description");
+		grid.add(projector, 0, 1);
 
-		Text date = new Text("Trenger du whiteboard?");
-		date.getStyleClass().add("description");
-		grid.add(date, 0, 2);
+		Text whiteboard = new Text("Trenger du whiteboard?");
+		whiteboard.getStyleClass().add("description");
+		grid.add(whiteboard, 0, 2);
 
-		Text timeStart = new Text("Trenger du blackboard?");
-		timeStart.getStyleClass().add("description");
-		grid.add(timeStart, 0, 3);
+		Text blackboard = new Text("Trenger du blackboard?");
+		blackboard.getStyleClass().add("description");
+		grid.add(blackboard, 0, 3);
 
-		Text timeEnd = new Text("Trenger du å gjøre eksperiment?");
-		timeEnd.getStyleClass().add("description");
-		grid.add(timeEnd, 0, 4);
+		Text experimentable = new Text("Trenger du å gjøre eksperiment?");
+		experimentable.getStyleClass().add("description");
+		grid.add(experimentable, 0, 4);
+		
+		Text studentCount = new Text("Hvor mange elever har du?");
+		studentCount.getStyleClass().add("description");
+		grid.add(studentCount, 0, 5);
+
+		Text ny2 = new Text("TBA");
+		ny2.getStyleClass().add("description");
+		grid.add(ny2, 0, 6);
 
 
 		//add labels
-		Text warnings = new Text("Advarsler");
+		Text warnings = new Text("");
 		fag.getStyleClass().add("description");
-		grid.add(warnings, 1, 7);
+		grid.add(warnings, 1, 8);
 
 		//add inputs
 		TextField textField = new TextField();
@@ -73,6 +81,9 @@ public class View extends Application{
 		
 		CheckBox cb4 = new CheckBox();
 		grid.add(cb4,1,4);
+		
+		TextField amount = new TextField();
+		grid.add(amount, 1, 5);
 
 		//cb1.setText("First");
 		cb1.setSelected(false);
@@ -82,7 +93,7 @@ public class View extends Application{
 		
 		Button myButton = new Button("Søk etter rom");
 		myButton.getStyleClass().add("button");
-		grid.add(myButton, 1, 6);
+		grid.add(myButton, 1, 7);
 
 		myButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -112,6 +123,22 @@ public class View extends Application{
 					System.out.println("whytext is not valid");
 					fag.getStyleClass().add("notvalid");
 					warningText = warningText + "Formål er ugyldig\n";
+				}
+				
+				if (Controller.checkValue(cb1.isSelected())) {
+					System.out.println("cb1 is checked");
+				}
+				
+				if (Controller.checkValue(cb2.isSelected())) {
+					System.out.println("cb2 is checked");
+				}
+				
+				if (Controller.checkValue(cb3.isSelected())) {
+					System.out.println("cb3 is checked");
+				}
+				
+				if (Controller.checkValue(cb4.isSelected())) {
+					System.out.println("cb4 is checked");
 				}
 /*
 				//validates room

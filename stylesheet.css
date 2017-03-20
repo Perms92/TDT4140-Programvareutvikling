@@ -8,20 +8,17 @@
 */
 .root{
     -fx-font-size: 16px;
-    -fx-font-family: "Courier New";
+    -fx-font-family: "Times New Roman"; /*Courier New */
     -fx-base: #ffffff;
     -fx-background: #3399ff;
 }
 
 
-/*
-.cb1 {
-    -fx-border-color: lightblue;
-    -fx-font-size: 20;
-    -fx-border-insets: -5;
-    -fx-border-radius: 5;
-    -fx-border-style: dotted;
-    -fx-border-width: 2;
+
+.check-box {
+    -fx-color: white;
 }
 
-*/
+#warnings {
+	-fx-color: red;
+}

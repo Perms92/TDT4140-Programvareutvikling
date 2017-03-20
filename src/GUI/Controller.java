@@ -5,16 +5,18 @@ import java.time.LocalTime;
 
 public class Controller {
 	
-	public static boolean checkValue(){
-		return true;
+	public static boolean checkValue(boolean isPressed){
+		if(isPressed == true) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	
 
 	public static boolean validatePurpose(String purpose) {
 		if(purpose.length() > 0) {
-			//test verdi i felt
-			//System.out.println(purpose.toString());
-			
 			return true;
 		}
 		else {
