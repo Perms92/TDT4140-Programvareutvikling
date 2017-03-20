@@ -105,11 +105,11 @@ public class SearchForRoom {
 
 	public static void IterateList() {
 		for (int i = 0; i < acceptedRooms.size(); i++) {
-			System.out.println("Godkjente rom er: Rom " + acceptedRooms.get(i).getName() + 
-					", kapasitet " + acceptedRooms.get(i).getSpace() + 
-					", prosjektor " + acceptedRooms.get(i).isProjector()  +
-					", experimentable " + acceptedRooms.get(i).isExperimentable() +
-					", blackboard " + acceptedRooms.get(i).isBlackboard() +
+			System.out.println("Godkjente rom er: Rom " + acceptedRooms.get(i).getName()  + "\t" +  
+					", kapasitet " + acceptedRooms.get(i).getSpace()  + "\t" +  
+					", prosjektor " + acceptedRooms.get(i).isProjector()   + "\t" + 
+					", experimentable " + acceptedRooms.get(i).isExperimentable()  + "\t" + 
+					", blackboard " + acceptedRooms.get(i).isBlackboard()  + "\t" + 
 					", whiteboard " + acceptedRooms.get(i).isWhiteboard());
 		}
 	}

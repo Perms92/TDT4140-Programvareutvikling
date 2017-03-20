@@ -41,11 +41,11 @@ public class Database {
 	//test search in list (database)
 	public static void IterateList() {
 		for (int i = 0; i < Database.size(); i++) {
-			System.out.println("Rom " + Database.get(i).getName() + 
-					", kapasitet " + Database.get(i).getSpace() + 
-					", prosjektor " + Database.get(i).isProjector() +
-					", whiteboard " + Database.get(i).isWhiteboard() +
-					", blackboard " + Database.get(i).isBlackboard()  +
+			System.out.println("Rom " + Database.get(i).getName()  + "\t" +  
+					", kapasitet " + Database.get(i).getSpace()  + "\t" +  
+					", prosjektor " + Database.get(i).isProjector()  + "\t" + 
+					", whiteboard " + Database.get(i).isWhiteboard()  + "\t" + 
+					", blackboard " + Database.get(i).isBlackboard()   + "\t" + 
 					", experimentable " + Database.get(i).isExperimentable());
 		}
 	}
