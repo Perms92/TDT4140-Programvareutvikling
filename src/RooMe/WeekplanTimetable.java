@@ -1,11 +1,11 @@
-package Timetable;
+package RooMe;
 
 import java.util.ArrayList;
 
-public class Timetable {
+public class WeekplanTimetable {
 
-	public Timetable(){
-		Timetable timetable = new Timetable();
+	public WeekplanTimetable(){
+		WeekplanTimetable timetable = new WeekplanTimetable();
 	}
 	
 	//different subjects with the same professor cannot be active at the same time

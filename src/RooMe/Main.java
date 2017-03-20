@@ -18,10 +18,11 @@ public class Main {
 		Person person = new Person();
 		System.out.println(person);
 		RoomRequest req = new RoomRequest(person, 1300, "data" );
-		for (String day : timetable.dager){
-			if (timetable.tider.contains(req.time)){
-				System.out.println(person.getName() + " have now booked: " + 
-						rom + "at time: " + req.time + ", for the subject: " + req.subject );
+
+		for (String day : timetable.days){
+			if (timetable.periods.contains(req.time)){
+				System.out.println(person.firstName + " " + person.lastName + " have now booked: " + 
+						"Test, " + "at time: " + req.time + ", for the subject: " + req.subject );
 			}
 			return;
 			
