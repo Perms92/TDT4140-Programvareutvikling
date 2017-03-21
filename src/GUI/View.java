@@ -1,5 +1,7 @@
 package GUI;
 
+import RooMe.Database;
+import RooMe.SearchForRoom;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -39,11 +41,11 @@ public class View extends Application{
 		projector.getStyleClass().add("description");
 		grid.add(projector, 0, 1);
 
-		Text whiteboard = new Text("Trenger du whiteboard?");
+		Text whiteboard = new Text("Trenger du blackboard?");
 		whiteboard.getStyleClass().add("description");
 		grid.add(whiteboard, 0, 2);
 
-		Text blackboard = new Text("Trenger du blackboard?");
+		Text blackboard = new Text("Trenger du whiteboard?");
 		blackboard.getStyleClass().add("description");
 		grid.add(blackboard, 0, 3);
 
@@ -64,6 +66,11 @@ public class View extends Application{
 		Text warnings = new Text("");
 		fag.getStyleClass().add("description");
 		grid.add(warnings, 1, 8);
+		
+		//add labels
+		Text resultRooms = new Text("");
+		fag.getStyleClass().add("description");
+		grid.add(resultRooms, 1, 9);
 
 		//add inputs
 		TextField textField = new TextField();
@@ -85,12 +92,15 @@ public class View extends Application{
 		TextField amount = new TextField();
 		grid.add(amount, 1, 5);
 
-		//cb1.setText("First");
+		//make all unchecked at start
 		cb1.setSelected(false);
 		cb2.setSelected(false);
 		cb3.setSelected(false);
 		cb4.setSelected(false);
 		
+		Database database = new Database("Test");
+		
+		//add search button that triggers function when clicked
 		Button myButton = new Button("Søk etter rom");
 		myButton.getStyleClass().add("button");
 		grid.add(myButton, 1, 7);
@@ -99,19 +109,12 @@ public class View extends Application{
 			@Override
 			public void handle(ActionEvent e) {
 
-				//warningstring
+				//warningstring and room result
 				String warningText = "";
+				String roomText = "";
 
-				//clear all css
-				
+				//clear all css //not in use
 				fag.getStyleClass().removeAll("valid,", "notvalid");
-				/*
-				roomText.getStyleClass().removeAll("valid,", "notvalid");
-				dateField.getStyleClass().removeAll("valid,", "notvalid");
-				timeStartField.getStyleClass().removeAll("valid,", "notvalid");
-				timeEndField.getStyleClass().removeAll("valid,", "notvalid");
-				repetitionField.getStyleClass().removeAll("valid,", "notvalid");
-				dateEndField.getStyleClass().removeAll("valid,", "notvalid");*/
 				myButton.getStyleClass().removeAll("valid,", "notvalid");
 
 				//validates purpose
@@ -124,7 +127,7 @@ public class View extends Application{
 					fag.getStyleClass().add("notvalid");
 					warningText = warningText + "Formål er ugyldig\n";
 				}
-				
+			/*	
 				if (Controller.checkValue(cb1.isSelected())) {
 					System.out.println("cb1 is checked");
 				}
@@ -140,65 +143,23 @@ public class View extends Application{
 				if (Controller.checkValue(cb4.isSelected())) {
 					System.out.println("cb4 is checked");
 				}
-/*
-				//validates room
-				if (Controller.validateRoom(roomText.getText())) {
-					roomText.getStyleClass().add("valid");
-					System.out.println("room is valid");
-				}
-				else {
-					System.out.println("room is not valid");
-					roomText.getStyleClass().add("notvalid");
-					warningText = warningText + "Rom er ugyldig\n";
-				}
+				*/
 
-				//validates Date
-				if (Controller.validateDate(dateField.getValue())) {
-					dateField.getStyleClass().add("valid");
-					System.out.println("date is valid");
-				}
-				else {
-					System.out.println("date is not valid");
-					dateField.getStyleClass().add("notvalid");
-					warningText = warningText + "Dato er ugyldig\n";
-				}
-
-				//validates time
-				if (Controller.validateTime(timeStartField.getText(),timeEndField.getText())) {
-					System.out.println("time is valid");
-					timeStartField.getStyleClass().add("valid");
-					timeEndField.getStyleClass().add("valid");
-				}
-				else {
-					System.out.println("time is not valid");
-					timeEndField.getStyleClass().add("notvalid");
-					timeStartField.getStyleClass().add("notvalid");
-					warningText = warningText + "fra klokkeslett eller til\nklokkeslett er ugyldig\n";
-				}
-
-				//validates repetition
-				if (Controller.validateRepetition(repetitionField.getText())) {
-					System.out.println("repetition is valid");
-					repetitionField.getStyleClass().add("valid");
-				}
-				else {
-					System.out.println("repetition is not valid");
-					repetitionField.getStyleClass().add("notvalid");
-					warningText = warningText + "repetisjon er ugyldig\n";
-				}
-
-				//validates EndDate
-				if (Controller.validateEndDate(dateEndField.getValue())) {
-					System.out.println("endDate is valid");
-					dateEndField.getStyleClass().add("valid");
-				}
-				else {
-					System.out.println("endDate is not valid");
-					dateEndField.getStyleClass().add("notvalid");
-					warningText = warningText + "Sluttdato er ugyldig\n";
-				}
-*/
 				warnings.setText(warningText);
+				
+				if ((amount.getText()).equals("")) {
+					amount.setText("0");
+					
+					warningText = warningText + "Du må velge et antall elever du trenger rom til\n";
+					warnings.setText(warningText);
+				}
+				
+				//searching with text inputs
+				SearchForRoom test = new SearchForRoom(database, Integer.parseInt((amount.getText())), Controller.checkValue(cb1.isSelected()), Controller.checkValue(cb2.isSelected()), Controller.checkValue(cb3.isSelected()));//, Controller.checkValue(cb4.isSelected()));
+				//Database database, int space, boolean projector, boolean blackboard, boolean whiteboard
+				//test.IterateList();
+				roomText = test.acceptedRooms.toString();
+				resultRooms.setText(roomText);
 
 			}
 

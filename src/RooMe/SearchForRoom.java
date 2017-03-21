@@ -7,7 +7,8 @@ public class SearchForRoom {
 	 * Cannot search for experimentable rooms yet
 	 */
 	
-	private static ArrayList<Room> acceptedRooms = new ArrayList<>();
+	//public for now while testing GUI
+	public static ArrayList<Room> acceptedRooms = new ArrayList<>();
 	
 	public SearchForRoom(Database database, int space, boolean projector, boolean blackboard, boolean whiteboard) {
 		//make temporary list for different criteria
@@ -115,12 +116,14 @@ public class SearchForRoom {
 	}
 	
 	public static void main(String[] args) {
+	/*
 		Database database = new Database("Test");
 		//Database.IterateList();
 		new SearchForRoom(database, 50, true, false, true);
 		IterateList();
 		new SearchForRoom(database, 60, false, true, false);
 		IterateList();
+		*/
 	}
 
 	
