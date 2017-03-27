@@ -6,7 +6,7 @@ public class SearchForRoom {
 	/*
 	 * Cannot search for experimentable rooms yet
 	 */
-	
+
 	//public for now while testing GUI
 	public static ArrayList<Room> acceptedRooms = new ArrayList<>();
 	

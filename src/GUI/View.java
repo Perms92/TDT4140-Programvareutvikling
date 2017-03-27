@@ -1,6 +1,8 @@
 package GUI;
 
 import RooMe.Database;
+import RooMe.ListOfCriteria;
+import RooMe.RoomCriteria;
 import RooMe.SearchForRoom;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -9,7 +11,6 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -49,7 +50,7 @@ public class View extends Application{
 		blackboard.getStyleClass().add("description");
 		grid.add(blackboard, 0, 3);
 
-		Text experimentable = new Text("Trenger du å gjøre eksperiment?");
+		Text experimentable = new Text("Trenger du Ã¥ gjÃ¸re eksperiment?");
 		experimentable.getStyleClass().add("description");
 		grid.add(experimentable, 0, 4);
 		
@@ -74,6 +75,8 @@ public class View extends Application{
 
 		//add inputs
 		TextField textField = new TextField();
+		textField.setMaxSize(200.0, 30.0);
+		textField.setMinSize(200.0, 30.0);
 		grid.add(textField,1,0);
 		
 		//A checkbox without a caption
@@ -90,6 +93,8 @@ public class View extends Application{
 		grid.add(cb4,1,4);
 		
 		TextField amount = new TextField();
+		amount.setMaxSize(200.0, 30.0);
+		amount.setMinSize(200.0, 30.0);
 		grid.add(amount, 1, 5);
 
 		//make all unchecked at start
@@ -101,7 +106,7 @@ public class View extends Application{
 		Database database = new Database("Test");
 		
 		//add search button that triggers function when clicked
-		Button myButton = new Button("Søk etter rom");
+		Button myButton = new Button("SÃ¸k etter rom");
 		myButton.getStyleClass().add("button");
 		grid.add(myButton, 1, 7);
 
@@ -125,24 +130,13 @@ public class View extends Application{
 				else {
 					System.out.println("whytext is not valid");
 					fag.getStyleClass().add("notvalid");
-					warningText = warningText + "Formål er ugyldig\n";
+					warningText = warningText + "FormÃ¥l er ugyldig\n";
 				}
-			/*	
+			/*	check checkboxes
 				if (Controller.checkValue(cb1.isSelected())) {
 					System.out.println("cb1 is checked");
 				}
-				
-				if (Controller.checkValue(cb2.isSelected())) {
-					System.out.println("cb2 is checked");
-				}
-				
-				if (Controller.checkValue(cb3.isSelected())) {
-					System.out.println("cb3 is checked");
-				}
-				
-				if (Controller.checkValue(cb4.isSelected())) {
-					System.out.println("cb4 is checked");
-				}
+
 				*/
 
 				warnings.setText(warningText);
@@ -150,23 +144,55 @@ public class View extends Application{
 				if ((amount.getText()).equals("")) {
 					amount.setText("0");
 					
-					warningText = warningText + "Du må velge et antall elever du trenger rom til\n";
+					warningText = warningText + "Du mÃ¥ velge et antall elever du trenger rom til\n";
 					warnings.setText(warningText);
 				}
 				
 				//searching with text inputs
-				SearchForRoom test = new SearchForRoom(database, Integer.parseInt((amount.getText())), Controller.checkValue(cb1.isSelected()), Controller.checkValue(cb2.isSelected()), Controller.checkValue(cb3.isSelected()));//, Controller.checkValue(cb4.isSelected()));
-				//Database database, int space, boolean projector, boolean blackboard, boolean whiteboard
-				//test.IterateList();
+				SearchForRoom test = new SearchForRoom(database, Integer.parseInt((amount.getText())), Controller.checkValue(cb1.isSelected()), Controller.checkValue(cb2.isSelected()), Controller.checkValue(cb3.isSelected()));//, Controller.checkValue(cb4.isSelected()))
 				roomText = test.acceptedRooms.toString();
+				
+				//Have to stop this from being to wide
+				//resultRooms.setMaxSize(100.0,100.0)
 				resultRooms.setText(roomText);
-
 			}
 
 		});
 
+		ListOfCriteria criteriaList = new ListOfCriteria();
+		
+		//add search button that triggers function when clicked
+		Button saveButton = new Button("Lagre dine kriterier");
+		saveButton.getStyleClass().add("button");
+		grid.add(saveButton, 2, 7);
 
-		Scene scene = new Scene(grid, 600, 400, Color.rgb(227,201,176));
+		saveButton.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				//feilhÃ¥ndtering fÃ¸r funksjoner
+				String warningText = "";
+				
+				warnings.setText(warningText);
+				
+				if ((amount.getText()).equals("")) {
+					amount.setText("0");
+					
+					warningText = warningText + "Du mÃ¥ velge et antall elever du trenger rom til\n";
+					warnings.setText(warningText);
+				}
+							
+	
+				RoomCriteria crit = new RoomCriteria(Integer.parseInt((amount.getText())), Controller.checkValue(cb1.isSelected()), Controller.checkValue(cb2.isSelected()), Controller.checkValue(cb3.isSelected()), Controller.checkValue(cb2.isSelected()));
+				criteriaList.addCriteria(crit);
+				
+				//iterate through all criterias}
+				System.out.println(criteriaList.getCriteria(0));
+				
+			}
+		});
+
+
+		Scene scene = new Scene(grid, 900, 500, Color.rgb(227,201,176));
 		scene.getStylesheets().add("file:stylesheet.css");
 
 		primaryStage.setScene(scene);
