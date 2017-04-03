@@ -1,33 +1,24 @@
 package RooMe;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TimeTable {
 
-	private static ArrayList<Object> times = new ArrayList<>();
-	private static ArrayList<Object> days = new ArrayList<>();
+	private static ArrayList<String> times = new ArrayList<>();
+	private static ArrayList<String> days = new ArrayList<>();
+	private static ArrayList<String> lectureTime = new ArrayList<>();
 	
-	private Cell[][] cells;
 	
-	public TimeTable(String time, String day){
-		/*
-		
-		cells = new Cell[time][day];
-		for (int i = 0; i < time.length(); i++) {
-			String lectureTime = times[i];
-			System.out.println(lectureTime);
-			for (int j = 0; j < day.length(); j++) {
-				String lectureDay = days[j];
-				System.out.println(lectureDay);
-				cells[i][j] = new Cell
-			}
-		}*/
+	
+	public TimeTable(){
+		ArrayList<String> timetable = createTimetable();
 	}
 	
 	//different subjects with the same professor cannot be active at the same time
 	//timetable should be monday - friday, 08:15 - 20:00
 	
-	public static ArrayList daysList() {
+	public static ArrayList<String> daysList() {
 		days.add("Monday");
 		days.add("Tuesday");
 		days.add("Wednesday");
@@ -52,19 +43,32 @@ public class TimeTable {
 		return times;
 	}
 	
-	public static void createTimetable() {
+	public static ArrayList<String> createTimetable() {
 		ArrayList time = timeList();
 		ArrayList days = daysList();
 		
 		for (Object day : days) {
 			for (Object t : time) {
-				System.out.println(day + " : " + t);
+				String lecturetime;
+				//System.out.println(day + " : " + t);
+				lecturetime = day + " : " + t;
+				lectureTime.add("\n" + lecturetime);
 			}
 		}
+		return lectureTime;
 	}
 	
+	public String toString() {
+		return "" + lectureTime;
+	}
+	
+	public static ArrayList<String> getLectureTime() {
+		return lectureTime;
+	}
+	
+	
 	public static void main(String[] args) {
-		//createTimetable();
-		System.out.println("Hello World");
+		createTimetable();
+		System.out.println(getLectureTime());
 	}
 }
