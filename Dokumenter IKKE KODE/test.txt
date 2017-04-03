@@ -1,5 +1,5 @@
 Skriv ditt navn her:
-<<<<<<< HEAD
 Per Morten - ok
 Kristian Langvann - ok
 Trym Blaauw - ok
+Olav N Sole - ok
