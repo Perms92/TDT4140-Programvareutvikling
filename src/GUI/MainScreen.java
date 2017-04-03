@@ -1,6 +1,5 @@
 package GUI;
 
-
 import RooMe.Database;
 import RooMe.ListOfCriteria;
 import RooMe.RoomCriteria;
@@ -27,21 +26,26 @@ public class MainScreen extends Application{
 
 	}
 
+	/*
+	//must make database outside functions to avoid duplicates
+	static Database database = new Database("Test");
+	*/
+	
 	//this runs when program starts
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		primaryStage.setTitle("RooME");
 
-		Scene scene = new Scene(loadScreenOne(), 900, 500);
+		Scene scene = new Scene(Controller.loadScreenOne(), 800, 400);
 		scene.getStylesheets().add("file:stylesheet.css");
 		
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
 
-	
+/*	
 	//first page in program, our menu
-	public GridPane loadScreenOne() {
+	public static GridPane loadScreenOne() {
 		//start grid
 		GridPane grid = new GridPane();
 		grid.setAlignment(Pos.CENTER);
@@ -63,7 +67,7 @@ public class MainScreen extends Application{
 			@Override
 			public void handle(ActionEvent e) {
 				//opening book room window
-				bookButton.getScene().setRoot(loadScreenTwo());
+				bookButton.getScene().setRoot(Controller.loadScreenTwo());
 				
 			}
 		});
@@ -77,7 +81,7 @@ public class MainScreen extends Application{
 			@Override
 			public void handle(ActionEvent e) {
 				//starting a new site to add criteria
-				saveButton.getScene().setRoot(loadScreenThree());
+				saveButton.getScene().setRoot(Controller.loadScreenThree());
 			
 			}
 		});
@@ -91,7 +95,7 @@ public class MainScreen extends Application{
 			@Override
 			public void handle(ActionEvent e) {
 				//going into the edit request view
-				editButton.getScene().setRoot(loadScreenFour());
+				editButton.getScene().setRoot(Controller.loadScreenFour());
 						
 			}
 		});
@@ -104,11 +108,26 @@ public class MainScreen extends Application{
 			}
 		});
 		
+		//testbutton
+		Button testButton = new Button("Test");
+		testButton.getStyleClass().add("button");
+		grid.add(testButton, 0, 6);
+
+		testButton.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				//opening book room window
+				bookButton.getScene().setRoot(Controller.loadScreenFive());
+				
+			}
+		});
+		
 		return grid;
 	}
-	
+	*/
+	/*
 	//this page is the book room page
-	public GridPane loadScreenTwo() {
+	public static GridPane loadScreenTwo() {
         
 		GridPane grid = new GridPane();
 		grid.setAlignment(Pos.CENTER);
@@ -120,11 +139,13 @@ public class MainScreen extends Application{
 		Text name = new Text("What is your name?");
 		name.getStyleClass().add("description");
 		grid.add(name, 0, 0);
-				
+		*/
+	/*			
 		Text fag = new Text("What do you need?");
 		fag.getStyleClass().add("description");
 		grid.add(fag, 0, 1);
-
+*/
+	/*
 		Text projector = new Text("Do you need a projector?");
 		projector.getStyleClass().add("description");
 		grid.add(projector, 0, 2);
@@ -152,19 +173,19 @@ public class MainScreen extends Application{
 
 		//add labels
 		Text warnings = new Text("");
-		fag.getStyleClass().add("description");
+		warnings.getStyleClass().add("description");
 		grid.add(warnings, 1, 8);
 		
 		//add labels
 		Text resultRooms = new Text("");
-		fag.getStyleClass().add("description");
+		resultRooms.getStyleClass().add("description");
 		grid.add(resultRooms, 1, 9);
 
 		//add inputs
-		TextField textField = new TextField();
-		textField.setMaxSize(200.0, 30.0);
-		textField.setMinSize(200.0, 30.0);
-		grid.add(textField,1,0);
+		TextField nameField = new TextField();
+		nameField.setMaxSize(150.0, 30.0);
+		nameField.setMinSize(150.0, 30.0);
+		grid.add(nameField,1,0);
 		
 		//A checkbox without a caption
 		CheckBox cb1 = new CheckBox();
@@ -183,8 +204,8 @@ public class MainScreen extends Application{
 		grid.add(cb5,1,5);
 		
 		TextField amount = new TextField();
-		amount.setMaxSize(200.0, 30.0);
-		amount.setMinSize(200.0, 30.0);
+		amount.setMaxSize(150.0, 30.0);
+		amount.setMinSize(150.0, 30.0);
 		grid.add(amount, 1, 6);
 
 		//make all unchecked at start
@@ -193,10 +214,8 @@ public class MainScreen extends Application{
 		cb3.setSelected(false);
 		cb4.setSelected(false);
 		
-		//Database database = new Database("Test");
-		
 		//add search button that triggers function when clicked
-		Button myButton = new Button("S�k etter rom");
+		Button myButton = new Button("Search for rooms");
 		myButton.getStyleClass().add("button");
 		grid.add(myButton, 1, 7);
 
@@ -206,43 +225,38 @@ public class MainScreen extends Application{
 
 				//warningstring and room result
 				String warningText = "";
-				String roomText = "";
+				String roomText = ""; //must show the accepted rooms in another way
+				
+				if ((amount.getText()).equals("")) {
+					amount.setText("0");
+						
+					warningText = warningText + "You have to select how many students you need space for\n";
+					warnings.setText(warningText);
+				}
 
-				//clear all css //not in use
-				fag.getStyleClass().removeAll("valid,", "notvalid");
-				myButton.getStyleClass().removeAll("valid,", "notvalid");
-
-				//validates purpose
-				if (Controller.validatePurpose(fag.getText())) {
-					fag.getStyleClass().add("valid");
-					System.out.println("whyText is valid");
+				//validates name
+				if (Controller.validateName(nameField.getText())) {
+					nameField.getStyleClass().add("valid");
 				}
 				else {
-					System.out.println("whytext is not valid");
-					fag.getStyleClass().add("notvalid");
-					warningText = warningText + "Form�l er ugyldig\n";
+					name.getStyleClass().add("notvalid");
+					warningText = warningText + "You must write your name\n";
 				}
-			/*	check checkboxes
-				if (Controller.checkValue(cb1.isSelected())) {
-					System.out.println("cb1 is checked");
-				}
-
-				*/
-
+	
 				warnings.setText(warningText);
 				
 				if ((amount.getText()).equals("")) {
 					amount.setText("0");
 					
-					warningText = warningText + "Du m� velge et antall elever du trenger rom til\n";
+					warningText = warningText + "You must choose how many people you need space for\n";
 					warnings.setText(warningText);
 				}
 				
-				Database database = new Database("Test");
-				
 				//searching with text inputs
 				SearchForRoom test = new SearchForRoom(database, Integer.parseInt((amount.getText())), Controller.checkValue(cb1.isSelected()), Controller.checkValue(cb2.isSelected()), Controller.checkValue(cb3.isSelected()));//, Controller.checkValue(cb4.isSelected()))
-				roomText = test.acceptedRooms.toString();
+	//have to make a better result view		
+	//			roomText = test.acceptedRooms.toString();
+				System.out.println("Det er så mange godkjente rom: " + test.acceptedRooms.size());
 				
 				//Have to stop this from being to wide
 				//resultRooms.setMaxSize(100.0,100.0)
@@ -263,9 +277,10 @@ public class MainScreen extends Application{
         });
 		return grid;
     }
-	
+*/
+/*	
 	//this page is the page to save criteria
-	public GridPane loadScreenThree() {
+	public static GridPane loadScreenThree() {
         
 		GridPane grid = new GridPane();
 		grid.setAlignment(Pos.CENTER);
@@ -319,13 +334,13 @@ public class MainScreen extends Application{
 
 		//add inputs
 		TextField nameField = new TextField();
-		nameField.setMaxSize(200.0, 30.0);
-		nameField.setMinSize(200.0, 30.0);
+		nameField.setMaxSize(150.0, 30.0);
+		nameField.setMinSize(150.0, 30.0);
 		grid.add(nameField,1,0);
 				
 		TextField subjectField = new TextField();
-		subjectField.setMaxSize(200.0, 30.0);
-		subjectField.setMinSize(200.0, 30.0);
+		subjectField.setMaxSize(150.0, 30.0);
+		subjectField.setMinSize(150.0, 30.0);
 		grid.add(subjectField,1,1);
 				
 		//A checkbox without a caption
@@ -373,6 +388,28 @@ public class MainScreen extends Application{
 					warningText = warningText + "You have to select how many students you need space for\n";
 					warnings.setText(warningText);
 				}
+				
+				//validates name
+				if (Controller.validateName(nameField.getText())) {
+					nameField.getStyleClass().add("valid");
+		//			System.out.println("whyText is valid");
+				}
+				else {
+		//			System.out.println("whytext is not valid");
+					name.getStyleClass().add("notvalid");
+					warningText = warningText + "You must write your name\n";
+				}
+				
+				//validates subject
+				if (Controller.validateName(subjectField.getText())) {
+					subjectField.getStyleClass().add("valid");
+		//			System.out.println("whyText is valid");
+				}
+				else {
+		//			System.out.println("whytext is not valid");
+					subjectField.getStyleClass().add("notvalid");
+					warningText = warningText + "You must write which subject you're lecturing\n";
+				}
 									
 			
 				RoomCriteria crit = new RoomCriteria(Integer.parseInt((amount.getText())), Controller.checkValue(cb1.isSelected()), Controller.checkValue(cb2.isSelected()), Controller.checkValue(cb3.isSelected()), Controller.checkValue(cb2.isSelected()));
@@ -397,9 +434,9 @@ public class MainScreen extends Application{
         });
 		return grid;
     }
-	
-	//this page is the edit a previous request //currently not in use
-	public GridPane loadScreenFour() {
+	*/
+	/* //this page is the edit a previous request //currently not in use
+	public static GridPane loadScreenFour() {
         
 		GridPane grid = new GridPane();
 		grid.setAlignment(Pos.CENTER);
@@ -531,4 +568,5 @@ public class MainScreen extends Application{
         });
 		return grid;
     }
+    */
 }
