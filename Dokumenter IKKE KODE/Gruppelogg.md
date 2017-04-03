@@ -28,3 +28,7 @@ Uke 8: Olav og Kristian ble litt for sen.
 Uke 9: Fredag - Møte med stud.ass om hvordan vi lå an i prosjektet.
 
 Uke 10: Bytte av gruppeleder fra Olav til Kristian.
+
+Uke 12: Fredag - presentasjon av det foreløbige produktet.
+
+Uke 14: Gruppejobbing hos Kristian på mandag, forberedelse til innlevering fredag samme uke.
