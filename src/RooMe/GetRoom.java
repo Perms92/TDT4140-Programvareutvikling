@@ -2,6 +2,7 @@ package RooMe;
 
 public class GetRoom {
 
+	/*
 	public GetRoom() {
 		RoomCriteria criteria = new RoomCriteria();
 		Database database = new Database("Test");
@@ -13,4 +14,5 @@ public class GetRoom {
 		GetRoom query = new GetRoom();
 		//System.out.println(query);
 	}
+	*/
 }

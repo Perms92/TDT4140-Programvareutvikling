@@ -6,8 +6,9 @@ public class SearchForRoom {
 	/*
 	 * Cannot search for experimentable rooms yet
 	 */
-	
-	private static ArrayList<Room> acceptedRooms = new ArrayList<>();
+
+	//public for now while testing GUI
+	public static ArrayList<Room> acceptedRooms = new ArrayList<>();
 	
 	public SearchForRoom(Database database, int space, boolean projector, boolean blackboard, boolean whiteboard) {
 		//make temporary list for different criteria
@@ -108,19 +109,20 @@ public class SearchForRoom {
 			System.out.println("Godkjente rom er: Rom " + acceptedRooms.get(i).getName()  + "\t" +  
 					", kapasitet " + acceptedRooms.get(i).getSpace()  + "\t" +  
 					", prosjektor " + acceptedRooms.get(i).isProjector()   + "\t" + 
-					", experimentable " + acceptedRooms.get(i).isExperimentable()  + "\t" + 
 					", blackboard " + acceptedRooms.get(i).isBlackboard()  + "\t" + 
 					", whiteboard " + acceptedRooms.get(i).isWhiteboard());
 		}
 	}
 	
 	public static void main(String[] args) {
+	/*
 		Database database = new Database("Test");
 		//Database.IterateList();
 		new SearchForRoom(database, 50, true, false, true);
 		IterateList();
 		new SearchForRoom(database, 60, false, true, false);
 		IterateList();
+		*/
 	}
 
 	
