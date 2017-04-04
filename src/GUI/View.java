@@ -52,13 +52,16 @@ public class View extends Application{
 		grid.setPadding(new Insets(30, 30, 30, 30));
 				
 		//add labels
-		Text fag = new Text("Choose what you want to do");			
-		fag.getStyleClass().add("description");
-		grid.add(fag, 0, 0);
+		Text headline = new Text("Choose what you want to do");	
+		headline.setId("headline");
+		headline.getStyleClass().add("description");
+		grid.add(headline, 0, 0);
 		
 		//add a button that goes into room booking
 		Button bookButton = new Button("Book a room");
 		bookButton.getStyleClass().add("button");
+		bookButton.setMinSize(200.0,30.0);
+		bookButton.setMaxSize(200.0,30.0);
 		grid.add(bookButton, 0, 3);
 
 		bookButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -73,6 +76,8 @@ public class View extends Application{
 		//add a button that goes into criteria saving
 		Button saveButton = new Button("Add your lecture criteria");
 		saveButton.getStyleClass().add("button");
+		saveButton.setMinSize(200.0,30.0);
+		saveButton.setMaxSize(200.0,30.0);
 		grid.add(saveButton, 0, 4);
 
 		saveButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -87,6 +92,8 @@ public class View extends Application{
 		//add a button that goes into criteria saving
 		Button editButton = new Button("Edit a previous request");
 		editButton.getStyleClass().add("button");
+		editButton.setMinSize(200.0,30.0);
+		editButton.setMaxSize(200.0,30.0);
 		grid.add(editButton, 0, 5);
 
 		editButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -109,6 +116,8 @@ public class View extends Application{
 		//testbutton
 		Button testButton = new Button("Help!");
 		testButton.getStyleClass().add("button");
+		testButton.setMinSize(200.0,30.0);
+		testButton.setMaxSize(200.0,30.0);
 		grid.add(testButton, 0, 6);
 
 		testButton.setOnAction(new EventHandler<ActionEvent>() {
