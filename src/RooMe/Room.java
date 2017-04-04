@@ -4,16 +4,14 @@ public class Room{
 
 	private int space;
 	private boolean projector;
-	private boolean experimentable;
 	private boolean blackboard;
 	private boolean whiteboard;
 	private String name;
 	private int roomID;
 	
-	protected Room(String name, int space, boolean projector, boolean experimentable, boolean blackboard, boolean whiteboard) {
+	protected Room(String name, int space, boolean projector, boolean blackboard, boolean whiteboard) {
 		setSpace(space);
 		setProjector(projector);
-		setExperimentable(experimentable);
 		setBlackboard(blackboard);
 		setWhiteboard(whiteboard);
 		setName(name);
@@ -43,12 +41,7 @@ public class Room{
 	private void setProjector(boolean projector) {
 		this.projector = projector;
 	}
-	public boolean isExperimentable() {
-		return experimentable;
-	}
-	private void setExperimentable(boolean experimentable) {
-		this.experimentable = experimentable;
-	}
+
 	public boolean isBlackboard() {
 		return blackboard;
 	}
@@ -67,7 +60,7 @@ public class Room{
 	
 	@Override 
 	public String toString(){
-		return "Name: " + name + "\t" + space + "\t" + projector + "\t" + whiteboard + "\t" + blackboard + "\t" + experimentable + "\t";
+		return "Name: " + name + "\t" + space + "\t" + projector + "\t" + whiteboard + "\t" + blackboard  + "\t";
 	}
 /*
 	@Override
@@ -76,12 +69,15 @@ public class Room{
 		+ toEnglish(blackboard) + " blackboard, " + toEnglish(whiteboard) + " whiteboard.\n" + expSentence() +".";
 	}
 */	
+	
+	
+	/*
 	public static void main(String[] args) {
-		Room test = new Room("Test1", 100, true, false, false, true);
+		Room test = new Room("Test1", 100, true, false, true);
 		System.out.println(test.isProjector());
 		System.out.println(test);
 		System.out.println(test.roomID);
 		System.out.println(test.getRoomID());
 	}
-
+*/
 }

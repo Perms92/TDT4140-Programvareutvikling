@@ -1,7 +1,10 @@
 package GUI;
 
+import java.util.ArrayList;
+
 import RooMe.Database;
 import RooMe.ListOfCriteria;
+import RooMe.Room;
 import RooMe.RoomCriteria;
 import RooMe.SearchForRoom;
 import javafx.application.Application;
@@ -12,38 +15,33 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class MainScreen extends Application{
+public class View extends Application{
 
 	public static void main(String[] args) {
 		launch(args);
-
 	}
-
-	/*
-	//must make database outside functions to avoid duplicates
-	static Database database = new Database("Test");
-	*/
+	
+	static Database database = Controller.database;
+	public static ArrayList<Room> roomlist = new ArrayList<Room>();
 	
 	//this runs when program starts
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		primaryStage.setTitle("RooME");
 
-		Scene scene = new Scene(Controller.loadScreenOne(), 800, 400);
+		Scene scene = new Scene(loadScreenOne(), 800, 400);
 		scene.getStylesheets().add("file:stylesheet.css");
 		
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
 
-/*	
 	//first page in program, our menu
 	public static GridPane loadScreenOne() {
 		//start grid
@@ -67,7 +65,7 @@ public class MainScreen extends Application{
 			@Override
 			public void handle(ActionEvent e) {
 				//opening book room window
-				bookButton.getScene().setRoot(Controller.loadScreenTwo());
+				bookButton.getScene().setRoot(loadScreenTwo());
 				
 			}
 		});
@@ -81,7 +79,7 @@ public class MainScreen extends Application{
 			@Override
 			public void handle(ActionEvent e) {
 				//starting a new site to add criteria
-				saveButton.getScene().setRoot(Controller.loadScreenThree());
+				saveButton.getScene().setRoot(loadScreenThree());
 			
 			}
 		});
@@ -95,7 +93,7 @@ public class MainScreen extends Application{
 			@Override
 			public void handle(ActionEvent e) {
 				//going into the edit request view
-				editButton.getScene().setRoot(Controller.loadScreenFour());
+				editButton.getScene().setRoot(loadScreenFour());
 						
 			}
 		});
@@ -109,7 +107,7 @@ public class MainScreen extends Application{
 		});
 		
 		//testbutton
-		Button testButton = new Button("Test");
+		Button testButton = new Button("Help!");
 		testButton.getStyleClass().add("button");
 		grid.add(testButton, 0, 6);
 
@@ -117,15 +115,14 @@ public class MainScreen extends Application{
 			@Override
 			public void handle(ActionEvent e) {
 				//opening book room window
-				bookButton.getScene().setRoot(Controller.loadScreenFive());
+				bookButton.getScene().setRoot(loadScreenFive());
 				
 			}
 		});
 		
 		return grid;
 	}
-	*/
-	/*
+	
 	//this page is the book room page
 	public static GridPane loadScreenTwo() {
         
@@ -139,13 +136,12 @@ public class MainScreen extends Application{
 		Text name = new Text("What is your name?");
 		name.getStyleClass().add("description");
 		grid.add(name, 0, 0);
-		*/
-	/*			
+		
+				
 		Text fag = new Text("What do you need?");
 		fag.getStyleClass().add("description");
 		grid.add(fag, 0, 1);
-*/
-	/*
+
 		Text projector = new Text("Do you need a projector?");
 		projector.getStyleClass().add("description");
 		grid.add(projector, 0, 2);
@@ -215,54 +211,59 @@ public class MainScreen extends Application{
 		cb4.setSelected(false);
 		
 		//add search button that triggers function when clicked
-		Button myButton = new Button("Search for rooms");
-		myButton.getStyleClass().add("button");
-		grid.add(myButton, 1, 7);
+		Button searchButton = new Button("Search for rooms");
+		searchButton.getStyleClass().add("button");
+		grid.add(searchButton, 1, 7);
 
-		myButton.setOnAction(new EventHandler<ActionEvent>() {
+		searchButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-
-				//warningstring and room result
-				String warningText = "";
-				String roomText = ""; //must show the accepted rooms in another way
-				
-				if ((amount.getText()).equals("")) {
-					amount.setText("0");
-						
-					warningText = warningText + "You have to select how many students you need space for\n";
-					warnings.setText(warningText);
-				}
-
-				//validates name
-				if (Controller.validateName(nameField.getText())) {
-					nameField.getStyleClass().add("valid");
-				}
-				else {
-					name.getStyleClass().add("notvalid");
-					warningText = warningText + "You must write your name\n";
-				}
-	
-				warnings.setText(warningText);
-				
-				if ((amount.getText()).equals("")) {
-					amount.setText("0");
+				if (!false) {
+					//warningstring and room result
+					String warningText = "";
+					String roomText = ""; //must show the accepted rooms in another way
 					
-					warningText = warningText + "You must choose how many people you need space for\n";
+					if ((amount.getText()).equals("")) {
+						amount.setText("0");
+							
+						warningText = warningText + "You have to select how many students you need space for\n";
+						warnings.setText(warningText);
+					}
+	
+					//validates name
+					if (Controller.validateName(nameField.getText())) {
+						nameField.getStyleClass().add("valid");
+					}
+					else {
+						name.getStyleClass().add("notvalid");
+						warningText = warningText + "You must write your name\n";
+					}
+		
 					warnings.setText(warningText);
+					
+					if ((amount.getText()).equals("")) {
+						amount.setText("0");
+						
+						warningText = warningText + "You must choose how many people you need space for\n";
+						warnings.setText(warningText);
+					}
+					
+					//searching with text inputs
+					SearchForRoom search = Controller.Search(database, Integer.parseInt((amount.getText())), (cb1.isSelected()), (cb2.isSelected()), (cb3.isSelected()));//, Controller.checkValue(cb4.isSelected()))
+		//have to make a better result view		
+		//			roomText = test.acceptedRooms.toString();
+					roomlist = search.acceptedRooms;
+					System.out.println("Det er så mange godkjente rom: " + search.acceptedRooms.size());
+					
+					//Have to stop this from being to wide
+					//resultRooms.setMaxSize(100.0,100.0)
+					resultRooms.setText(roomText);
 				}
+				//when every field is okay we can continue
 				
-				//searching with text inputs
-				SearchForRoom test = new SearchForRoom(database, Integer.parseInt((amount.getText())), Controller.checkValue(cb1.isSelected()), Controller.checkValue(cb2.isSelected()), Controller.checkValue(cb3.isSelected()));//, Controller.checkValue(cb4.isSelected()))
-	//have to make a better result view		
-	//			roomText = test.acceptedRooms.toString();
-				System.out.println("Det er så mange godkjente rom: " + test.acceptedRooms.size());
+					searchButton.getScene().setRoot(loadScreenSix());
 				
-				//Have to stop this from being to wide
-				//resultRooms.setMaxSize(100.0,100.0)
-				resultRooms.setText(roomText);
-			}
-
+			}		
 		});
 		
 		Button backButton = new Button("Go back");
@@ -277,8 +278,7 @@ public class MainScreen extends Application{
         });
 		return grid;
     }
-*/
-/*	
+
 	//this page is the page to save criteria
 	public static GridPane loadScreenThree() {
         
@@ -434,8 +434,8 @@ public class MainScreen extends Application{
         });
 		return grid;
     }
-	*/
-	/* //this page is the edit a previous request //currently not in use
+	
+	//this page is the edit a previous request //currently not in use
 	public static GridPane loadScreenFour() {
         
 		GridPane grid = new GridPane();
@@ -568,5 +568,80 @@ public class MainScreen extends Application{
         });
 		return grid;
     }
-    */
+ 
+	//this page is a test page
+	public static GridPane loadScreenFive() {
+		GridPane grid = new GridPane();
+		grid.setAlignment(Pos.CENTER);
+		grid.setHgap(50);
+		grid.setVgap(10);
+		grid.setPadding(new Insets(30, 30, 30, 30));
+		
+		
+		Text projector = new Text("Under construction?");
+		projector.getStyleClass().add("description");
+		grid.add(projector, 0, 2);
+		
+		Button backButton = new Button("Go back");
+		backButton.getStyleClass().add("button");
+		grid.add(backButton, 0, 7);
+        backButton.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent arg0) {
+                backButton.getScene().setRoot(loadScreenOne());
+
+            }
+        });
+		
+		return grid;
+	}
+
+	// showing rooms result from search
+	public static GridPane loadScreenSix() {
+		GridPane grid = new GridPane();
+		grid.setAlignment(Pos.CENTER);
+		grid.setHgap(50);
+		grid.setVgap(10);
+		grid.setPadding(new Insets(30, 30, 30, 30));
+		
+		//trying to write every acceptable room in GUI
+		for (int i = 0; i < roomlist.size(); i++) {
+			
+			Text room = new Text(roomlist.get(i).toString());
+			room.getStyleClass().add("description"); //find out what this does
+			grid.add(room, 0, i);
+			
+			RadioButton rb = new RadioButton("");
+			grid.add(rb,1,i);
+		}
+		
+		//button to select room
+				Button selectButton = new Button("Select");
+				selectButton.getStyleClass().add("button");
+				grid.add(selectButton, 1, 7);
+		        selectButton.setOnAction(new EventHandler<ActionEvent>() {
+
+		            @Override
+		            public void handle(ActionEvent arg0) {
+		            	System.out.println("Your room has been booked");
+		            }
+		        });
+		
+		//button to go back into serach
+		Button backButton = new Button("Go back");
+		backButton.getStyleClass().add("button");
+		grid.add(backButton, 0, 7);
+        backButton.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent arg0) {
+                backButton.getScene().setRoot(loadScreenTwo());             
+            }
+        });
+		return grid;
+	}
+
+
+//end tag
 }

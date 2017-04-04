@@ -8,13 +8,13 @@ public class Main {
 	public void init(){
 		this.roomList = new RoomList("svada");
 		timetable = new TimeTable();
-		Room test = new Room("Test", 100, true, false, false, true);
+		Room test = new Room("Test", 100, true, false, true);
 		roomList.addRoom(test);
 	}
 	
 	public void start(){
 		Person lektor = new Person();
-		Room rom = new Room("Rom 1", 30, true, true,false,false);
+		Room rom = new Room("Rom 1", 30, true, true,false);
 		Person person = new Person();
 		System.out.println(person);
 		RoomRequest req = new RoomRequest(person, 1300, "data" );

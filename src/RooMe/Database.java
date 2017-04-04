@@ -15,11 +15,11 @@ public class Database {
 	
 	//setup list with 5 rooms, testdatabase
 	public static void initializeDatabase() {
-		Room room1 = new Room("R1", 80, false, false, true, false);
-		Room room2 = new Room("R2", 70, true, false, false, false);
-		Room room3 = new Room("R3", 60, true, false, true, true);
-		Room room4 = new Room("R4", 50, false, false, false, false);
-		Room room5 = new Room("R5", 40, true, false, true, true);
+		Room room1 = new Room("R1", 80, false, false, false);
+		Room room2 = new Room("R2", 70, true, false, false);
+		Room room3 = new Room("R3", 60, true, false, true);
+		Room room4 = new Room("R4", 50, false, false, false);
+		Room room5 = new Room("R5", 40, true, false, true);
 		Database.add(room1);
 		Database.add(room2);
 		Database.add(room3);
@@ -45,8 +45,7 @@ public class Database {
 					", kapasitet " + Database.get(i).getSpace()  + "\t" +  
 					", prosjektor " + Database.get(i).isProjector()  + "\t" + 
 					", whiteboard " + Database.get(i).isWhiteboard()  + "\t" + 
-					", blackboard " + Database.get(i).isBlackboard()   + "\t" + 
-					", experimentable " + Database.get(i).isExperimentable());
+					", blackboard " + Database.get(i).isBlackboard());
 		}
 	}
 	
@@ -61,7 +60,7 @@ public class Database {
 	public static void main(String[] args) {
 		Database base = new Database("Gløs");
 		//System.out.println("Det er " + base.countRooms() + " rom i denne listen");
-		base.addRoom(new Room("R6", 10, true, true, false, false)); //adding a new room in the database
+		base.addRoom(new Room("R6", 10, true, true, false)); //adding a new room in the database
 		//System.out.println("Det er " + base.countRooms() + " rom i denne listen");
 		//System.out.println(base.getDatabasename());
 		base.IterateList();

@@ -109,7 +109,6 @@ public class SearchForRoom {
 			System.out.println("Godkjente rom er: Rom " + acceptedRooms.get(i).getName()  + "\t" +  
 					", kapasitet " + acceptedRooms.get(i).getSpace()  + "\t" +  
 					", prosjektor " + acceptedRooms.get(i).isProjector()   + "\t" + 
-					", experimentable " + acceptedRooms.get(i).isExperimentable()  + "\t" + 
 					", blackboard " + acceptedRooms.get(i).isBlackboard()  + "\t" + 
 					", whiteboard " + acceptedRooms.get(i).isWhiteboard());
 		}
