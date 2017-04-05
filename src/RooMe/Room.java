@@ -1,22 +1,21 @@
 package RooMe;
 
+import java.sql.*;
+
+
+
+import Database.Database;
+
 public class Room{
 
-	private int space;
+	private int capacity;
 	private boolean projector;
-	private boolean experimentable;
 	private boolean blackboard;
 	private boolean whiteboard;
 	private String name;
 	private int roomID;
 	
-	protected Room(String name, int space, boolean projector, boolean experimentable, boolean blackboard, boolean whiteboard) {
-		setSpace(space);
-		setProjector(projector);
-		setExperimentable(experimentable);
-		setBlackboard(blackboard);
-		setWhiteboard(whiteboard);
-		setName(name);
+	protected Room(String name, int capacity, boolean projector, boolean blackboard, boolean whiteboard) {
 	}
 	
 	public int getRoomID() {
@@ -31,24 +30,47 @@ public class Room{
 	private void setName(String name) {
 		this.name = name;
 	}
-	public int getSpace() {
-		return space;
+	public int getCapacity() {
+		return capacity;
 	}
-	private void setSpace(int space) {
-		this.space = space;
+	
+	/*private void setCapacity(int capacity) {
+		this.capacity = capacity;
+	}*/
+	
+	public static void addRoom(String name, int capacity, boolean projector, boolean blackboard, boolean whiteboard) throws SQLException{
+		Database.connect();
+		String sql = "INSERT INTO thblaauw_tdt4145database.Room\n"
+				+ "VALUES(?,?,?,?,?)";
+		PreparedStatement statement = Database.conn.prepareStatement(sql);
+		statement.setString(1, name);
+		statement.setInt(2, capacity);
+		statement.setBoolean(3, projector);
+		statement.setBoolean(4, blackboard);
+		statement.setBoolean(5, whiteboard);
+		statement.executeUpdate();
+		Database.disconnect();
 	}
+	
+	/*public static void addGoal(Goal goal) throws SQLException{
+		Database.connect();
+		String sql = "INSERT INTO oyvorsh_treningsdatabase.Maal\n"
+				+ "(oID, Beskrivelse, fraDato, tilDato)\n"
+				+ "VALUES(?, ?, ?, ?)";
+		
+		PreparedStatement statement = conn.prepareStatement(sql);
+		statement.setInt(1, goal.getoID());
+		statement.setString(2, goal.getBeskrivelse());
+		statement.setDate(3, goal.getTilDato());
+		statement.setDate(4, goal.getFraDato());
+		statement.executeUpdate();
+		Database.disconnect();
+	}*/
+	
 	public boolean isProjector() {
 		return projector;
 	}
-	private void setProjector(boolean projector) {
-		this.projector = projector;
-	}
-	public boolean isExperimentable() {
-		return experimentable;
-	}
-	private void setExperimentable(boolean experimentable) {
-		this.experimentable = experimentable;
-	}
+
 	public boolean isBlackboard() {
 		return blackboard;
 	}
@@ -65,23 +87,10 @@ public class Room{
 
 	
 	
-	@Override 
-	public String toString(){
-		return "Name: " + name + "\t" + space + "\t" + projector + "\t" + whiteboard + "\t" + blackboard + "\t" + experimentable + "\t";
+
+	public static void main(String[] args) throws SQLException {
+		addRoom("R1", 80, false, false, false);
 	}
-/*
-	@Override
-	public String toString() {
-		return name + " has room for " + space + " persons, " + toEnglish(projector) + " projector, " 
-		+ toEnglish(blackboard) + " blackboard, " + toEnglish(whiteboard) + " whiteboard.\n" + expSentence() +".";
-	}
-*/	
-	public static void main(String[] args) {
-		Room test = new Room("Test1", 100, true, false, false, true);
-		System.out.println(test.isProjector());
-		System.out.println(test);
-		System.out.println(test.roomID);
-		System.out.println(test.getRoomID());
-	}
+	
 
 }

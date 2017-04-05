@@ -1,10 +1,10 @@
 package Database;
 import java.sql.*;
 public class Database {
-	private static Connection conn=null;
-	private static Statement sment=null;
-	private static ResultSet rs=null;
-	
+	public static Connection conn=null;
+	public static Statement sment=null;
+	public static ResultSet rs=null;
+	//ForBedreKode(FBK): Innkapsle attributtene og legg til getters
 	public static Statement getStatement(){
 		return sment;
 	}
@@ -32,6 +32,8 @@ public class Database {
 		connect();
 		disconnect();
 	}
+	
+	
 	
 	
 	/*public static void printOvelserInOkt(Date date){
