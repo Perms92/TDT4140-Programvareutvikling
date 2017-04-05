@@ -15,6 +15,22 @@ public class Controller {
 		return search;
 	}
 	
+	
+	public static int validateAmount(String amount) {
+		if (amount.matches("[0-9]+\\s\\d+")) { 
+		//(amount.equals("")) {
+			//amount.setText("0");
+			System.out.println(Integer.parseInt(amount));
+			System.out.println(amount);
+			return Integer.parseInt(amount);
+		}
+		else {
+			return 0;
+		}
+	}
+	
+	
+	
 	public static boolean checkValue(boolean isPressed){
 		if(isPressed == true) {
 			return true;

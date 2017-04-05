@@ -180,12 +180,12 @@ public class View extends Application{
 		Text warnings = new Text("");
 		warnings.getStyleClass().add("description");
 		grid.add(warnings, 1, 8);
-		
-		//add labels
+	
+		/*	showing results in a new page instead
 		Text resultRooms = new Text("");
 		resultRooms.getStyleClass().add("description");
 		grid.add(resultRooms, 1, 9);
-
+*/
 		//add inputs
 		TextField nameField = new TextField();
 		nameField.setMaxSize(150.0, 30.0);
@@ -227,54 +227,32 @@ public class View extends Application{
 		searchButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				if (!false) {
-					//warningstring and room result
-					String warningText = "";
-					String roomText = ""; //must show the accepted rooms in another way
+				String warningText = "";
+			
+				if (Controller.validateName(nameField.getText()) == true) {
+
+					if (Controller.validateAmount(amount.getText()) >= 0)
 					
-					if ((amount.getText()).equals("")) {
-						amount.setText("0");
-							
-						warningText = warningText + "You have to select how many students you need space for\n";
-						warnings.setText(warningText);
-					}
-	
-					//validates name
-					if (Controller.validateName(nameField.getText())) {
-						nameField.getStyleClass().add("valid");
-					}
-					else {
-						name.getStyleClass().add("notvalid");
-						warningText = warningText + "You must write your name\n";
-					}
-		
 					warnings.setText(warningText);
-					
-					if ((amount.getText()).equals("")) {
-						amount.setText("0");
-						
-						warningText = warningText + "You must choose how many people you need space for\n";
-						warnings.setText(warningText);
-					}
-					
+
 					//searching with text inputs
-					SearchForRoom search = Controller.Search(database, Integer.parseInt((amount.getText())), (cb1.isSelected()), (cb2.isSelected()), (cb3.isSelected()));//, Controller.checkValue(cb4.isSelected()))
-		//have to make a better result view		
-		//			roomText = test.acceptedRooms.toString();
-					roomlist = search.acceptedRooms;
-					System.out.println("Det er så mange godkjente rom: " + search.acceptedRooms.size());
+					SearchForRoom search = Controller.Search(database, (Controller.validateAmount(amount.getText())), (cb1.isSelected()), (cb2.isSelected()), (cb3.isSelected()));//, Controller.checkValue(cb4.isSelected()))
+
+					roomlist = SearchForRoom.acceptedRooms;
+					System.out.println("Det er så mange godkjente rom: " + SearchForRoom.acceptedRooms.size());
 					
-					//Have to stop this from being to wide
-					//resultRooms.setMaxSize(100.0,100.0)
-					resultRooms.setText(roomText);
+					searchButton.getScene().setRoot(loadScreenSix());
 				}
 				//when every field is okay we can continue
-				
-					searchButton.getScene().setRoot(loadScreenSix());
-				
-			}		
+				else {
+					System.out.println("amount" + amount.getText());
+					//searchButton.getScene().setRoot(loadScreenSix());
+				}
+			}	
+
 		});
 		
+		//button to go back to first page
 		Button backButton = new Button("Go back");
 		backButton.getStyleClass().add("button");
 		grid.add(backButton, 0, 7);
@@ -285,7 +263,8 @@ public class View extends Application{
                 backButton.getScene().setRoot(loadScreenOne());             
             }
         });
-		return grid;
+		
+        return grid;
     }
 
 	//this page is the page to save criteria
@@ -625,6 +604,11 @@ public class View extends Application{
 			grid.add(rb,1,i);
 		}
 		
+		//add labels
+				Text warnings = new Text("");
+				warnings.getStyleClass().add("description");
+				grid.add(warnings, 1, 8);
+				
 		//button to select room
 				Button selectButton = new Button("Select");
 				selectButton.getStyleClass().add("button");
@@ -633,7 +617,12 @@ public class View extends Application{
 
 		            @Override
 		            public void handle(ActionEvent arg0) {
+		            	//warningstring and room result
+						
 		            	System.out.println("Your room has been booked");
+		            	
+		            	String warningText = "Your room has been booked";
+		            	warnings.setText(warningText);
 		            }
 		        });
 		
