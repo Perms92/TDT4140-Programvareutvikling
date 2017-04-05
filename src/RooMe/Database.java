@@ -57,6 +57,7 @@ public class Database {
 		Databasename = databasename;
 	}
 
+	/*
 	public static void main(String[] args) {
 		Database base = new Database("Gløs");
 		//System.out.println("Det er " + base.countRooms() + " rom i denne listen");
@@ -65,4 +66,6 @@ public class Database {
 		//System.out.println(base.getDatabasename());
 		base.IterateList();
 	}
+	*/
 }
+

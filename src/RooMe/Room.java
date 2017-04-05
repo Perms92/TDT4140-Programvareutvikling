@@ -2,15 +2,15 @@ package RooMe;
 
 public class Room{
 
-	private int space;
+	private int capacity;
 	private boolean projector;
 	private boolean blackboard;
 	private boolean whiteboard;
 	private String name;
 	private int roomID;
 	
-	protected Room(String name, int space, boolean projector, boolean blackboard, boolean whiteboard) {
-		setSpace(space);
+	protected Room(String name, int capacity, boolean projector, boolean blackboard, boolean whiteboard) {
+		setSpace(capacity);
 		setProjector(projector);
 		setBlackboard(blackboard);
 		setWhiteboard(whiteboard);
@@ -30,10 +30,10 @@ public class Room{
 		this.name = name;
 	}
 	public int getSpace() {
-		return space;
+		return capacity;
 	}
 	private void setSpace(int space) {
-		this.space = space;
+		this.capacity = space;
 	}
 	public boolean isProjector() {
 		return projector;
@@ -60,7 +60,7 @@ public class Room{
 	
 	@Override 
 	public String toString(){
-		return "Name: " + name + "\t" + space + "\t" + projector + "\t" + whiteboard + "\t" + blackboard  + "\t";
+		return "Name: " + name + "\t" + capacity + "\t" + projector + "\t" + whiteboard + "\t" + blackboard  + "\t";
 	}
 /*
 	@Override
