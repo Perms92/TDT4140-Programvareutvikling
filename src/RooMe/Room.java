@@ -18,25 +18,6 @@ public class Room{
 	protected Room(String name, int capacity, boolean projector, boolean blackboard, boolean whiteboard) {
 	}
 	
-	public int getRoomID() {
-		return roomID;
-	}
-	protected void setRoomID(int ID) {
-		this.roomID = ID;
-	}
-	public String getName() {
-		return name;
-	}
-	private void setName(String name) {
-		this.name = name;
-	}
-	public int getCapacity() {
-		return capacity;
-	}
-	
-	/*private void setCapacity(int capacity) {
-		this.capacity = capacity;
-	}*/
 	
 	public static void addRoom(String name, int capacity, boolean projector, boolean blackboard, boolean whiteboard) throws SQLException{
 		Database.connect();
@@ -52,6 +33,53 @@ public class Room{
 		Database.disconnect();
 	}
 	
+	public static void getRooms() {
+		Database.connect();
+		try {
+			Database.rs = Database.sment.executeQuery("select * from thblaauw_tdt4145database.Room");
+			System.out.println("Room         Capacity     Projector       Blackboard     Whiteboard");
+			System.out.println("-------------------------------------------------------------------");
+			while (Database.rs.next()){
+				System.out.println(	Database.rs.getString(1)	+"           "+
+									Database.rs.getInt(2)		+"           "+
+									Database.rs.getBoolean(3)	+"           "+
+									Database.rs.getBoolean(4)	+"           "+
+									Database.rs.getBoolean(5));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Database.disconnect();
+	}
+	
+	public static void deleteRoom(String name) throws SQLException {
+	Database.connect();
+	//Lag metoden slik at du ikke kan lage to rom med samme navn, uavhengig av caps (R1 og r1 går ikke).
+	
+	/* SKAL IKKE VÆRE MULIG Å GI NULL SOM NAVN LENGER
+	 if (name == "null") {
+		try {
+			Database.sment.executeUpdate("DELETE FROM thblaauw_tdt4145database.Room"
+					+ " WHERE Room.Name IS NULL");
+			System.out.println("The room(s) without name(s) are deleted from the database.\n");
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			Database.disconnect();
+			}
+	else {*/
+		try {
+	
+			Database.sment.executeUpdate("DELETE FROM thblaauw_tdt4145database.Room"
+					+ " WHERE Room.Name ='" + name + "'");
+			System.out.println("The room with name: "+name+" is deleted from the database.\n");
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			Database.disconnect();
+		}
+
 	/*public static void addGoal(Goal goal) throws SQLException{
 		Database.connect();
 		String sql = "INSERT INTO oyvorsh_treningsdatabase.Maal\n"
@@ -66,31 +94,10 @@ public class Room{
 		statement.executeUpdate();
 		Database.disconnect();
 	}*/
-	
-	public boolean isProjector() {
-		return projector;
-	}
-
-	public boolean isBlackboard() {
-		return blackboard;
-	}
-	private void setBlackboard(boolean blackboard) {
-		this.blackboard = blackboard;
-	}
-	public boolean isWhiteboard() {
-		return whiteboard;
-	}
-	private void setWhiteboard(boolean whiteboard) {
-		this.whiteboard = whiteboard;
-
-	}
-
-	
-	
 
 	public static void main(String[] args) throws SQLException {
 		addRoom("R1", 80, false, false, false);
+		//deleteRoom("R1");
+		getRooms();
 	}
-	
-
-}
+	}
