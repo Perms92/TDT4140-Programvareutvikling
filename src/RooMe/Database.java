@@ -1,25 +1,25 @@
-package RooMEbeta;
+package RooMe;
 
 import java.util.ArrayList;
 
-public class RoomDatabase {
+public class Database {
 	
 	private String Databasename;
 	static ArrayList<Room> Database = new ArrayList<>(); //to access from other classes
 	
 	//constructor
-	public RoomDatabase(String name) {
+	public Database(String name) {
 		this.Databasename = name;
 		initializeDatabase();
 	}
 	
 	//setup list with 5 rooms, testdatabase
 	public static void initializeDatabase() {
-		Room room1 = new Room("R1", 50, false, false);
-		Room room2 = new Room("R2", 50, true, true);
-		Room room3 = new Room("R3", 50, true, false);
-		Room room4 = new Room("R4", 50, false, true);
-		Room room5 = new Room("R5", 40, true, true);
+		Room room1 = new Room("R1", 80, false, false, false);
+		Room room2 = new Room("R2", 70, true, false, false);
+		Room room3 = new Room("R3", 60, true, false, true);
+		Room room4 = new Room("R4", 50, false, false, false);
+		Room room5 = new Room("R5", 40, true, false, true);
 		Database.add(room1);
 		Database.add(room2);
 		Database.add(room3);
@@ -41,18 +41,11 @@ public class RoomDatabase {
 	//test search in list (database)
 	public static void IterateList() {
 		for (int i = 0; i < Database.size(); i++) {
-			System.out.println("Rom " + Database.get(i).getName() + ", kapasitet " + Database.get(i).getCapacity());
-		}
-	}
-	
-	
-	//Check if a specific room has projector
-	public static boolean checkProjector() {
-		if ((Database.get(0).isProjector()) == true) {
-			return Database.get(0).isProjector();
-		}
-		else {
-			return Database.get(0).isProjector();
+			System.out.println("Rom " + Database.get(i).getName()  + "\t" +  
+					", kapasitet " + Database.get(i).getSpace()  + "\t" +  
+					", prosjektor " + Database.get(i).isProjector()  + "\t" + 
+					", whiteboard " + Database.get(i).isWhiteboard()  + "\t" + 
+					", blackboard " + Database.get(i).isBlackboard());
 		}
 	}
 	
@@ -64,12 +57,15 @@ public class RoomDatabase {
 		Databasename = databasename;
 	}
 
+	/*
 	public static void main(String[] args) {
-		RoomDatabase base = new RoomDatabase("Gløs");
-		System.out.println("Det er " + base.countRooms() + " rom i denne listen");
-		base.addRoom(new Room("R6", 10, true, true)); //adding a new room in the database
-		System.out.println("Det er " + base.countRooms() + " rom i denne listen");
-		System.out.println(base.getDatabasename());
+		Database base = new Database("Gløs");
+		//System.out.println("Det er " + base.countRooms() + " rom i denne listen");
+		base.addRoom(new Room("R6", 10, true, true, false)); //adding a new room in the database
+		//System.out.println("Det er " + base.countRooms() + " rom i denne listen");
+		//System.out.println(base.getDatabasename());
 		base.IterateList();
 	}
+	*/
 }
+
