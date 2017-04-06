@@ -1,14 +1,16 @@
 package GUI;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 
-import OldCode.Database;
+import Database.Database;
 
 import RooMe.ListOfCriteria;
 import RooMe.Room;
 import RooMe.RoomCriteria;
 import RooMe.SearchForRoom;
+import RooMe.SearchForRoomDB;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -30,7 +32,7 @@ public class View extends Application{
 	}
 	
 
-	static OldDatabase database = Controller.database;
+	//static OldDatabase database = Controller.database;
 
 	public static ArrayList<Room> roomlist = new ArrayList<Room>();
 	
@@ -244,9 +246,15 @@ public class View extends Application{
 						System.out.println(button4);
 						
 						//searching with text inputs when everything is valid
-						SearchForRoom search = Controller.Search(database, capacity, button2, button3, button4); //, Controller.checkValue(cb4.isSelected()))
-	
-						roomlist = SearchForRoom.acceptedRooms;
+						//SearchForRoom search = Controller.Search(database, capacity, button2, button3, button4); //, Controller.checkValue(cb4.isSelected()))
+						try {
+							SearchForRoomDB search = Controller.Search(capacity, button1, button2, button3);
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} 
+								
+						roomlist = SearchForRoomDB.acceptedRooms;
 						
 						//loading result page
 						searchButton.getScene().setRoot(loadScreenSix());
@@ -392,8 +400,8 @@ public class View extends Application{
 						System.out.println(button4);
 				*/		
 						//searching with text inputs when everything is valid
-						RoomCriteria crit = new RoomCriteria(Integer.parseInt((amount.getText())), Controller.checkValue(cb1.isSelected()), Controller.checkValue(cb2.isSelected()), Controller.checkValue(cb3.isSelected()), Controller.checkValue(cb4.isSelected()));
-						criteriaList.addCriteria(crit);
+				//		RoomCriteria crit = new RoomCriteria(Integer.parseInt((amount.getText())), Controller.checkValue(cb1.isSelected()), Controller.checkValue(cb2.isSelected()), Controller.checkValue(cb3.isSelected()), Controller.checkValue(cb4.isSelected()));
+				//		criteriaList.addCriteria(crit);
 						warningText = "Your criteria has been saved";
 						warnings.setText(warningText);
 					}
@@ -543,8 +551,8 @@ public class View extends Application{
 				}
 									
 			
-				RoomCriteria crit = new RoomCriteria(Integer.parseInt((amount.getText())), Controller.checkValue(cb1.isSelected()), Controller.checkValue(cb2.isSelected()), Controller.checkValue(cb3.isSelected()), Controller.checkValue(cb2.isSelected()));
-				criteriaList.addCriteria(crit);
+		//		RoomCriteria crit = new RoomCriteria(Integer.parseInt((amount.getText())), Controller.checkValue(cb1.isSelected()), Controller.checkValue(cb2.isSelected()), Controller.checkValue(cb3.isSelected()), Controller.checkValue(cb2.isSelected()));
+		//		criteriaList.addCriteria(crit);
 						
 				//iterate through all criterias}
 				System.out.println(criteriaList.getCriteria(0));
