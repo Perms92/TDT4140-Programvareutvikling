@@ -16,9 +16,57 @@ public class Room{
 	private int roomID;
 	
 	protected Room(String name, int capacity, boolean projector, boolean blackboard, boolean whiteboard) {
+		setName(name);
+		setCapacity(capacity);
+		setProjector(projector);
+		setBlackboard(blackboard);
+		setWhiteboard(whiteboard);
 	}
 	
-	
+	public int getCapacity() {
+		return capacity;
+	}
+
+	public void setCapacity(int capacity) {
+		this.capacity = capacity;
+	}
+
+	public boolean isProjector() {
+		return projector;
+	}
+
+	public void setProjector(boolean projector) {
+		this.projector = projector;
+	}
+
+	public boolean isBlackboard() {
+		return blackboard;
+	}
+
+	public void setBlackboard(boolean blackboard) {
+		this.blackboard = blackboard;
+	}
+
+	public boolean isWhiteboard() {
+		return whiteboard;
+	}
+
+	public void setWhiteboard(boolean whiteboard) {
+		this.whiteboard = whiteboard;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+
+
+
 	public static void addRoom(String name, int capacity, boolean projector, boolean blackboard, boolean whiteboard) throws SQLException{
 		Database.connect();
 		String sql = "INSERT INTO thblaauw_tdt4145database.Room\n"
@@ -33,7 +81,7 @@ public class Room{
 		Database.disconnect();
 	}
 	
-	public static void getRooms() {
+	public static void printRooms() {
 		Database.connect();
 		try {
 			Database.rs = Database.sment.executeQuery("select * from thblaauw_tdt4145database.Room");
@@ -96,8 +144,14 @@ public class Room{
 	}*/
 
 	public static void main(String[] args) throws SQLException {
-		//addRoom("R1", 80, false, false, false);
+		addRoom("R9", 71, true, false, true);
+		
+		
 		//deleteRoom("R1");
-		getRooms();
+		printRooms();
+	}
+	
+	public String toString() {
+		return  name + " " + capacity + " " + projector + " " + blackboard + " " + whiteboard; 
 	}
 	}
