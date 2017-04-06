@@ -1,64 +1,63 @@
 package RooMe;
 
-public class RoomCriteria {
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import Database.Database;
+
+public class RoomCriteria extends Room{
 	
-	private boolean projector, blackBoard, whiteBoard, experimentTable;
-	private int studentNumbers;
+	public String PersonName;
+	public String fag;
+	
+	protected RoomCriteria(String personName, String fag, String name, int capacity, boolean projector, boolean blackboard, boolean whiteboard) {
+		super(name, capacity, projector, blackboard, whiteboard);
+		this.PersonName = personName;
+		this.fag = fag;
+		// TODO Auto-generated constructor stub
+	}
+	
+	public static void addRoomCriteria(String personName, String fag, int capacity, boolean projector, boolean blackboard, boolean whiteboard) throws SQLException{
+		Database.connect();
+		String sql = "INSERT INTO thblaauw_tdt4145database.Criterias\n"
+				+ "VALUES(?,?,?,?,?,?)";
+		PreparedStatement statement = Database.conn.prepareStatement(sql);
+		statement.setString(1, personName);
+		statement.setString(2, fag);
+		statement.setInt(3, capacity);
+		statement.setBoolean(4, projector);
+		statement.setBoolean(5, blackboard);
+		statement.setBoolean(6, whiteboard);
+		statement.executeUpdate();
+		Database.disconnect();
+	}
+	
+	public static void getRoomCriterias() {
+		Database.connect();
+		try {
+			Database.rs = Database.sment.executeQuery("select * from thblaauw_tdt4145database.Criterias");
+			System.out.printf("%-20s %-9s %-10s %-11s %-12s %-12s","Foreleser", "Fag", "Capacity", "Projector", "Blackboard", "Whiteboard"+"\n");
+			System.out.println("---------------------------------------------------------------------------------------------");
+			while (Database.rs.next()){
+				System.out.printf("%-20s %-9s %-10s %-11s %-12s %-12s"
+						+ "", Database.rs.getString(1),
+									Database.rs.getString(2),
+									Database.rs.getInt(3),
+									Database.rs.getBoolean(4),
+									Database.rs.getBoolean(5),
+									Database.rs.getBoolean(6));
+				System.out.println("");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Database.disconnect(); 
+	}
 		
-	public RoomCriteria(int studentNumbers, boolean projector, boolean blackBoard, boolean whiteBoard, boolean experimentTable) {
-		this.studentNumbers = studentNumbers;
-		this.projector = projector;
-		this.blackBoard = blackBoard;
-		this.whiteBoard = whiteBoard;
-		this.experimentTable = experimentTable;
-	}
-
-	void setProjector(boolean projector) {
-		this.projector = projector;
-	}
-
-	void setBlackBoard(boolean blackBoard) {
-		this.blackBoard = blackBoard;
-	}
-
-	void setWhiteBoard(boolean whiteBoard) {
-		this.whiteBoard = whiteBoard;
-	}
-
-	void setExperimentTable(boolean experimentTable) {
-		this.experimentTable = experimentTable;
-	}
-
-	void setStudentNumbers(int studentNumbers) {
-		this.studentNumbers = studentNumbers;
-	}
-
-	public String toString() {
-		return "Number of students: " + studentNumbers
-				+ "\nProjector: " + projector
-				+ "\nBlackboard: " + blackBoard
-				+ "\nWhiteboard: " + whiteBoard
-				+ "\nExperiment table: " + experimentTable;
+	public static void main(String[] args) throws SQLException {
+		addRoomCriteria("Kristian Langvann", "TMA4100", 200, true, false, false);
+		getRoomCriterias();
 	}
 	
-
-	public boolean isProjector() {
-		return projector;
-	}
-
-	public boolean isBlackBoard() {
-		return blackBoard;
-	}
-
-	public boolean isWhiteBoard() {
-		return whiteBoard;
-	}
-
-	public boolean isExperimentTable() {
-		return experimentTable;
-	}
-
-	public int getStudentNumbers() {
-		return studentNumbers;
-	}
 }
