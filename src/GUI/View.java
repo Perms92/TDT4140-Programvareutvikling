@@ -147,7 +147,7 @@ public class View extends Application{
 		grid.add(name, 0, 0);
 		
 				
-		Text fag = new Text("What do you need?");
+		Text fag = new Text("What is your email-adress?");
 		fag.getStyleClass().add("description");
 		grid.add(fag, 0, 1);
 
@@ -163,7 +163,7 @@ public class View extends Application{
 		blackboard.getStyleClass().add("description");
 		grid.add(blackboard, 0, 4);
 
-		Text experimentable = new Text("TBA?");
+		Text experimentable = new Text("Do you need hearing aid?");
 		experimentable.getStyleClass().add("description");
 		grid.add(experimentable, 0, 5);
 				
@@ -171,42 +171,35 @@ public class View extends Application{
 		studentCount.getStyleClass().add("description");
 		grid.add(studentCount, 0, 6);
 
-		Text ny2 = new Text("TBA");
-		ny2.getStyleClass().add("description");
-		grid.add(ny2, 0, 7);
-
-
 		//add labels
 		Text warnings = new Text("");
 		warnings.getStyleClass().add("description");
 		grid.add(warnings, 1, 8);
-		
-		//add labels
-		Text resultRooms = new Text("");
-		resultRooms.getStyleClass().add("description");
-		grid.add(resultRooms, 1, 9);
-
+	
 		//add inputs
 		TextField nameField = new TextField();
 		nameField.setMaxSize(150.0, 30.0);
 		nameField.setMinSize(150.0, 30.0);
 		grid.add(nameField,1,0);
 		
+		
+		TextField mailField = new TextField();
+		mailField.setMaxSize(150.0, 30.0);
+		mailField.setMinSize(150.0, 30.0);
+		grid.add(mailField,1,1);
+		
 		//A checkbox without a caption
 		CheckBox cb1 = new CheckBox();
-		grid.add(cb1,1,1);
+		grid.add(cb1,1,2);
 		
 		CheckBox cb2 = new CheckBox();
-		grid.add(cb2,1,2);
+		grid.add(cb2,1,3);
 		
 		CheckBox cb3 = new CheckBox();
-		grid.add(cb3,1,3);
+		grid.add(cb3,1,4);
 		
 		CheckBox cb4 = new CheckBox();
-		grid.add(cb4,1,4);
-		
-		CheckBox cb5 = new CheckBox();
-		grid.add(cb5,1,5);
+		grid.add(cb4,1,5);
 		
 		TextField amount = new TextField();
 		amount.setMaxSize(150.0, 30.0);
@@ -227,54 +220,53 @@ public class View extends Application{
 		searchButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				if (!false) {
-					//warningstring and room result
-					String warningText = "";
-					String roomText = ""; //must show the accepted rooms in another way
-					
-					if ((amount.getText()).equals("")) {
-						amount.setText("0");
-							
-						warningText = warningText + "You have to select how many students you need space for\n";
-						warnings.setText(warningText);
-					}
+				String warningText = "";
+			
+				if (Controller.validateName(nameField.getText()) == true) {
+					if ((Controller.validateAmount(amount.getText())) == true) {
+						System.out.println(Controller.validateAmount(amount.getText()));
+						
+						//values saved to be used in database search in the making
+						int capacity = Integer.parseInt(amount.getText());
+						boolean button1 = cb1.isSelected(); //projector
+						boolean button2 = cb2.isSelected(); //blackboard
+						boolean button3 = cb3.isSelected(); //whiteboard
+						boolean button4 = cb4.isSelected(); //hearingaid
+						
+						//checking what we have
+						System.out.println(button1);
+						System.out.println(button2);
+						System.out.println(button3);
+						System.out.println(button4);
+						
+						//searching with text inputs when everything is valid
+						SearchForRoom search = Controller.Search(database, capacity, button2, button3, button4); //, Controller.checkValue(cb4.isSelected()))
 	
-					//validates name
-					if (Controller.validateName(nameField.getText())) {
-						nameField.getStyleClass().add("valid");
+						roomlist = SearchForRoom.acceptedRooms;
+						
+						//loading result page
+						searchButton.getScene().setRoot(loadScreenSix());
 					}
 					else {
-						name.getStyleClass().add("notvalid");
-						warningText = warningText + "You must write your name\n";
-					}
-		
-					warnings.setText(warningText);
-					
-					if ((amount.getText()).equals("")) {
-						amount.setText("0");
-						
-						warningText = warningText + "You must choose how many people you need space for\n";
+						warningText += "You must choose how many you students you need capacity for \n";
 						warnings.setText(warningText);
 					}
-					
-					//searching with text inputs
-					SearchForRoom search = Controller.Search(database, Integer.parseInt((amount.getText())), (cb1.isSelected()), (cb2.isSelected()), (cb3.isSelected()));//, Controller.checkValue(cb4.isSelected()))
-		//have to make a better result view		
-		//			roomText = test.acceptedRooms.toString();
-					roomlist = search.acceptedRooms;
-					System.out.println("Det er så mange godkjente rom: " + search.acceptedRooms.size());
-					
-					//Have to stop this from being to wide
-					//resultRooms.setMaxSize(100.0,100.0)
-					resultRooms.setText(roomText);
 				}
 				//when every field is okay we can continue
-				
-					searchButton.getScene().setRoot(loadScreenSix());
-				
-			}		
+				else {
+					if (Controller.validateName(nameField.getText()) == false) {
+						warningText += "You must write your name \n";
+					}
+					if (Controller.validateAmount(amount.getText()) == false) {
+						warningText += "You must choose how many you students you need capacity for \n"; 
+					}
+					warnings.setText(warningText);
+				}
+			}	
+
 		});
 		
+		//button to go back to first page
 		Button backButton = new Button("Go back");
 		backButton.getStyleClass().add("button");
 		grid.add(backButton, 0, 7);
@@ -285,7 +277,8 @@ public class View extends Application{
                 backButton.getScene().setRoot(loadScreenOne());             
             }
         });
-		return grid;
+		
+        return grid;
     }
 
 	//this page is the page to save criteria
@@ -318,7 +311,7 @@ public class View extends Application{
 		blackboard.getStyleClass().add("description");
 		grid.add(blackboard, 0, 4);
 
-		Text experimentable = new Text("TBA?");
+		Text experimentable = new Text("Do you need hearing aid?");
 		experimentable.getStyleClass().add("description");
 		grid.add(experimentable, 0, 5);
 				
@@ -326,21 +319,11 @@ public class View extends Application{
 		studentCount.getStyleClass().add("description");
 		grid.add(studentCount, 0, 6);
 
-		Text ny2 = new Text("TBA");
-		ny2.getStyleClass().add("description");
-		grid.add(ny2, 0, 7);
-
-
 		//add labels
 		Text warnings = new Text("");
 		fag.getStyleClass().add("description");
 		grid.add(warnings, 1, 8);
 				
-		//add labels
-		Text resultRooms = new Text("");
-		fag.getStyleClass().add("description");
-		grid.add(resultRooms, 1, 9);
-
 		//add inputs
 		TextField nameField = new TextField();
 		nameField.setMaxSize(150.0, 30.0);
@@ -366,8 +349,8 @@ public class View extends Application{
 		grid.add(cb4,1,5);
 				
 		TextField amount = new TextField();
-		amount.setMaxSize(200.0, 30.0);
-		amount.setMinSize(200.0, 30.0);
+		amount.setMaxSize(150.0, 30.0);
+		amount.setMinSize(150.0, 30.0);
 		grid.add(amount, 1, 6);
 
 		//make all unchecked at start
@@ -386,48 +369,49 @@ public class View extends Application{
 		saveButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-			//feilhåndtering før funksjoner
 				String warningText = "";
-						
 				warnings.setText(warningText);
+				if ((Controller.validateName(nameField.getText()) == true) && (Controller.validateSubject(subjectField.getText()) == true )) {
+					
+					if ((Controller.validateAmount(amount.getText())) == true) {
+						//values saved to be used in database search in the making
+						int capacity = Integer.parseInt(amount.getText());
+						boolean button1 = cb1.isSelected(); //projector
+						boolean button2 = cb2.isSelected(); //blackboard
+						boolean button3 = cb3.isSelected(); //whiteboard
+						boolean button4 = cb4.isSelected(); //hearingaid
 						
-				if ((amount.getText()).equals("")) {
-					amount.setText("0");
-						
-					warningText = warningText + "You have to select how many students you need space for\n";
+			/*			//checking what we have
+						System.out.println(button1);
+						System.out.println(button2);
+						System.out.println(button3);
+						System.out.println(button4);
+				*/		
+						//searching with text inputs when everything is valid
+						RoomCriteria crit = new RoomCriteria(Integer.parseInt((amount.getText())), Controller.checkValue(cb1.isSelected()), Controller.checkValue(cb2.isSelected()), Controller.checkValue(cb3.isSelected()), Controller.checkValue(cb4.isSelected()));
+						criteriaList.addCriteria(crit);
+						warningText = "Your criteria has been saved";
+						warnings.setText(warningText);
+					}
+					else {
+						warningText += "You must choose how many you students you need capacity for";
+						warnings.setText(warningText);
+					}
+				}
+				//when every field is okay we can continue
+				else {
+					if (Controller.validateName(nameField.getText()) == false) {
+						warningText += "You must write your name \n";
+					}
+					if (Controller.validateAmount(amount.getText()) == false) {
+						warningText += "You must choose how many you students you need capacity for \n"; 
+					}
+					if (Controller.validateSubject(subjectField.getText()) == false ) {
+						warningText += "You must write which subject your teaching \n";
+					}
 					warnings.setText(warningText);
 				}
-				
-				//validates name
-				if (Controller.validateName(nameField.getText())) {
-					nameField.getStyleClass().add("valid");
-		//			System.out.println("whyText is valid");
-				}
-				else {
-		//			System.out.println("whytext is not valid");
-					name.getStyleClass().add("notvalid");
-					warningText = warningText + "You must write your name\n";
-				}
-				
-				//validates subject
-				if (Controller.validateName(subjectField.getText())) {
-					subjectField.getStyleClass().add("valid");
-		//			System.out.println("whyText is valid");
-				}
-				else {
-		//			System.out.println("whytext is not valid");
-					subjectField.getStyleClass().add("notvalid");
-					warningText = warningText + "You must write which subject you're lecturing\n";
-				}
-									
-			
-				RoomCriteria crit = new RoomCriteria(Integer.parseInt((amount.getText())), Controller.checkValue(cb1.isSelected()), Controller.checkValue(cb2.isSelected()), Controller.checkValue(cb3.isSelected()), Controller.checkValue(cb2.isSelected()));
-				criteriaList.addCriteria(crit);
-						
-				//iterate through all criterias}
-				System.out.println(criteriaList.getCriteria(0));
-						
-			}
+			}	
 		});
 
 		
@@ -625,6 +609,11 @@ public class View extends Application{
 			grid.add(rb,1,i);
 		}
 		
+		//add labels
+				Text warnings = new Text("");
+				warnings.getStyleClass().add("description");
+				grid.add(warnings, 1, 8);
+				
 		//button to select room
 				Button selectButton = new Button("Select");
 				selectButton.getStyleClass().add("button");
@@ -633,7 +622,12 @@ public class View extends Application{
 
 		            @Override
 		            public void handle(ActionEvent arg0) {
+		            	//warningstring and room result
+						
 		            	System.out.println("Your room has been booked");
+		            	
+		            	String warningText = "Your room has been booked";
+		            	warnings.setText(warningText);
 		            }
 		        });
 		

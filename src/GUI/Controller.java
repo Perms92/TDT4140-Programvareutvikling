@@ -15,6 +15,21 @@ public class Controller {
 		return search;
 	}
 	
+	
+	public static boolean validateAmount(String amount) {
+		if ((amount).equals("")){
+			return false;
+		}
+		else if (amount.matches("^[0-9]*$")) { 
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	
+	
 	public static boolean checkValue(boolean isPressed){
 		if(isPressed == true) {
 			return true;
@@ -108,6 +123,16 @@ public class Controller {
 			}
 		}
 		catch (Exception e) {
+			return false;
+		}
+	}
+
+
+	public static boolean validateSubject(String subject) {
+		if(subject.length() > 0) {
+			return true;
+		}
+		else {
 			return false;
 		}
 	}
