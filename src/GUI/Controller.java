@@ -16,16 +16,15 @@ public class Controller {
 	}
 	
 	
-	public static int validateAmount(String amount) {
-		if (amount.matches("[0-9]+\\s\\d+")) { 
-		//(amount.equals("")) {
-			//amount.setText("0");
-			System.out.println(Integer.parseInt(amount));
-			System.out.println(amount);
-			return Integer.parseInt(amount);
+	public static boolean validateAmount(String amount) {
+		if ((amount).equals("")){
+			return false;
+		}
+		else if (amount.matches("^[0-9]*$")) { 
+			return true;
 		}
 		else {
-			return 0;
+			return false;
 		}
 	}
 	

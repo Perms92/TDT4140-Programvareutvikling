@@ -147,7 +147,7 @@ public class View extends Application{
 		grid.add(name, 0, 0);
 		
 				
-		Text fag = new Text("What do you need?");
+		Text fag = new Text("What is your email-adress?");
 		fag.getStyleClass().add("description");
 		grid.add(fag, 0, 1);
 
@@ -163,7 +163,7 @@ public class View extends Application{
 		blackboard.getStyleClass().add("description");
 		grid.add(blackboard, 0, 4);
 
-		Text experimentable = new Text("TBA?");
+		Text experimentable = new Text("Do you need hearing aid?");
 		experimentable.getStyleClass().add("description");
 		grid.add(experimentable, 0, 5);
 				
@@ -171,42 +171,35 @@ public class View extends Application{
 		studentCount.getStyleClass().add("description");
 		grid.add(studentCount, 0, 6);
 
-		Text ny2 = new Text("TBA");
-		ny2.getStyleClass().add("description");
-		grid.add(ny2, 0, 7);
-
-
 		//add labels
 		Text warnings = new Text("");
 		warnings.getStyleClass().add("description");
 		grid.add(warnings, 1, 8);
 	
-		/*	showing results in a new page instead
-		Text resultRooms = new Text("");
-		resultRooms.getStyleClass().add("description");
-		grid.add(resultRooms, 1, 9);
-*/
 		//add inputs
 		TextField nameField = new TextField();
 		nameField.setMaxSize(150.0, 30.0);
 		nameField.setMinSize(150.0, 30.0);
 		grid.add(nameField,1,0);
 		
+		
+		TextField mailField = new TextField();
+		mailField.setMaxSize(150.0, 30.0);
+		mailField.setMinSize(150.0, 30.0);
+		grid.add(mailField,1,1);
+		
 		//A checkbox without a caption
 		CheckBox cb1 = new CheckBox();
-		grid.add(cb1,1,1);
+		grid.add(cb1,1,2);
 		
 		CheckBox cb2 = new CheckBox();
-		grid.add(cb2,1,2);
+		grid.add(cb2,1,3);
 		
 		CheckBox cb3 = new CheckBox();
-		grid.add(cb3,1,3);
+		grid.add(cb3,1,4);
 		
 		CheckBox cb4 = new CheckBox();
-		grid.add(cb4,1,4);
-		
-		CheckBox cb5 = new CheckBox();
-		grid.add(cb5,1,5);
+		grid.add(cb4,1,5);
 		
 		TextField amount = new TextField();
 		amount.setMaxSize(150.0, 30.0);
@@ -229,24 +222,45 @@ public class View extends Application{
 			public void handle(ActionEvent e) {
 				String warningText = "";
 			
-				if (Controller.validateName(nameField.getText()) == true) {
-
-					if (Controller.validateAmount(amount.getText()) >= 0)
-					
-					warnings.setText(warningText);
-
-					//searching with text inputs
-					SearchForRoom search = Controller.Search(database, (Controller.validateAmount(amount.getText())), (cb1.isSelected()), (cb2.isSelected()), (cb3.isSelected()));//, Controller.checkValue(cb4.isSelected()))
-
-					roomlist = SearchForRoom.acceptedRooms;
-					System.out.println("Det er så mange godkjente rom: " + SearchForRoom.acceptedRooms.size());
-					
-					searchButton.getScene().setRoot(loadScreenSix());
+				if (Controller.validateName(mailField.getText()) == true) {
+					if ((Controller.validateAmount(amount.getText())) == true) {
+						System.out.println(Controller.validateAmount(amount.getText()));
+						
+						//values saved to be used in database search in the making
+						int capacity = Integer.parseInt(amount.getText());
+						boolean button1 = cb1.isSelected(); //projector
+						boolean button2 = cb2.isSelected(); //blackboard
+						boolean button3 = cb3.isSelected(); //whiteboard
+						boolean button4 = cb4.isSelected(); //hearingaid
+						
+						//checking what we have
+						System.out.println(button1);
+						System.out.println(button2);
+						System.out.println(button3);
+						System.out.println(button4);
+						
+						//searching with text inputs when everything is valid
+						SearchForRoom search = Controller.Search(database, capacity, button2, button3, button4); //, Controller.checkValue(cb4.isSelected()))
+	
+						roomlist = SearchForRoom.acceptedRooms;
+						
+						//loading result page
+						searchButton.getScene().setRoot(loadScreenSix());
+					}
+					else {
+						warningText += "You must choose how many you students you need capacity for";
+						warnings.setText(warningText);
+					}
 				}
 				//when every field is okay we can continue
 				else {
-					System.out.println("amount" + amount.getText());
-					//searchButton.getScene().setRoot(loadScreenSix());
+					if (Controller.validateName(mailField.getText()) == false) {
+						warningText += "You must write your name \n";
+					}
+					if (Controller.validateAmount(amount.getText()) == false) {
+						warningText += "You must choose how many you students you need capacity for"; 
+					}
+					warnings.setText(warningText);
 				}
 			}	
 
@@ -404,7 +418,7 @@ public class View extends Application{
 				criteriaList.addCriteria(crit);
 						
 				//iterate through all criterias}
-				System.out.println(criteriaList.getCriteria(0));
+	//			System.out.println(criteriaList.getCriteria(0));
 						
 			}
 		});
