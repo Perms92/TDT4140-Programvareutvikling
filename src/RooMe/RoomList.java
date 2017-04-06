@@ -32,11 +32,11 @@ public class RoomList {
 	
 	public static void main(String[] args) {
 		RoomList roomlist = new RoomList("Gløshaugen");
-		Room rom = new Room("Rom 1",10, true, true, true, true);
+		Room rom = new Room("Rom 1",10, true, true, true);
 		roomlist.addRoom(rom);
-		Room rom2 = new Room("Rom 2",20, true, false, false, true);
+		Room rom2 = new Room("Rom 2",20, true, false, true);
 		roomlist.addRoom(rom2);
-		Room rom3 = new Room("Rom 3",50, false, false, false, false);
+		Room rom3 = new Room("Rom 3",50, false, false, false);
 		roomlist.addRoom(rom3);
 		System.out.println(roomlist);
 	}	

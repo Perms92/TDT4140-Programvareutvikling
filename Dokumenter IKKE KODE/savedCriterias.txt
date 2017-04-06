@@ -1,0 +1,3 @@
+Per Morten Solheim : 260 : true : true : 4 : true
+Ola Nordman : 300 : true : true : 4 : true
+Tore Strømøy : 100 : true : true : 4 : true
