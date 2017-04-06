@@ -126,4 +126,14 @@ public class Controller {
 			return false;
 		}
 	}
+
+
+	public static boolean validateSubject(String subject) {
+		if(subject.length() > 0) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 }

@@ -222,7 +222,7 @@ public class View extends Application{
 			public void handle(ActionEvent e) {
 				String warningText = "";
 			
-				if (Controller.validateName(mailField.getText()) == true) {
+				if (Controller.validateName(nameField.getText()) == true) {
 					if ((Controller.validateAmount(amount.getText())) == true) {
 						System.out.println(Controller.validateAmount(amount.getText()));
 						
@@ -248,17 +248,17 @@ public class View extends Application{
 						searchButton.getScene().setRoot(loadScreenSix());
 					}
 					else {
-						warningText += "You must choose how many you students you need capacity for";
+						warningText += "You must choose how many you students you need capacity for \n";
 						warnings.setText(warningText);
 					}
 				}
 				//when every field is okay we can continue
 				else {
-					if (Controller.validateName(mailField.getText()) == false) {
+					if (Controller.validateName(nameField.getText()) == false) {
 						warningText += "You must write your name \n";
 					}
 					if (Controller.validateAmount(amount.getText()) == false) {
-						warningText += "You must choose how many you students you need capacity for"; 
+						warningText += "You must choose how many you students you need capacity for \n"; 
 					}
 					warnings.setText(warningText);
 				}
@@ -311,7 +311,7 @@ public class View extends Application{
 		blackboard.getStyleClass().add("description");
 		grid.add(blackboard, 0, 4);
 
-		Text experimentable = new Text("TBA?");
+		Text experimentable = new Text("Do you need hearing aid?");
 		experimentable.getStyleClass().add("description");
 		grid.add(experimentable, 0, 5);
 				
@@ -319,21 +319,11 @@ public class View extends Application{
 		studentCount.getStyleClass().add("description");
 		grid.add(studentCount, 0, 6);
 
-		Text ny2 = new Text("TBA");
-		ny2.getStyleClass().add("description");
-		grid.add(ny2, 0, 7);
-
-
 		//add labels
 		Text warnings = new Text("");
 		fag.getStyleClass().add("description");
 		grid.add(warnings, 1, 8);
 				
-		//add labels
-		Text resultRooms = new Text("");
-		fag.getStyleClass().add("description");
-		grid.add(resultRooms, 1, 9);
-
 		//add inputs
 		TextField nameField = new TextField();
 		nameField.setMaxSize(150.0, 30.0);
@@ -359,8 +349,8 @@ public class View extends Application{
 		grid.add(cb4,1,5);
 				
 		TextField amount = new TextField();
-		amount.setMaxSize(200.0, 30.0);
-		amount.setMinSize(200.0, 30.0);
+		amount.setMaxSize(150.0, 30.0);
+		amount.setMinSize(150.0, 30.0);
 		grid.add(amount, 1, 6);
 
 		//make all unchecked at start
@@ -379,48 +369,49 @@ public class View extends Application{
 		saveButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-			//feilhåndtering før funksjoner
 				String warningText = "";
-						
 				warnings.setText(warningText);
+				if ((Controller.validateName(nameField.getText()) == true) && (Controller.validateSubject(subjectField.getText()) == true )) {
+					
+					if ((Controller.validateAmount(amount.getText())) == true) {
+						//values saved to be used in database search in the making
+						int capacity = Integer.parseInt(amount.getText());
+						boolean button1 = cb1.isSelected(); //projector
+						boolean button2 = cb2.isSelected(); //blackboard
+						boolean button3 = cb3.isSelected(); //whiteboard
+						boolean button4 = cb4.isSelected(); //hearingaid
 						
-				if ((amount.getText()).equals("")) {
-					amount.setText("0");
-						
-					warningText = warningText + "You have to select how many students you need space for\n";
+			/*			//checking what we have
+						System.out.println(button1);
+						System.out.println(button2);
+						System.out.println(button3);
+						System.out.println(button4);
+				*/		
+						//searching with text inputs when everything is valid
+						RoomCriteria crit = new RoomCriteria(Integer.parseInt((amount.getText())), Controller.checkValue(cb1.isSelected()), Controller.checkValue(cb2.isSelected()), Controller.checkValue(cb3.isSelected()), Controller.checkValue(cb4.isSelected()));
+						criteriaList.addCriteria(crit);
+						warningText = "Your criteria has been saved";
+						warnings.setText(warningText);
+					}
+					else {
+						warningText += "You must choose how many you students you need capacity for";
+						warnings.setText(warningText);
+					}
+				}
+				//when every field is okay we can continue
+				else {
+					if (Controller.validateName(nameField.getText()) == false) {
+						warningText += "You must write your name \n";
+					}
+					if (Controller.validateAmount(amount.getText()) == false) {
+						warningText += "You must choose how many you students you need capacity for \n"; 
+					}
+					if (Controller.validateSubject(subjectField.getText()) == false ) {
+						warningText += "You must write which subject your teaching \n";
+					}
 					warnings.setText(warningText);
 				}
-				
-				//validates name
-				if (Controller.validateName(nameField.getText())) {
-					nameField.getStyleClass().add("valid");
-		//			System.out.println("whyText is valid");
-				}
-				else {
-		//			System.out.println("whytext is not valid");
-					name.getStyleClass().add("notvalid");
-					warningText = warningText + "You must write your name\n";
-				}
-				
-				//validates subject
-				if (Controller.validateName(subjectField.getText())) {
-					subjectField.getStyleClass().add("valid");
-		//			System.out.println("whyText is valid");
-				}
-				else {
-		//			System.out.println("whytext is not valid");
-					subjectField.getStyleClass().add("notvalid");
-					warningText = warningText + "You must write which subject you're lecturing\n";
-				}
-									
-			
-				RoomCriteria crit = new RoomCriteria(Integer.parseInt((amount.getText())), Controller.checkValue(cb1.isSelected()), Controller.checkValue(cb2.isSelected()), Controller.checkValue(cb3.isSelected()), Controller.checkValue(cb2.isSelected()));
-				criteriaList.addCriteria(crit);
-						
-				//iterate through all criterias}
-	//			System.out.println(criteriaList.getCriteria(0));
-						
-			}
+			}	
 		});
 
 		
