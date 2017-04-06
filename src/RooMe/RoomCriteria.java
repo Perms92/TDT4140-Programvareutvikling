@@ -56,7 +56,7 @@ public class RoomCriteria extends Room{
 	}
 		
 	public static void main(String[] args) throws SQLException {
-		addRoomCriteria("Kristian Langvann", "TMA4100", 200, true, false, false);
+		//addRoomCriteria("Kristian Langvann", "TMA4100", 200, true, false, false);
 		getRoomCriterias();
 	}
 	

@@ -2,15 +2,20 @@ package GUI;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import RooMe.Database;
+
+
+import OldCode.Database;
+
 import RooMe.SearchForRoom;
 
 public class Controller {
 	
 	//must make database outside functions to avoid duplicates
-	static Database database = new Database("Test");
+	static OldDatabase database = new OldDatabase("Test");
 	
-	public static SearchForRoom Search(Database database, int amount, boolean cb1, boolean cb2, boolean cb3) {
+
+	public static SearchForRoom Search(OldDatabase database, int amount, boolean cb1, boolean cb2, boolean cb3) {
+
 		SearchForRoom search = new SearchForRoom(database, amount, cb1, cb2, cb3);
 		return search;
 	}

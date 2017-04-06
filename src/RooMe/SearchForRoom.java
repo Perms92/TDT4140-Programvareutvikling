@@ -2,6 +2,8 @@ package RooMe;
 
 import java.util.ArrayList;
 
+import OldCode.Database;
+
 public class SearchForRoom {
 	/*
 	 * Cannot search for experimentable rooms yet
@@ -10,7 +12,7 @@ public class SearchForRoom {
 	//public for now while testing GUI
 	public static ArrayList<Room> acceptedRooms = new ArrayList<>();
 	
-	public SearchForRoom(Database database, int space, boolean projector, boolean blackboard, boolean whiteboard) {
+	public SearchForRoom(OldDatabase database, int space, boolean projector, boolean blackboard, boolean whiteboard) {
 		//make temporary list for different criteria
 		ArrayList<Room> okRooms = new ArrayList<>();
 		ArrayList<Room> projectorRooms = new ArrayList<>();
@@ -61,9 +63,9 @@ public class SearchForRoom {
 	}
 	
 	//check if room is big enough
-	public static ArrayList<Room> CheckSize(Database database, int capacity) {
+	public static ArrayList<Room> CheckSize(OldDatabase database, int capacity) {
 		acceptedRooms = new ArrayList<>();
-		for (Object room : Database.Database) {
+		for (Object room : OldDatabase.Database) {
 			if (((Room) room).getSpace() >= capacity) {
 				acceptedRooms.add((Room) room);
 			}
@@ -72,9 +74,9 @@ public class SearchForRoom {
 	}
 	
 	//check if room has blackboard
-	public static ArrayList<Room> CheckBlackboard(Database database, boolean blackboard) {
+	public static ArrayList<Room> CheckBlackboard(OldDatabase database, boolean blackboard) {
 		acceptedRooms = new ArrayList<>();
-		for (Object room : Database.Database) {
+		for (Object room : OldDatabase.Database) {
 			if (((Room) room).isBlackboard() == blackboard) {
 				acceptedRooms.add((Room) room);
 			}
@@ -83,9 +85,9 @@ public class SearchForRoom {
 	}
 	
 	//check if room has whiteboard
-	public static ArrayList<Room> CheckWhiteboard(Database database, boolean whiteboard) {
+	public static ArrayList<Room> CheckWhiteboard(OldDatabase database, boolean whiteboard) {
 		acceptedRooms = new ArrayList<>();
-		for (Object room : Database.Database) {
+		for (Object room : OldDatabase.Database) {
 			if (((Room) room).isWhiteboard() == whiteboard) {
 				acceptedRooms.add((Room) room);
 			}
@@ -94,9 +96,9 @@ public class SearchForRoom {
 	}
 		
 	//check if room has projector
-	public static ArrayList<Room> CheckProjector(Database database, boolean projector) {
+	public static ArrayList<Room> CheckProjector(OldDatabase database, boolean projector) {
 		acceptedRooms = new ArrayList<>();
-		for (Object room : Database.Database) {
+		for (Object room : OldDatabase.Database) {
 			if (((Room) room).isProjector() == projector) {
 				acceptedRooms.add((Room) room);
 			}

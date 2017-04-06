@@ -2,7 +2,9 @@ package GUI;
 
 import java.util.ArrayList;
 
-import RooMe.Database;
+
+import OldCode.Database;
+
 import RooMe.ListOfCriteria;
 import RooMe.Room;
 import RooMe.RoomCriteria;
@@ -27,7 +29,9 @@ public class View extends Application{
 		launch(args);
 	}
 	
-	static Database database = Controller.database;
+
+	static OldDatabase database = Controller.database;
+
 	public static ArrayList<Room> roomlist = new ArrayList<Room>();
 	
 	//this runs when program starts
