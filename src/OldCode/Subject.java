@@ -1,4 +1,4 @@
-package Timetable;
+package OldCode;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

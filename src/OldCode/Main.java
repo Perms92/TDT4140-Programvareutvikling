@@ -1,4 +1,8 @@
-package RooMe;
+package OldCode;
+
+import RooMe.Person;
+import RooMe.Room;
+import RooMe.RoomList;
 
 public class Main {
 	
@@ -8,20 +12,23 @@ public class Main {
 	public void init(){
 		this.roomList = new RoomList("svada");
 		timetable = new TimeTable();
-		Room test = new Room("Test", 100, true, false, false, true);
+		Room test = new Room("Test", 100, true, false, true);
 		roomList.addRoom(test);
 	}
 	
 	public void start(){
-		//Person lektor = new Person();
-		Room rom = new Room("Rom 1", 30, true, true, false, false);
+
+		Person lektor = new Person();
+		Room rom = new Room("Rom 1", 30, true, true,false);
+
 		Person person = new Person();
 		System.out.println(person);
 		RoomRequest req = new RoomRequest(person, 1300, "data" );
-		for (String day : timetable.dager){
-			if (timetable.tider.contains(req.time)){
-				System.out.println(person.getName() + " have now booked: " + 
-						rom + "at time: " + req.time + ", for the subject: " + req.subject );
+
+		for (String day : timetable.days){
+			if (timetable.periods.contains(req.time)){
+				System.out.println(person.firstName + " " + person.lastName + " have now booked: " + 
+						"Test, " + "at time: " + req.time + ", for the subject: " + req.subject );
 			}
 			return;
 			

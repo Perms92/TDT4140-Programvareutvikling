@@ -1,0 +1,30 @@
+.root{
+    -fx-font-size: 16px;
+    -fx-font-family: "Times New Roman"; /*Courier New */
+    -fx-base: #ffffff;
+    -fx-background: #d9d9d9;
+}
+
+#headline {
+	-fx-font-size: 26px;
+	-fx-font-family: "Times New Roman";
+	-fx-position: left;
+}
+
+.check-box {
+    -fx-color: white;
+}
+
+#warnings {
+	-fx-color: red;
+}
+
+
+
+.root {
+-fx-background-image: url("background_image.jpg");
+-fx-background-repeat: stretch;   
+-fx-background-size: 900 506;
+-fx-background-position: center center;
+-fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
+}
