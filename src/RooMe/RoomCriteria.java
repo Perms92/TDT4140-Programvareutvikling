@@ -31,17 +31,33 @@ public class RoomCriteria extends Room{
 		statement.executeUpdate();
 		Database.disconnect();
 	}
-		
-	/*public RoomCriteria(int studentNumbers, boolean projector, boolean blackBoard, boolean whiteBoard, boolean experimentTable) {
-		this.studentNumbers = studentNumbers;
-		this.projector = projector;
-		this.blackBoard = blackBoard;
-		this.whiteBoard = whiteBoard;
-		this.experimentTable = experimentTable;
-	}*/
 	
+	public static void getRoomCriterias() {
+		Database.connect();
+		try {
+			Database.rs = Database.sment.executeQuery("select * from thblaauw_tdt4145database.Criterias");
+			System.out.printf("%-20s %-9s %-10s %-11s %-12s %-12s","Foreleser", "Fag", "Capacity", "Projector", "Blackboard", "Whiteboard"+"\n");
+			System.out.println("---------------------------------------------------------------------------------------------");
+			while (Database.rs.next()){
+				System.out.printf("%-20s %-9s %-10s %-11s %-12s %-12s"
+						+ "", Database.rs.getString(1),
+									Database.rs.getString(2),
+									Database.rs.getInt(3),
+									Database.rs.getBoolean(4),
+									Database.rs.getBoolean(5),
+									Database.rs.getBoolean(6));
+				System.out.println("");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Database.disconnect(); 
+	}
+		
 	public static void main(String[] args) throws SQLException {
-		addRoomCriteria("Trym Blaauw", "TDT4140", 400, false, false, false);
+		addRoomCriteria("Kristian Langvann", "TMA4100", 200, true, false, false);
+		getRoomCriterias();
 	}
 	
 }

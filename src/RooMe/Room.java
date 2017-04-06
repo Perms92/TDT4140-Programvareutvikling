@@ -96,7 +96,7 @@ public class Room{
 	}*/
 
 	public static void main(String[] args) throws SQLException {
-		addRoom("R1", 80, false, false, false);
+		//addRoom("R1", 80, false, false, false);
 		//deleteRoom("R1");
 		getRooms();
 	}
