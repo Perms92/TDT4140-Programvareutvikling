@@ -29,6 +29,7 @@ public class Room{
 
 	public void setCapacity(int capacity) {
 		this.capacity = capacity;
+
 	}
 
 	public boolean isProjector() {
@@ -104,8 +105,17 @@ public class Room{
 	public static void deleteRoom(String name) throws SQLException {
 	Database.connect();
 	//Lag metoden slik at du ikke kan lage to rom med samme navn, uavhengig av caps (R1 og r1 går ikke).
+		try {
 	
-	/* SKAL IKKE VÆRE MULIG Å GI NULL SOM NAVN LENGER
+			Database.sment.executeUpdate("DELETE FROM thblaauw_tdt4145database.Room"
+					+ " WHERE Room.Name ='" + name + "'");
+			System.out.println("The room with name: "+name+" is deleted from the database.\n");
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			Database.disconnect();
+		}
+	/* SKAL IKKE VÆRE MULIG Å GI NULL SOM NAVN LENGER - kan legge dette inn i deleteRoom
 	 if (name == "null") {
 		try {
 			Database.sment.executeUpdate("DELETE FROM thblaauw_tdt4145database.Room"
@@ -117,31 +127,6 @@ public class Room{
 			Database.disconnect();
 			}
 	else {*/
-		try {
-	
-			Database.sment.executeUpdate("DELETE FROM thblaauw_tdt4145database.Room"
-					+ " WHERE Room.Name ='" + name + "'");
-			System.out.println("The room with name: "+name+" is deleted from the database.\n");
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			Database.disconnect();
-		}
-
-	/*public static void addGoal(Goal goal) throws SQLException{
-		Database.connect();
-		String sql = "INSERT INTO oyvorsh_treningsdatabase.Maal\n"
-				+ "(oID, Beskrivelse, fraDato, tilDato)\n"
-				+ "VALUES(?, ?, ?, ?)";
-		
-		PreparedStatement statement = conn.prepareStatement(sql);
-		statement.setInt(1, goal.getoID());
-		statement.setString(2, goal.getBeskrivelse());
-		statement.setDate(3, goal.getTilDato());
-		statement.setDate(4, goal.getFraDato());
-		statement.executeUpdate();
-		Database.disconnect();
-	}*/
 
 	public static void main(String[] args) throws SQLException {
 		addRoom("R9", 71, true, false, true);
@@ -149,9 +134,10 @@ public class Room{
 		
 		//deleteRoom("R1");
 		printRooms();
-	}
-	
+		}
 	public String toString() {
 		return  name + " " + capacity + " " + projector + " " + blackboard + " " + whiteboard; 
 	}
-	}
+
+}
+
