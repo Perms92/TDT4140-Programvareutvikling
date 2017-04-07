@@ -9,7 +9,6 @@ import Database.Database;
 import RooMe.ListOfCriteria;
 import RooMe.Room;
 import RooMe.RoomCriteria;
-import RooMe.SearchForRoom;
 import RooMe.SearchForRoomDB;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -387,6 +386,8 @@ public class View extends Application{
 					
 					if ((Controller.validateAmount(amount.getText())) == true) {
 						//values saved to be used in database search in the making
+						String name = nameField.getText();
+						String subject = subjectField.getText();
 						int capacity = Integer.parseInt(amount.getText());
 						boolean button1 = cb1.isSelected(); //projector
 						boolean button2 = cb2.isSelected(); //blackboard
@@ -400,8 +401,15 @@ public class View extends Application{
 						System.out.println(button4);
 				*/		
 						//searching with text inputs when everything is valid
-				//		RoomCriteria crit = new RoomCriteria(Integer.parseInt((amount.getText())), Controller.checkValue(cb1.isSelected()), Controller.checkValue(cb2.isSelected()), Controller.checkValue(cb3.isSelected()), Controller.checkValue(cb4.isSelected()));
-				//		criteriaList.addCriteria(crit);
+						try {
+							RoomCriteria.addRoomCriteria(name, subject, capacity, button1, button2, button3);
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						//showing results while programming
+						RoomCriteria.getRoomCriterias();
+						
 						warningText = "Your criteria has been saved";
 						warnings.setText(warningText);
 					}
