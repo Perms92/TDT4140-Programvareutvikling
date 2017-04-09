@@ -132,7 +132,21 @@ public class Room{
 		}
 	
 	public String toString() {
-		return  name + " " + capacity + " " + projector + " " + blackboard + " " + whiteboard; 
+		String name = this.name;
+		String capacity = Integer.toString(this.capacity) + "	";
+		String textprojector = "No	";
+		String textblackboard = "No	";
+		String textwhiteboard = "No	";
+		if (projector == true) {
+			textprojector = "Yes";
+		}
+		if (blackboard == true) {
+			textblackboard = "Yes";
+		}
+		if (whiteboard == true) {
+			textwhiteboard = "Yes";
+		}
+		return  name + " 	|	 " + capacity + " 	|	 " + textprojector + " 	|	 " + textblackboard + " 	|	 " + textwhiteboard; 
 	}
 
 /*

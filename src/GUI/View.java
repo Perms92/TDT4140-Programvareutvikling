@@ -623,21 +623,29 @@ public class View extends Application{
 			
 			Text room = new Text(roomlist.get(i).toString());
 			room.getStyleClass().add("description"); //find out what this does
-			grid.add(room, 0, i);
+			grid.add(room, 0, (i)+1);
 			
 			RadioButton rb = new RadioButton("");
-			grid.add(rb,1,i);
+			grid.add(rb,1,(i)+1);
 		}
 		
 		//add labels
 				Text warnings = new Text("");
 				warnings.getStyleClass().add("description");
-				grid.add(warnings, 1, 8);
+				grid.add(warnings, 2, 8);
+				
+			
+				Text infoField = new Text("");
+				infoField.getStyleClass().add("description");
+				grid.add(infoField, 0, 0);
+				
+				String infotext = "Name | Capacity	| Projector	| Whiteboard	| Blackboard";
+            	infoField.setText(infotext);
 				
 		//button to select room
 				Button selectButton = new Button("Select");
 				selectButton.getStyleClass().add("button");
-				grid.add(selectButton, 1, 7);
+				grid.add(selectButton, 2, 7);
 		        selectButton.setOnAction(new EventHandler<ActionEvent>() {
 
 		            @Override
@@ -654,7 +662,7 @@ public class View extends Application{
 		//button to go back into serach
 		Button backButton = new Button("Go back");
 		backButton.getStyleClass().add("button");
-		grid.add(backButton, 0, 7);
+		grid.add(backButton, 2, 0);
         backButton.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
