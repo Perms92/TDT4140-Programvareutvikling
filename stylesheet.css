@@ -15,8 +15,8 @@
     -fx-color: white;
 }
 
-#warnings {
-	-fx-color: red;
+#warning {
+	-fx-fill: red;
 }
 
 

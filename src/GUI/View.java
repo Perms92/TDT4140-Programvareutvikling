@@ -1,6 +1,7 @@
 package GUI;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 
@@ -18,6 +19,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -40,7 +42,7 @@ public class View extends Application{
 	public void start(Stage primaryStage) throws Exception {
 		primaryStage.setTitle("RooME");
 
-		Scene scene = new Scene(loadScreenOne(), 800, 400);
+		Scene scene = new Scene(loadScreenOne(), 900, 500);
 		scene.getStylesheets().add("file:stylesheet.css");
 		
 		primaryStage.setScene(scene);
@@ -175,22 +177,35 @@ public class View extends Application{
 		Text studentCount = new Text("How many students do you need space for?");
 		studentCount.getStyleClass().add("description");
 		grid.add(studentCount, 0, 6);
+		
+		Text dateText = new Text("Which date do you need the room?");
+		dateText.getStyleClass().add("description");
+		grid.add(dateText, 0, 7);
+		
+		Text fromTimeText = new Text("From what time do you need the room?");
+		fromTimeText.getStyleClass().add("description");
+		grid.add(fromTimeText, 0, 8);
+		
+		Text toTimeText = new Text("To what time do you need the room?");
+		toTimeText.getStyleClass().add("description");
+		grid.add(toTimeText, 0, 9);
 
 		//add labels
 		Text warnings = new Text("");
 		warnings.getStyleClass().add("description");
-		grid.add(warnings, 1, 8);
+		warnings.setId("warning");
+		grid.add(warnings, 0, 10);
 	
 		//add inputs
 		TextField nameField = new TextField();
-		nameField.setMaxSize(150.0, 30.0);
-		nameField.setMinSize(150.0, 30.0);
+		nameField.setMaxSize(150.0, 25.0);
+		nameField.setMinSize(150.0, 25.0);
 		grid.add(nameField,1,0);
 		
 		
 		TextField mailField = new TextField();
-		mailField.setMaxSize(150.0, 30.0);
-		mailField.setMinSize(150.0, 30.0);
+		mailField.setMaxSize(150.0, 25.0);
+		mailField.setMinSize(150.0, 25.0);
 		grid.add(mailField,1,1);
 		
 		//A checkbox without a caption
@@ -207,9 +222,25 @@ public class View extends Application{
 		grid.add(cb4,1,5);
 		
 		TextField amount = new TextField();
-		amount.setMaxSize(150.0, 30.0);
-		amount.setMinSize(150.0, 30.0);
+		amount.setMaxSize(150.0, 25.0);
+		amount.setMinSize(150.0, 25.0);
 		grid.add(amount, 1, 6);
+			
+		DatePicker dateField = new DatePicker();
+		dateField.setMaxSize(150.0, 25.0);
+		dateField.setMinSize(150.0, 25.0);
+		grid.add(dateField, 1, 7);
+		
+		TextField fromTime = new TextField();
+		fromTime.setMaxSize(150.0, 25.0);
+		fromTime.setMinSize(150.0, 25.0);
+		grid.add(fromTime, 1, 8);
+		
+		TextField toTime = new TextField();
+		toTime.setMaxSize(150.0, 25.0);
+		toTime.setMinSize(150.0, 25.0);
+		grid.add(toTime, 1, 9);
+	
 
 		//make all unchecked at start
 		cb1.setSelected(false);
@@ -220,15 +251,18 @@ public class View extends Application{
 		//add search button that triggers function when clicked
 		Button searchButton = new Button("Search for rooms");
 		searchButton.getStyleClass().add("button");
-		grid.add(searchButton, 1, 7);
+		grid.add(searchButton, 2, 7);
 
 		searchButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
 				String warningText = "";
-			
+				
 				if (Controller.validateName(nameField.getText()) == true) {
-					if ((Controller.validateAmount(amount.getText())) == true) {
+					if (((Controller.validateAmount(amount.getText())) == true) 
+							&& (Controller.validateAmount(amount.getText()) == true) 
+							&& (Controller.validateDate(dateField.getValue()) == true)
+							&& (Controller.validateTime(fromTime.getText(), toTime.getText())) == true) {
 						System.out.println(Controller.validateAmount(amount.getText()));
 						
 						//values saved to be used in database search in the making
@@ -259,17 +293,32 @@ public class View extends Application{
 						searchButton.getScene().setRoot(loadScreenSix());
 					}
 					else {
-						warningText += "You must choose how many you students you need capacity for \n";
+						if (Controller.validateAmount(amount.getText()) == false) {
+							warningText += "You must choose how many you students you need capacity for \n"; 
+						}
+						if (Controller.validateDate(dateField.getValue()) == false) {
+							warningText += "You must choose a date in the future \n";
+						}
+						if (Controller.validateTime(fromTime.getText(), toTime.getText()) == false) {
+							warningText += "You must choose a endtime later than starttime \n";
+						}
 						warnings.setText(warningText);
 					}
 				}
 				//when every field is okay we can continue
 				else {
+					System.out.println(fromTime.getText() + toTime.getText());
 					if (Controller.validateName(nameField.getText()) == false) {
 						warningText += "You must write your name \n";
 					}
 					if (Controller.validateAmount(amount.getText()) == false) {
 						warningText += "You must choose how many you students you need capacity for \n"; 
+					}
+					if (Controller.validateDate(dateField.getValue()) == false) {
+						warningText += "You must choose a date in the future \n";
+					}
+					if (Controller.validateTime(fromTime.getText(), toTime.getText()) == false) {
+						warningText += "You must choose a endtime later than starttime \n";
 					}
 					warnings.setText(warningText);
 				}
@@ -280,7 +329,7 @@ public class View extends Application{
 		//button to go back to first page
 		Button backButton = new Button("Go back");
 		backButton.getStyleClass().add("button");
-		grid.add(backButton, 0, 7);
+		grid.add(backButton, 2, 0);
         backButton.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
