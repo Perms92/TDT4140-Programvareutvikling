@@ -1,19 +1,35 @@
 package GUI;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import RooMe.Database;
-import RooMe.SearchForRoom;
+import RooMe.SearchForRoomDB;
 
 public class Controller {
 	
 	//must make database outside functions to avoid duplicates
-	static Database database = new Database("Test");
+	//static OldDatabase database = new OldDatabase("Test");
 	
-	public static SearchForRoom Search(Database database, int amount, boolean cb1, boolean cb2, boolean cb3) {
-		SearchForRoom search = new SearchForRoom(database, amount, cb1, cb2, cb3);
+
+	public static SearchForRoomDB Search(int amount, boolean cb1, boolean cb2, boolean cb3) throws SQLException {
+		SearchForRoomDB search = new SearchForRoomDB(amount, cb1, cb2, cb3);
 		return search;
 	}
+	
+	
+	public static boolean validateAmount(String amount) {
+		if ((amount).equals("")){
+			return false;
+		}
+		else if (amount.matches("^[0-9]*$")) { 
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	
 	
 	public static boolean checkValue(boolean isPressed){
 		if(isPressed == true) {
@@ -33,16 +49,6 @@ public class Controller {
 			return false;
 		}
 
-	}
-	
-	//none below used at the moment, from MMI
-	public static boolean validateRoom(String room) {
-		if (room.matches("[a-zA-Z]+[-][a-zA-Z]+\\s\\d+")) {
-			return true;
-		}
-		else {
-			return false;
-		}
 	}
 
 	public static boolean validateDate(LocalDate fromDate) {
@@ -83,6 +89,17 @@ public class Controller {
 		}
 	}
 
+	
+	//none below used at the moment, from MMI
+	public static boolean validateRoom(String room) {
+		if (room.matches("[a-zA-Z]+[-][a-zA-Z]+\\s\\d+")) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
 	public static boolean validateRepetition(String repetition) {
 		try {
 			Integer.parseInt(repetition);
@@ -108,6 +125,16 @@ public class Controller {
 			}
 		}
 		catch (Exception e) {
+			return false;
+		}
+	}
+
+
+	public static boolean validateSubject(String subject) {
+		if(subject.length() > 0) {
+			return true;
+		}
+		else {
 			return false;
 		}
 	}
