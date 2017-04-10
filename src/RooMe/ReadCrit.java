@@ -29,7 +29,7 @@ public class ReadCrit {
 				String name = parts[0];
 				int capasity = Integer.parseInt(parts[1]);
 				Boolean projector = Boolean.valueOf(parts[2]);
-				Boolean blacbBoard = Boolean.valueOf(parts[3]);
+				Boolean blackBoard = Boolean.valueOf(parts[3]);
 				int hours = Integer.parseInt(parts[4]);
 				Boolean hearingAid = Boolean.valueOf(parts[5]);
 				System.out.println(name);

@@ -13,7 +13,7 @@ public class Room{
 	private boolean blackboard;
 	private boolean whiteboard;
 	private String name;
-	private int roomID;
+//	private int roomID;
 	
 	protected Room(String name, int capacity, boolean projector, boolean blackboard, boolean whiteboard) {
 		setName(name);

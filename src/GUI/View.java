@@ -3,10 +3,6 @@ package GUI;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-
-
-import Database.Database;
-
 import RooMe.ListOfCriteria;
 import RooMe.Room;
 import RooMe.RoomCriteria;
@@ -271,12 +267,18 @@ public class View extends Application{
 						boolean button2 = cb2.isSelected(); //blackboard
 						boolean button3 = cb3.isSelected(); //whiteboard
 						boolean button4 = cb4.isSelected(); //hearingaid
+						String ftime = fromTime.getText();
+						String ttime = toTime.getText();
+						LocalDate date = dateField.getValue();
 						
 						//checking what we have
 						System.out.println(button1);
 						System.out.println(button2);
 						System.out.println(button3);
 						System.out.println(button4);
+						System.out.println(ftime);
+						System.out.println(ttime);
+						System.out.println(date);
 						
 						//searching with text inputs when everything is valid
 						//SearchForRoom search = Controller.Search(database, capacity, button2, button3, button4); //, Controller.checkValue(cb4.isSelected()))
