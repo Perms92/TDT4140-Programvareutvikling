@@ -1,13 +1,19 @@
 package GUI;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
-
-import OldCode.Database;
 import OldCode.SearchForRoom;
 import RooMe.ListOfCriteria;
 import RooMe.Room;
 import RooMe.RoomCriteria;
+import Database.Database;
+import RooMe.ListOfCriteria;
+import RooMe.Room;
+import RooMe.RoomCriteria;
+import RooMe.SearchForRoomDB;
+
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -29,7 +35,7 @@ public class View extends Application{
 	}
 	
 
-	static OldDatabase database = Controller.database;
+	//static OldDatabase database = Controller.database;
 
 	public static ArrayList<Room> roomlist = new ArrayList<Room>();
 	
@@ -243,9 +249,15 @@ public class View extends Application{
 						System.out.println(button4);
 						
 						//searching with text inputs when everything is valid
-						SearchForRoom search = Controller.Search(database, capacity, button2, button3, button4); //, Controller.checkValue(cb4.isSelected()))
-	
-						roomlist = SearchForRoom.acceptedRooms;
+						//SearchForRoom search = Controller.Search(database, capacity, button2, button3, button4); //, Controller.checkValue(cb4.isSelected()))
+						try {
+							SearchForRoomDB search = Controller.Search(capacity, button1, button2, button3);
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} 
+								
+						roomlist = SearchForRoomDB.acceptedRooms;
 						
 						//loading result page
 						searchButton.getScene().setRoot(loadScreenSix());
@@ -378,6 +390,8 @@ public class View extends Application{
 					
 					if ((Controller.validateAmount(amount.getText())) == true) {
 						//values saved to be used in database search in the making
+						String name = nameField.getText();
+						String subject = subjectField.getText();
 						int capacity = Integer.parseInt(amount.getText());
 						boolean button1 = cb1.isSelected(); //projector
 						boolean button2 = cb2.isSelected(); //blackboard
@@ -391,8 +405,15 @@ public class View extends Application{
 						System.out.println(button4);
 				*/		
 						//searching with text inputs when everything is valid
-						RoomCriteria crit = new RoomCriteria(Integer.parseInt((amount.getText())), Controller.checkValue(cb1.isSelected()), Controller.checkValue(cb2.isSelected()), Controller.checkValue(cb3.isSelected()), Controller.checkValue(cb4.isSelected()));
-						criteriaList.addCriteria(crit);
+						try {
+							RoomCriteria.addRoomCriteria(name, subject, capacity, button1, button2, button3);
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						//showing results while programming
+						RoomCriteria.getRoomCriterias();
+						
 						warningText = "Your criteria has been saved";
 						warnings.setText(warningText);
 					}
@@ -542,8 +563,8 @@ public class View extends Application{
 				}
 									
 			
-				RoomCriteria crit = new RoomCriteria(Integer.parseInt((amount.getText())), Controller.checkValue(cb1.isSelected()), Controller.checkValue(cb2.isSelected()), Controller.checkValue(cb3.isSelected()), Controller.checkValue(cb2.isSelected()));
-				criteriaList.addCriteria(crit);
+		//		RoomCriteria crit = new RoomCriteria(Integer.parseInt((amount.getText())), Controller.checkValue(cb1.isSelected()), Controller.checkValue(cb2.isSelected()), Controller.checkValue(cb3.isSelected()), Controller.checkValue(cb2.isSelected()));
+		//		criteriaList.addCriteria(crit);
 						
 				//iterate through all criterias}
 				System.out.println(criteriaList.getCriteria(0));
@@ -606,21 +627,29 @@ public class View extends Application{
 			
 			Text room = new Text(roomlist.get(i).toString());
 			room.getStyleClass().add("description"); //find out what this does
-			grid.add(room, 0, i);
+			grid.add(room, 0, (i)+1);
 			
 			RadioButton rb = new RadioButton("");
-			grid.add(rb,1,i);
+			grid.add(rb,1,(i)+1);
 		}
 		
 		//add labels
 				Text warnings = new Text("");
 				warnings.getStyleClass().add("description");
-				grid.add(warnings, 1, 8);
+				grid.add(warnings, 2, 8);
+				
+			
+				Text infoField = new Text("");
+				infoField.getStyleClass().add("description");
+				grid.add(infoField, 0, 0);
+				
+				String infotext = "Name | Capacity	| Projector	| Whiteboard	| Blackboard";
+            	infoField.setText(infotext);
 				
 		//button to select room
 				Button selectButton = new Button("Select");
 				selectButton.getStyleClass().add("button");
-				grid.add(selectButton, 1, 7);
+				grid.add(selectButton, 2, 7);
 		        selectButton.setOnAction(new EventHandler<ActionEvent>() {
 
 		            @Override
@@ -637,7 +666,7 @@ public class View extends Application{
 		//button to go back into serach
 		Button backButton = new Button("Go back");
 		backButton.getStyleClass().add("button");
-		grid.add(backButton, 0, 7);
+		grid.add(backButton, 2, 0);
         backButton.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override

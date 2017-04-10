@@ -103,11 +103,11 @@ public class Room{
 	}
 	
 	public static void deleteRoom(String name) throws SQLException {
-	Database.connect();
-	}
+
+		Database.connect();
 	//Lag metoden slik at du ikke kan lage to rom med samme navn, uavhengig av caps (R1 og r1 går ikke).
 
-	/* SKAL IKKE VÆRE MULIG Å GI NULL SOM NAVN LENGER
+	// SKAL IKKE VÆRE MULIG Å GI NULL SOM NAVN LENGER
 	 if (name == "null") {
 		try {
 	
@@ -118,30 +118,36 @@ public class Room{
 				e.printStackTrace();
 			}
 			Database.disconnect();
-		}
-	/* SKAL IKKE VÆRE MULIG Å GI NULL SOM NAVN LENGER - kan legge dette inn i deleteRoom
-	 if (name == "null") {
-		try {
-			Database.sment.executeUpdate("DELETE FROM thblaauw_tdt4145database.Room"
-					+ " WHERE Room.Name IS NULL");
-			System.out.println("The room(s) without name(s) are deleted from the database.\n");
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			Database.disconnect();
-			}
-	else {*/
+	 	}
+	 }
 
+	
+		
 	public static void main(String[] args) throws SQLException {
 		//addRoom("R9", 71, true, false, true);
+		//addRoom("R10", 71, true, false, true);
 		//deleteRoom("R1");
 		printRooms();
 		}
-	public String toString() {
-		return  name + " " + capacity + " " + projector + " " + blackboard + " " + whiteboard; 
-	}
 	
+	public String toString() {
+		String name = this.name;
+		String capacity = Integer.toString(this.capacity) + "	";
+		String textprojector = "No	";
+		String textblackboard = "No	";
+		String textwhiteboard = "No	";
+		if (projector == true) {
+			textprojector = "Yes";
+		}
+		if (blackboard == true) {
+			textblackboard = "Yes";
+		}
+		if (whiteboard == true) {
+			textwhiteboard = "Yes";
+		}
+		return  name + " 	|	 " + capacity + " 	|	 " + textprojector + " 	|	 " + textblackboard + " 	|	 " + textwhiteboard; 
 	}
+
 /*
 	@Override
 	public String toString() {
@@ -160,4 +166,6 @@ public class Room{
 		System.out.println(test.getRoomID());
 	}
 */
+
+}
 

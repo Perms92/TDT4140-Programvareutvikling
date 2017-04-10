@@ -1,21 +1,21 @@
 package GUI;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-
 import OldCode.Database;
 import OldCode.SearchForRoom;
+import RooMe.SearchForRoomDB;
 
 public class Controller {
 	
 	//must make database outside functions to avoid duplicates
-	static OldDatabase database = new OldDatabase("Test");
+	//static OldDatabase database = new OldDatabase("Test");
 	
 
-	public static SearchForRoom Search(OldDatabase database, int amount, boolean cb1, boolean cb2, boolean cb3) {
-
-		SearchForRoom search = new SearchForRoom(database, amount, cb1, cb2, cb3);
+	public static SearchForRoomDB Search(int amount, boolean cb1, boolean cb2, boolean cb3) throws SQLException {
+		SearchForRoomDB search = new SearchForRoomDB(amount, cb1, cb2, cb3);
 		return search;
 	}
 	
