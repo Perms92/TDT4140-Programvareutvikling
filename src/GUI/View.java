@@ -4,11 +4,10 @@ import java.util.ArrayList;
 
 
 import OldCode.Database;
-
+import OldCode.SearchForRoom;
 import RooMe.ListOfCriteria;
 import RooMe.Room;
 import RooMe.RoomCriteria;
-import RooMe.SearchForRoom;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
