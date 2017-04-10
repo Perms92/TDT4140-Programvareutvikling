@@ -1,44 +1,34 @@
-Read me RooMe
+https://changelog.com/posts/a-beginners-guide-to-creating-a-readme
+https://help.github.com/articles/basic-writing-and-formatting-syntax/
+If you are just starting out with open source one of the most important things to include is good documentation. This starts with a solid README file. At its core a README should include:
 
-Here is some information about the different classes
-and how they work in the program
 
 
-Main.java
-This class is, as it's name indicates, the main class.
-It is the class the program will run through when we don't
-have a user interface to go through.
-Now (06.03.17) it makes an example with making a person and linking
-it up to a test room.
+#RooME
 
-Person.java
-This class creates a person as that person makes a profile
-It takes a series of variables that makes the person
-The variables are: name, proffesion (student/lecturer), person ID.
+#Project information:
+What does your project do? Share the vision of the need that your project is trying to meet.
+   
+#Setup:
+How is it set up? 
+If someone were to pick up your codebase today how would they get everything running in their local environment.
 
-RoomCriteria.java
-This class takes in the criterias a lecturer have for a room.
-It takes in if the lecturer needs projector, white- and blackboard,
-experiment table, and how many students he expects.
+#Usage:
+How is it used? Once it's up and running provide some very descriptive examples of usage.
 
-Database.java
-This is a class that makes 5 rooms so we can use to test our functions in the program.
-The plan is to exchange this class with SQL database.
+#Project shape:
+Is it in good shape? Do you have code climate, codeship,
+ or other tools running to indicate the health of the project? Include information on dependencies as well.
 
-SearchForRoom.java
-This is a class where you can search for rooms with special criteria, 
-or you can check which rooms has certain functions.
+#How to help
+How can others help? Collaboration yields amazing software. 
+Make it easy for others to get involved by letting them know how to submit new features, 
+report issues, or offer other assistance.
 
-Room.java
-This is the objects that our system should handle, searching for and comparing with each other
+#Licenes Information
+License information Don't forget to let others know what license your project is released under. 
+Not sure? Oreilly has an open book on understanding licensing.
 
-GetRoom.java
-Denne klassen kombinerer input fra RoomCriteria med søkefunksjonen i SearchForRoom og henter ut passende rom fra Database.java
 
-Classes not in use:
-RoomList.java
-sokRom.java
-Subject.java
-WeekplanTimetable.java
-TimeTable.java
-Main.java
+**notes**
+*test*
