@@ -104,6 +104,7 @@ public class Room{
 	
 	public static void deleteRoom(String name) throws SQLException {
 	Database.connect();
+	}
 	//Lag metoden slik at du ikke kan lage to rom med samme navn, uavhengig av caps (R1 og r1 går ikke).
 
 	/* SKAL IKKE VÆRE MULIG Å GI NULL SOM NAVN LENGER
@@ -132,18 +133,14 @@ public class Room{
 	else {*/
 
 	public static void main(String[] args) throws SQLException {
-		addRoom("R9", 71, true, false, true);
-		
-		
+		//addRoom("R9", 71, true, false, true);
 		//deleteRoom("R1");
 		printRooms();
 		}
 	public String toString() {
 		return  name + " " + capacity + " " + projector + " " + blackboard + " " + whiteboard; 
-
-	@Override 
-	public String toString(){
-		return "Name: " + name + "\t" + capacity + "\t" + projector + "\t" + whiteboard + "\t" + blackboard  + "\t";
+	}
+	
 	}
 /*
 	@Override
@@ -163,4 +160,4 @@ public class Room{
 		System.out.println(test.getRoomID());
 	}
 */
-}
+

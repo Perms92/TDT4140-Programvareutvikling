@@ -1,5 +1,6 @@
 package Database;
 import java.sql.*;
+
 public class Database {
 	public static Connection conn=null;
 	public static Statement sment=null;
