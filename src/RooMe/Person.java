@@ -98,7 +98,7 @@ public class Person {
 	}
 
 	public static void main(String[] args) {
-		Person person = new Person();
+		new Person();
 		//Person person2 = new Person();
 		System.out.println(personIdList);
 		System.out.println(personList);

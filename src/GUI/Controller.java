@@ -53,16 +53,6 @@ public class Controller {
 		}
 
 	}
-	
-	//none below used at the moment, from MMI
-	public static boolean validateRoom(String room) {
-		if (room.matches("[a-zA-Z]+[-][a-zA-Z]+\\s\\d+")) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
 
 	public static boolean validateDate(LocalDate fromDate) {
 		LocalDate today = LocalDate.now();
@@ -102,6 +92,17 @@ public class Controller {
 		}
 	}
 
+	
+	//none below used at the moment, from MMI
+	public static boolean validateRoom(String room) {
+		if (room.matches("[a-zA-Z]+[-][a-zA-Z]+\\s\\d+")) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
 	public static boolean validateRepetition(String repetition) {
 		try {
 			Integer.parseInt(repetition);
