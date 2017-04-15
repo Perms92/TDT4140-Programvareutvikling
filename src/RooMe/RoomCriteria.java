@@ -10,6 +10,7 @@ public class RoomCriteria extends Room{
 	public String PersonName;
 	public String fag;
 	
+	
 	protected RoomCriteria(String personName, String fag, String name, int capacity, boolean projector, boolean blackboard, boolean whiteboard) {
 		super(name, capacity, projector, blackboard, whiteboard);
 		this.PersonName = personName;
