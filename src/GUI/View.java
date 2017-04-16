@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import RooMe.ListOfCriteria;
+import OldCode.ListOfCriteria;
 import RooMe.Room;
 import RooMe.RoomCriteria;
 import RooMe.SearchForRoomDB;

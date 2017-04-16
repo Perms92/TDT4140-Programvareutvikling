@@ -21,12 +21,18 @@ public class AssignRooms {
 	 * sjekk treff mot hverandre og fordel slik at alle klaffer
 	 */
 	
-	public static ListOfCriteria crits = new ListOfCriteria();
-	public static ArrayList<Criterion> criteriaList;
+	public static ArrayList<RoomCriteria> criteriaList;
 	
 	public static void InitCrits() {
-		crits.makeCrits();
-		criteriaList = crits.criteriaList;
+		try {
+			RoomCriteria.listOfCriterion();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally {
+			criteriaList = RoomCriteria.list;
+		}
 	}
 	
 	public static SearchForRoomDB roomDB;
@@ -50,21 +56,13 @@ public class AssignRooms {
 		}
 	}
 	
-	public static ArrayList potentialCombos = new ArrayList<>();
-	
 	public static void CombineSearch() {
-		for (Criterion crit : criteriaList) {
-			System.out.println(crit);
+		for (RoomCriteria crit : criteriaList) {
 			for (Room room : rooms) {
-				
 				if (crit.getCapacity() < room.getCapacity()) {
 					if ((crit.isProjector() == room.isProjector()) || crit.isProjector() == false) {
 						if ((crit.isBlackboard() == room.isBlackboard()) || crit.isBlackboard() == false) {
 							if ((crit.isHearingaid() == room.isWhiteboard()) || crit.isHearingaid() == false) {
-					/*			System.out.println(room.getName() + " is big enough");
-								System.out.println(room.getName() + " has projector");
-								System.out.println(room.getName() + " has blackboard");
-								System.out.println(room.getName() + " has hearingaid");			*/
 								crit.criterionCombos.add(room);
 							}
 						}
@@ -75,7 +73,7 @@ public class AssignRooms {
 	}
 	
 	public static void Combos () {
-		for (Criterion crit : criteriaList) {
+		for (RoomCriteria crit : criteriaList) {
 			System.out.println(crit.criterionCombos);
 		}
 	}
@@ -83,9 +81,6 @@ public class AssignRooms {
 	public static void main(String[] args) {
 		InitCrits();
 		InitRooms();
-	//	System.out.println(crits.criteriaList.get(0));
-	//	IterateList(criteriaList);
-	//	IterateList(rooms);
 		CombineSearch();
 		Combos();
 	}
