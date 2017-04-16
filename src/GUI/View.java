@@ -568,7 +568,7 @@ public class View extends Application{
 		cb3.setSelected(false);
 		cb4.setSelected(false);
 
-		ListOfCriteria criteriaList = new ListOfCriteria();
+	//	ListOfCriteria criteriaList = new ListOfCriteria();
 				
 		//add search button that triggers function when clicked
 		Button saveButton = new Button("Save your criteria");
@@ -595,7 +595,7 @@ public class View extends Application{
 		//		criteriaList.addCriteria(crit);
 						
 				//iterate through all criterias}
-				System.out.println(criteriaList.getCriteria(0));
+	//			System.out.println(criteriaList.getCriteria(0));
 						
 			}
 		});
@@ -662,36 +662,36 @@ public class View extends Application{
 		}
 		
 		//add labels
-				Text warnings = new Text("");
-				warnings.getStyleClass().add("description");
-				grid.add(warnings, 2, 8);
+		Text warnings = new Text("");
+		warnings.getStyleClass().add("description");
+		grid.add(warnings, 2, 8);
 				
 			
-				Text infoField = new Text("");
-				infoField.getStyleClass().add("description");
-				grid.add(infoField, 0, 0);
+		Text infoField = new Text("");
+		infoField.getStyleClass().add("description");
+		grid.add(infoField, 0, 0);
 				
-				String infotext = "Name | Capacity	| Projector	| Whiteboard	| Blackboard";
-            	infoField.setText(infotext);
+		String infotext = "Name | Capacity	| Projector	| Whiteboard	| Blackboard";
+         infoField.setText(infotext);
 				
 		//button to select room
-				Button selectButton = new Button("Select");
-				selectButton.getStyleClass().add("button");
-				grid.add(selectButton, 2, 7);
-		        selectButton.setOnAction(new EventHandler<ActionEvent>() {
+		Button selectButton = new Button("Select");
+		selectButton.getStyleClass().add("button");
+		grid.add(selectButton, 2, 7);
+		selectButton.setOnAction(new EventHandler<ActionEvent>() {
 
-		            @Override
-		            public void handle(ActionEvent arg0) {
-		            	//warningstring and room result
+		     @Override
+		     public void handle(ActionEvent arg0) {
+		     //warningstring and room result
 						
-		            	System.out.println("Your room has been booked");
+		//   System.out.println("Your room has been booked");
 		            	
-		            	String warningText = "Your room has been booked";
-		            	warnings.setText(warningText);
-		            }
-		        });
+		     String warningText = "Your room has been booked";
+		     warnings.setText(warningText);
+		     }
+		});
 		
-		//button to go back into serach
+		//button to go back into search
 		Button backButton = new Button("Go back");
 		backButton.getStyleClass().add("button");
 		grid.add(backButton, 2, 0);
