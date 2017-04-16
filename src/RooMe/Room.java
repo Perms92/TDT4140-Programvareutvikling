@@ -123,14 +123,9 @@ public class Room{
 
 	
 		
-	public static void main(String[] args) throws SQLException {
-		//addRoom("R10", 71, true, false, true);
-		
-		
-		//deleteRoom("R1");
-		printRooms();
-		}
+
 	
+	@Override
 	public String toString() {
 		String name = this.name;
 		String capacity = Integer.toString(this.capacity) + "	";
@@ -149,23 +144,11 @@ public class Room{
 		return  name + " 	|	 " + capacity + " 	|	 " + textprojector + " 	|	 " + textblackboard + " 	|	 " + textwhiteboard; 
 	}
 
-/*
-	@Override
-	public String toString() {
-		return name + " has room for " + space + " persons, " + toEnglish(projector) + " projector, " 
-		+ toEnglish(blackboard) + " blackboard, " + toEnglish(whiteboard) + " whiteboard.\n" + expSentence() +".";
-	}
-*/	
-	
-	
-	/*
-	public static void main(String[] args) {
-		Room test = new Room("Test1", 100, true, false, true);
-		System.out.println(test.isProjector());
-		System.out.println(test);
-		System.out.println(test.roomID);
-		System.out.println(test.getRoomID());
-	}
-*/
-
+	public static void main(String[] args) throws SQLException {
+		//addRoom("R10", 71, true, false, true);
+		
+		
+		//deleteRoom("R1");
+	//	printRooms();
+		}
 }
