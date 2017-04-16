@@ -2,6 +2,9 @@ package RooMe;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public class AssignRooms {
 	/*
@@ -21,6 +24,7 @@ public class AssignRooms {
 	 * sjekk treff mot hverandre og fordel slik at alle klaffer
 	 */
 	
+	//list with input criterias that we use to search for rooms
 	public static ArrayList<RoomCriteria> criteriaList;
 	
 	public static void InitCrits() {
@@ -35,6 +39,7 @@ public class AssignRooms {
 		}
 	}
 	
+	//list of rooms that can be combined with our criteria
 	public static SearchForRoomDB roomDB;
 	public static ArrayList<Room> rooms;
 	
@@ -74,15 +79,39 @@ public class AssignRooms {
 	
 	public static void Combos () {
 		for (RoomCriteria crit : criteriaList) {
-			System.out.println(crit.criterionCombos);
+			System.out.println("possible rooms " + crit.criterionCombos.size());
 		}
 	}
+	
+	//list to sort criteria in
+	public static ArrayList listOfLists = new ArrayList<>();
+	
+	public static void SortCriterias () {
+		int i = 0;
+		int size = 0;
+
+		while (i < (criteriaList.size())) {
+			for (RoomCriteria crit : criteriaList) {
+				if (crit.criterionCombos.size() == size) {
+					listOfLists.add(crit.criterionCombos);
+					i++;
+				}
+				else {
+				}		
+			}	
+			size++;
+		}
+	}
+	
+
 	
 	public static void main(String[] args) {
 		InitCrits();
 		InitRooms();
 		CombineSearch();
-		Combos();
+//		Combos();
+		SortCriterias();
+//		System.out.println(listOfLists);
 	}
 	
 	//end tag
