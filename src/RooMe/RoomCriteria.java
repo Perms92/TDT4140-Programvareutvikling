@@ -2,19 +2,27 @@ package RooMe;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import Database.Database;
 
-public class RoomCriteria extends Room{
+public class RoomCriteria{
+	
 	
 	public String PersonName;
 	public String fag;
+	private int capacity;
+	private boolean projector;
+	private boolean blackboard;
+	private boolean whiteboard;
 	
-	protected RoomCriteria(String personName, String fag, String name, int capacity, boolean projector, boolean blackboard, boolean whiteboard) {
-		super(name, capacity, projector, blackboard, whiteboard);
-		this.PersonName = personName;
-		this.fag = fag;
-		// TODO Auto-generated constructor stub
+	protected RoomCriteria(String PersonName, String fag, int capacity, boolean projector, boolean blackboard, boolean whiteboard) {
+		setPersonName(PersonName);
+		setFag(fag);
+		setCapacity(capacity);
+		setProjector(projector);
+		setBlackboard(blackboard);
+		setWhiteboard(whiteboard);
 	}
 	
 	public static void addRoomCriteria(String personName, String fag, int capacity, boolean projector, boolean blackboard, boolean whiteboard) throws SQLException{
@@ -54,10 +62,101 @@ public class RoomCriteria extends Room{
 		}
 		Database.disconnect(); 
 	}
+	
+	public static ArrayList<RoomCriteria> listOfCriterion() throws SQLException{
+		ArrayList<RoomCriteria> list = new ArrayList<RoomCriteria>();
+		String sql = "select * from thblaauw_tdt4145database.Criterias";
+		Database.connect();
+			try {
+				Database.rs = Database.sment.executeQuery(sql);
+				while (Database.rs.next()){
+					RoomCriteria aCrit = 
+					new RoomCriteria(Database.rs.getString(1), Database.rs.getString(2), Database.rs.getInt(3), 
+							Database.rs.getBoolean(4), Database.rs.getBoolean(5), Database.rs.getBoolean(6));
+					list.add(aCrit);
+					} 
+				}
+			catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return list;
+	}
 		
+	
+	
+	public String getPersonName() {
+		return PersonName;
+	}
+
+	public void setPersonName(String personName) {
+		PersonName = personName;
+	}
+
+	public String getFag() {
+		return fag;
+	}
+
+	public void setFag(String fag) {
+		this.fag = fag;
+	}
+
+	public int getCapacity() {
+		return capacity;
+	}
+
+	public void setCapacity(int capacity) {
+		this.capacity = capacity;
+	}
+
+	public boolean isProjector() {
+		return projector;
+	}
+
+	public void setProjector(boolean projector) {
+		this.projector = projector;
+	}
+
+	public boolean isBlackboard() {
+		return blackboard;
+	}
+
+	public void setBlackboard(boolean blackboard) {
+		this.blackboard = blackboard;
+	}
+
+	public boolean isWhiteboard() {
+		return whiteboard;
+	}
+	
+	public String toString() {
+		String PersonName = getPersonName();
+		String fag = getFag();
+		String capacity = Integer.toString(getCapacity()) + "	";
+		String textprojector = "No	";
+		String textblackboard = "No	";
+		String textwhiteboard = "No	";
+		if (isProjector()) {
+			textprojector = "Yes";
+		}
+		if (isBlackboard()) {
+			textblackboard = "Yes";
+		}
+		if (isWhiteboard()) {
+			textwhiteboard = "Yes";
+		}
+		return  PersonName + " 	|	 " + fag + " 	|	 " + capacity + " 	|	 " + textprojector + " 	|	 " + textblackboard + " 	|	 " + textwhiteboard + "\n"; 
+	}
+
+	public void setWhiteboard(boolean whiteboard) {
+		this.whiteboard = whiteboard;
+	}
+
 	public static void main(String[] args) throws SQLException {
 		//addRoomCriteria("Kristian Langvann", "TMA4100", 200, true, false, false);
 		getRoomCriterias();
+		ArrayList<RoomCriteria> testList = listOfCriterion();
+		System.out.println(testList);
+		
 	}
 	
 }
