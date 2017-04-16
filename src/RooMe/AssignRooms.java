@@ -104,15 +104,15 @@ public class AssignRooms {
 	}
 	
 
-	
+	/*
 	public static void main(String[] args) {
 		InitCrits();
 		InitRooms();
 		CombineSearch();
-//		Combos();
+		Combos();
 		SortCriterias();
 //		System.out.println(listOfLists);
 	}
-	
+	*/
 	//end tag
 }
