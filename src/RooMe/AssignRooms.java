@@ -20,6 +20,7 @@ public class AssignRooms {
 	 * lagre mulige treff
 	 * sjekk treff mot hverandre og fordel slik at alle klaffer
 	 */
+	
 	public static ListOfCriteria crits = new ListOfCriteria();
 	public static ArrayList<Criterion> criteriaList;
 	
@@ -57,18 +58,25 @@ public class AssignRooms {
 			for (Room room : rooms) {
 				
 				if (crit.getCapacity() < room.getCapacity()) {
-					System.out.println(room.getName() + " is big enough");
-				}
-				if (crit.isProjector() == room.isProjector()) {
-					System.out.println(room.getName() + " has projector");
-				}
-				if (crit.isBlackboard() == room.isBlackboard()) {
-					System.out.println(room.getName() + " has blackboard");
-				}
-				if (crit.isHearingaid() == room.isWhiteboard()) {
-					System.out.println(room.getName() + " has hearingaid");
-				}
+					if ((crit.isProjector() == room.isProjector()) || crit.isProjector() == false) {
+						if ((crit.isBlackboard() == room.isBlackboard()) || crit.isBlackboard() == false) {
+							if ((crit.isHearingaid() == room.isWhiteboard()) || crit.isHearingaid() == false) {
+					/*			System.out.println(room.getName() + " is big enough");
+								System.out.println(room.getName() + " has projector");
+								System.out.println(room.getName() + " has blackboard");
+								System.out.println(room.getName() + " has hearingaid");			*/
+								crit.criterionCombos.add(room);
+							}
+						}
+					}
+				}			
 			}
+		}
+	}
+	
+	public static void Combos () {
+		for (Criterion crit : criteriaList) {
+			System.out.println(crit.criterionCombos);
 		}
 	}
 	
@@ -79,6 +87,7 @@ public class AssignRooms {
 	//	IterateList(criteriaList);
 	//	IterateList(rooms);
 		CombineSearch();
+		Combos();
 	}
 	
 	//end tag

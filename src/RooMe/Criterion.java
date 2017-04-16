@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Criterion {
 
-	public static ArrayList criterionCombos = new ArrayList<>();
+	public ArrayList<Room> criterionCombos = new ArrayList<Room>();
 
 	private int capacity;
 	private boolean projector;

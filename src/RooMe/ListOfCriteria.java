@@ -17,7 +17,7 @@ public class ListOfCriteria {
 	}
 	
 	public static void makeCrits() {
-		Criterion crit = new Criterion("Kristian", 80, false, false, false);
+		Criterion crit = new Criterion("Kristian", 80, false, false, true);
 		addCriteria(crit);
 		Criterion crit2 = new Criterion("Trym",  40, true, false, false);
 		addCriteria(crit2);
