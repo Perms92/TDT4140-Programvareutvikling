@@ -7,18 +7,29 @@ import Database.Database;
 
 public class Timetable {
 
-	public Person Person;
-	public Room Room;
+	public String personName;
+	public String roomName;
 	public int day, week, year;
-	public boolean eight, nine, ten, eleven, twelve, thirteen, fourteen, fifteen, sixteen;
+	public String eight, nine, ten, eleven, twelve, thirteen, fourteen, fifteen, sixteen;
 	
 	
 	
-	public Timetable(Person person, Room room, int day) { 
-		setPerson(person);
-		setRoom(room);
+	public Timetable(String personName, String roomName, int day) { 
+		setPersonName(personName);
+		setRoomName(roomName);
 		setDay(day);
 		checkSingularity();
+	}
+
+
+	private void setRoomName(String roomName) {
+		this.roomName = roomName;
+	}
+
+
+	private void setPersonName(String personName) {
+		this.personName = personName;
+		
 	}
 
 
@@ -42,81 +53,78 @@ public class Timetable {
 	public void setYear(int year) {
 		this.year = year;
 	}
+	
 
-	public boolean isEight() {
+	public String getEight() {
 		return eight;
 	}
-	public void setEight(boolean eight) {
+	public void setEight(String eight) {
 		this.eight = eight;
 	}
-	public boolean isNine() {
+	public String getNine() {
 		return nine;
 	}
-	public void setNine(boolean nine) {
+	public void setNine(String nine) {
 		this.nine = nine;
 	}
-	public boolean isTen() {
+	public String getTen() {
 		return ten;
 	}
-	public void setTen(boolean ten) {
+	public void setTen(String ten) {
 		this.ten = ten;
 	}
-	public boolean isEleven() {
+	public String getEleven() {
 		return eleven;
 	}
-	public void setEleven(boolean eleven) {
+	public void setEleven(String eleven) {
 		this.eleven = eleven;
 	}
-	public boolean isTwelve() {
+	public String getTwelve() {
 		return twelve;
 	}
-	public void setTwelve(boolean twelve) {
+	public void setTwelve(String twelve) {
 		this.twelve = twelve;
 	}
-	public boolean isThirteen() {
+	public String getThirteen() {
 		return thirteen;
 	}
-	public void setThirteen(boolean thirteen) {
+	public void setThirteen(String thirteen) {
 		this.thirteen = thirteen;
 	}
-	public boolean isFourteen() {
+	public String getFourteen() {
 		return fourteen;
 	}
-	public void setFourteen(boolean fourteen) {
+	public void setFourteen(String fourteen) {
 		this.fourteen = fourteen;
 	}
-	public boolean isFifteen() {
+	public String getFifteen() {
 		return fifteen;
 	}
-	public void setFifteen(boolean fifteen) {
+	public void setFifteen(String fifteen) {
 		this.fifteen = fifteen;
 	}
-	public boolean isSixteen() {
+	public String getSixteen() {
 		return sixteen;
 	}
-	public void setSixteen(boolean sixteen) {
+	public void setSixteen(String sixteen) {
 		this.sixteen = sixteen;
 	}
 
 
-	public Room getRoom() {
-		return Room;
+	public String getRoomName() {
+		return roomName;
 	}
-	public void setRoom(Room Room) {
-		this.Room = Room;
+	
+	public String getPersonName() {
+		return personName;
 	}
-	public Person getPerson() {
-		return Person;
-	}
-	public void setPerson(Person Person) {
-		this.Person = Person;
-	}
+	
 	
 
 
 	public void checkSingularity() throws IllegalStateException {
-		if (Person!=null && Room!=null)
-			throw new IllegalStateException("The timetable is either for a Person or a Room, not both!");
+		if (personName!=null && roomName!=null)
+			throw new IllegalStateException("The timetable is either for a Person or a Room, not both or neither!");
 	}
 	
 	public void addTimetable() throws SQLException {
@@ -124,54 +132,71 @@ public class Timetable {
 		String sql = "INSERT INTO thblaauw_tdt4145database.TimeTable\n"
 				+ "VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 		PreparedStatement statement = Database.conn.prepareStatement(sql);
-		if (getPerson() == null) {
-			statement.setString(1, getRoom().getName());
+		if (getPersonName() == null) {
+			statement.setString(1, getRoomName());
 			statement.setString(2, "null"); 	
 		}
 		else {
-			statement.setString(2, getPerson().getName());	
+			statement.setString(2, getPersonName());	
 			statement.setString(1, "null");
 		}		
 		statement.setInt(3, getDay());
-		statement.setBoolean(4, isEight());
-		statement.setBoolean(5, isNine());
-		statement.setBoolean(6, isTen());
-		statement.setBoolean(7, isEleven());
-		statement.setBoolean(8, isTwelve());
-		statement.setBoolean(9, isThirteen());
-		statement.setBoolean(10, isFourteen());
-		statement.setBoolean(11, isFifteen());
+		statement.setString(4, getEight());
+		statement.setString(5, getNine());
+		statement.setString(6, getTen());
+		statement.setString(7, getEleven());
+		statement.setString(8, getTwelve());
+		statement.setString(9, getThirteen());
+		statement.setString(10, getFourteen());
+		statement.setString(11, getFifteen());
 		statement.executeUpdate();
 		Database.disconnect();
 	}
 		
-	public void updateRoomTable(Room room, int day, int startTime, int endTime) {
+	public void updateRoomTable(String roomName, String subject, int day, int startTime, int endTime) throws SQLException {
+		//Subject can at most be 7 characters long
+		Database.connect();
 		int bookingDuration = endTime - startTime;
 		int count = 1; 
 		StringBuilder sql = new StringBuilder(
 				"UPDATE thblaauw_tdt4145database.TimeTable\n"
-			+ 	"SET " + startTime + " = true, ");
-		while (count < bookingDuration) {
+			+ 	"SET `" + startTime + "` = '" + subject + "', ");
+		while (count < bookingDuration-1) {
 			int nextHr = startTime+count;
-			sql.append(nextHr + " = true, ");
+			sql.append("`" + nextHr + "` = '" + subject + "', ");
 			count ++;
 		}
-		sql.append("\n" + "WHERE Room = '" + room.getName() +"' AND Day = " + day);
-		System.out.println(sql);
+		sql.append("`" + (endTime-1) + "` = '" + subject + "'\n" + "WHERE Room = '" + roomName +"' AND Day = " + day);
+		Database.sment.executeUpdate(sql.toString());
+		Database.disconnect();
 	}
 	
-	public void updatePersonTable(Person Person, int day, int startTime, int endTime) {
-		
+	public static void updatePersonTable(String personName, String roomName, int day, int startTime, int endTime) throws SQLException {
+		Database.connect();
+		int bookingDuration = endTime - startTime;
+		int count = 1; 
+		StringBuilder sql = new StringBuilder(
+				"UPDATE thblaauw_tdt4145database.TimeTable\n"
+			+ 	"SET `" + startTime + "` = '" + roomName + "', ");
+		while (count < bookingDuration-1) {
+			int nextHr = startTime+count;
+			sql.append("`" + nextHr + "` = '" + roomName + "', ");
+			count ++;
+		}
+		sql.append("`" + (endTime-1) + "` = '" + roomName + "'\n" + "WHERE Person = '" + personName +"' AND Day = " + day);
+		Database.sment.executeUpdate(sql.toString());
+		Database.disconnect();
 	}
+		
 	
 	
 	
 	public void bookClassforSemester(Person person, Room room, int day, int startTime, int endTime) throws SQLException {
 		//if they doesn't exist?
-		Timetable yourBasicTable = new Timetable(person, null, day);
+		/*Timetable yourBasicTable = new Timetable(person, null, day);
 		Timetable RoomsWeeklyTable = new Timetable(null, room, day);
 		yourBasicTable.addTimetable();
-		RoomsWeeklyTable.addTimetable();
+		RoomsWeeklyTable.addTimetable();*/
 		
 		//updateRoomTable();
 	}
@@ -180,8 +205,9 @@ public class Timetable {
 	
 	
 	public static void main(String[] args) throws SQLException {
-		Timetable testTable = new Timetable(null, null, 1); 
-		testTable.updateRoomTable(new Room("what", 50, false, false, false), 1, 9, 14);
+		//Room testRoom = new Room("R100", 50, false, false, false);
+		Person testPerson = new Person("Trym Blaauw", true);
+		updatePersonTable(testPerson.getName(), "TDT4100", 1, 8, 14);
 	}
 
 }
