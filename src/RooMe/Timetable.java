@@ -152,8 +152,9 @@ public class Timetable {
 		statement.executeUpdate();
 		Database.disconnect();
 	}
-		
-	public void updateRoomTable(String roomName, String subject, int day, int startTime, int endTime) throws SQLException {
+	
+	//FLYTTES?
+	public static void updateRoomTable(String roomName, String subject, int day, int startTime, int endTime) throws SQLException {
 		//Subject can at most be 7 characters long
 		Database.connect();
 		int bookingDuration = endTime - startTime;
@@ -171,6 +172,7 @@ public class Timetable {
 		Database.disconnect();
 	}
 	
+	//FLYTTES?
 	public static void updatePersonTable(String personName, String roomName, int day, int startTime, int endTime) throws SQLException {
 		Database.connect();
 		int bookingDuration = endTime - startTime;
@@ -190,24 +192,20 @@ public class Timetable {
 		
 	
 	
-	
-	public void bookClassforSemester(Person person, Room room, int day, int startTime, int endTime) throws SQLException {
-		//if they doesn't exist?
-		/*Timetable yourBasicTable = new Timetable(person, null, day);
-		Timetable RoomsWeeklyTable = new Timetable(null, room, day);
-		yourBasicTable.addTimetable();
-		RoomsWeeklyTable.addTimetable();*/
-		
-		//updateRoomTable();
+	//FLYTTES?
+	public static void bookClassforSemester(Person person, Room room, String subject, int day, int startTime, int endTime) throws SQLException {
+		updatePersonTable(person.getName(), room.getName(), day, startTime, endTime);
+		updateRoomTable(room.getName(), subject, day, startTime, endTime);
 	}
-	
-	
+		
 	
 	
 	public static void main(String[] args) throws SQLException {
 		//Room testRoom = new Room("R100", 50, false, false, false);
-		Person testPerson = new Person("Trym Blaauw", true);
-		updatePersonTable(testPerson.getName(), "TDT4100", 1, 8, 14);
+		//updatePersonTable(testPerson.getName(), "TDT4100", 1, 8, 14);
+		Room testRoom = new Room(true, "R1000", 100, true, true, true);
+		Person testPerson = new Person("Slutt for dagen", true);
+		bookClassforSemester(testPerson, testRoom, "TDT8008", 3, 9, 11);
 	}
 
 }

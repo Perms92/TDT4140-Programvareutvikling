@@ -34,7 +34,7 @@ public class SearchForRoomDB {
 				Database.rs = Database.sment.executeQuery(sql);
 				while (Database.rs.next()){
 					Room roomMatch = 
-					new Room(Database.rs.getString(1), Database.rs.getInt(2),Database.rs.getBoolean(3),Database.rs.getBoolean(4), Database.rs.getBoolean(5));
+					new Room(false, Database.rs.getString(1), Database.rs.getInt(2),Database.rs.getBoolean(3),Database.rs.getBoolean(4), Database.rs.getBoolean(5));
 					acceptedRooms.add(roomMatch); 
 					} 
 				}

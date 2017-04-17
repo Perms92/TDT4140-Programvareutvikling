@@ -1,8 +1,7 @@
 package RooMe;
 
 import java.sql.*;
-
-
+import java.util.ArrayList;
 
 import Database.Database;
 
@@ -13,16 +12,33 @@ public class Room{
 	private boolean blackboard;
 	private boolean whiteboard;
 	private String name;
+	private ArrayList<Timetable> timeTables = new ArrayList<Timetable>();
 //	private int roomID;
 	
-	protected Room(String name, int capacity, boolean projector, boolean blackboard, boolean whiteboard) {
+	protected Room(boolean update, String name, int capacity, boolean projector, boolean blackboard, boolean whiteboard) throws SQLException {
 		setName(name);
 		setCapacity(capacity);
 		setProjector(projector);
 		setBlackboard(blackboard);
 		setWhiteboard(whiteboard);
+			if (update) {
+			addRoom(name, capacity, projector, blackboard, whiteboard);
+				for (int day = 1; day<6;  day++) {
+					Timetable oneDay = new Timetable(null, name, day);
+					oneDay.addTimetable();
+					timeTables.add(oneDay);
+				}
+			}
 	}
 	
+	public ArrayList<Timetable> getTimeTables() {
+		return timeTables;
+	}
+
+	public void setTimeTables(ArrayList<Timetable> timeTables) {
+		this.timeTables = timeTables;
+	}
+
 	public int getCapacity() {
 		return capacity;
 	}
