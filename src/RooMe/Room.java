@@ -144,6 +144,7 @@ public class Room{
 		return  name + " 	|	 " + capacity + " 	|	 " + textprojector + " 	|	 " + textblackboard + " 	|	 " + textwhiteboard; 
 	}
 
+	
 	public static void main(String[] args) throws SQLException {
 		//addRoom("R10", 71, true, false, true);
 		

@@ -130,6 +130,7 @@ public class RoomCriteria{
 	public boolean isHearingaid() {
 		return hearingaid;
 	}
+
 	
 	public String toString() {
 		String PersonName = getPersonName();
@@ -149,6 +150,7 @@ public class RoomCriteria{
 		}
 		return  PersonName + " 	|	 " + fag + " 	|	 " + capacity + " 	|	 " + textprojector + " 	|	 " + textblackboard + " 	|	 " + textwhiteboard + "\n"; 
 	}
+
 
 	public void setHearingaid(boolean whiteboard) {
 		this.hearingaid = whiteboard;
