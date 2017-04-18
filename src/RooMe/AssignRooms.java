@@ -31,8 +31,8 @@ public class AssignRooms {
 //		System.out.println(rooms);
 		CombineSearch();
 		SortCriterias();
-	//	delegateRooms();
-		delegateRoomsInput(listOfLists, criteriaList);
+		delegateRooms();
+	//	delegateRoomsInput(listOfLists, criteriaList);
 	}
 	
 	//list with input criterias that we use to search for rooms
@@ -116,6 +116,7 @@ public class AssignRooms {
 			else {	
 				Combo com = new Combo((criteriaList.get(i)), (listOfLists.get(i)).get(0));
 				combos.add(com);
+	//			criteriaList.remove(i);
 				Room room = (listOfLists.get(i).get(0)); //this one is given somewhere
 	//			System.out.println("added" +  (listOfLists.get(i)));
 				for (ArrayList<Room> list : listOfLists) {
@@ -133,22 +134,23 @@ public class AssignRooms {
 	
 	public static void main(String[] args) {
 		new AssignRooms();
-	//	System.out.println(combos);
+		System.out.println(combos);
 	}
 
 	public static void delegateRoomsInput(ArrayList<ArrayList<Room>> rom, ArrayList<RoomCriteria> crit) {
 		noRooms  = new ArrayList<>();
-		for (int i = 0; i < listOfLists.size(); i++ ) {
-			if (listOfLists.get(i).size() == 0) {
-	//			noRooms.add(crit.get(i));
+		for (int i = 0; i < rom.size(); i++ ) {
+			if (rom.get(i).size() == 0) {
+//				noRooms.add(crit.get(i));
+//				listOfLists.remove(i);
 		//		System.out.println(crit.get(0));
 	//			System.out.println("no rooms " + noRooms);
 			}
 			else {	
-				Combo com = new Combo((crit.get(i)), (listOfLists.get(i)).get(0));
+				Combo com = new Combo((crit.get(i)), (rom.get(i)).get(0));
 				combos.add(com);
-				Room room = (listOfLists.get(i).get(0)); //this one is given somewhere
-				for (ArrayList<Room> list : listOfLists) {
+				Room room = (rom.get(i).get(0)); //this one is given somewhere
+				for (ArrayList<Room> list : rom) {
 					if (list.contains(room)) {
 						list.remove((room));
 					}
