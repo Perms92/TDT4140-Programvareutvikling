@@ -7,9 +7,8 @@ import java.util.ArrayList;
 import Database.Database;
 
 public class RoomCriteria{
-	
+
 	static ArrayList<RoomCriteria> list = new ArrayList<RoomCriteria>();
-	
 	public String PersonName;
 	public String fag;
 	private int capacity;
@@ -18,7 +17,7 @@ public class RoomCriteria{
 	private boolean hearingaid;
 
 	public ArrayList<Room> criterionCombos = new ArrayList<Room>();
-	
+
 	protected RoomCriteria(String PersonName, String fag, int capacity, boolean projector, boolean blackboard, boolean whiteboard) {
 		setPersonName(PersonName);
 		setFag(fag);
@@ -26,6 +25,7 @@ public class RoomCriteria{
 		setProjector(projector);
 		setBlackboard(blackboard);
 		setHearingaid(whiteboard);
+
 	}
 	
 	public static void addRoomCriteria(String personName, String fag, int capacity, boolean projector, boolean blackboard, boolean whiteboard) throws SQLException{
@@ -67,7 +67,7 @@ public class RoomCriteria{
 	}
 	
 	public static ArrayList<RoomCriteria> listOfCriterion() throws SQLException{
-		//ArrayList<RoomCriteria> list = new ArrayList<RoomCriteria>();
+		ArrayList<RoomCriteria> list = new ArrayList<RoomCriteria>();
 		String sql = "select * from thblaauw_tdt4145database.Criterias";
 		Database.connect();
 			try {
@@ -130,6 +130,11 @@ public class RoomCriteria{
 	public boolean isHearingaid() {
 		return hearingaid;
 	}
+	public void setHearingaid(boolean whiteboard) {
+		this.hearingaid = whiteboard;
+	}
+
+	
 	
 	public String toString() {
 		String PersonName = getPersonName();
@@ -150,16 +155,13 @@ public class RoomCriteria{
 		return  PersonName + " 	|	 " + fag + " 	|	 " + capacity + " 	|	 " + textprojector + " 	|	 " + textblackboard + " 	|	 " + textwhiteboard + "\n"; 
 	}
 
-	public void setHearingaid(boolean whiteboard) {
-		this.hearingaid = whiteboard;
-	}
 
 	public static void main(String[] args) throws SQLException {
 		//addRoomCriteria("Kristian Langvann", "TMA4100", 200, true, false, false);
-//		getRoomCriterias();
-//		ArrayList<RoomCriteria> testList = listOfCriterion();
-//		System.out.println(testList);
-		
+		getRoomCriterias();
+		ArrayList<RoomCriteria> testList = listOfCriterion();
+		System.out.println(testList);
+
 	}
 	
 }

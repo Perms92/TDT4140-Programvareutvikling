@@ -1,8 +1,7 @@
 package RooMe;
 
 import java.sql.*;
-
-
+import java.util.ArrayList;
 
 import Database.Database;
 
@@ -13,16 +12,33 @@ public class Room{
 	private boolean blackboard;
 	private boolean whiteboard;
 	private String name;
+	private ArrayList<Timetable> timeTables = new ArrayList<Timetable>();
 //	private int roomID;
 	
-	protected Room(String name, int capacity, boolean projector, boolean blackboard, boolean whiteboard) {
+	protected Room(boolean update, String name, int capacity, boolean projector, boolean blackboard, boolean whiteboard) throws SQLException {
 		setName(name);
 		setCapacity(capacity);
 		setProjector(projector);
 		setBlackboard(blackboard);
 		setWhiteboard(whiteboard);
+			if (update) {
+			addRoom(name, capacity, projector, blackboard, whiteboard);
+				for (int day = 1; day<6;  day++) {
+					Timetable oneDay = new Timetable(null, name, day);
+					oneDay.addTimetable();
+					timeTables.add(oneDay);
+				}
+			}
 	}
 	
+	public ArrayList<Timetable> getTimeTables() {
+		return timeTables;
+	}
+
+	public void setTimeTables(ArrayList<Timetable> timeTables) {
+		this.timeTables = timeTables;
+	}
+
 	public int getCapacity() {
 		return capacity;
 	}
@@ -103,8 +119,8 @@ public class Room{
 	}
 	
 	public static void deleteRoom(String name) throws SQLException {
+
 		Database.connect();
-	
 	//Lag metoden slik at du ikke kan lage to rom med samme navn, uavhengig av caps (R1 og r1 går ikke).
 
 	// SKAL IKKE VÆRE MULIG Å GI NULL SOM NAVN LENGER
@@ -123,6 +139,12 @@ public class Room{
 
 	
 		
+	public static void main(String[] args) throws SQLException {
+		//addRoom("R9", 71, true, false, true);
+		//addRoom("R10", 71, true, false, true);
+		//deleteRoom("R1");
+		printRooms();
+		}
 
 	
 	@Override
@@ -144,11 +166,6 @@ public class Room{
 		return  name + " 	|	 " + capacity + " 	|	 " + textprojector + " 	|	 " + textblackboard + " 	|	 " + textwhiteboard; 
 	}
 
-	public static void main(String[] args) throws SQLException {
-		//addRoom("R10", 71, true, false, true);
-		
-		
-		//deleteRoom("R1");
-	//	printRooms();
-		}
 }
+
+

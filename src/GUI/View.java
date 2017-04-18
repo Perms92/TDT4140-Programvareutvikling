@@ -8,6 +8,8 @@ import OldCode.ListOfCriteria;
 import RooMe.Room;
 import RooMe.RoomCriteria;
 import RooMe.SearchForRoomDB;
+
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -293,7 +295,8 @@ public class View extends Application{
 							warningText += "You must choose a date in the future \n";
 						}
 						if (Controller.validateTime(fromTime.getText(), toTime.getText()) == false) {
-							warningText += "You must choose a endtime later than starttime \n";
+							warningText += "You must choose a endtime later than starttime,\n"
+									+ "both starttime and endtime should be on the form hh:mm.\n";
 						}
 						warnings.setText(warningText);
 					}

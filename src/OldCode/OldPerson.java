@@ -4,16 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Person {
+public class OldPerson {
 
 	public String firstName, lastName, proffesion;
 	private int personId;
 	public static List<Integer> personIdList = new ArrayList<Integer>();
-	public static ArrayList<Person> personList = new ArrayList<Person>();
+	public static ArrayList<OldPerson> personList = new ArrayList<OldPerson>();
 	
 	Scanner reader = new Scanner(System.in);
 	
-	public Person() {
+	public OldPerson() {
 		System.out.println("Enter your first name: ");
 		String firstName = reader.nextLine();
 		System.out.println("Enter your last name: ");
@@ -28,7 +28,7 @@ public class Person {
 		proffesion = checkProffesion(proffesion);
 		this.proffesion = proffesion;
 		this.personId = compareId();
-		Person.personList.add(this);
+		OldPerson.personList.add(this);
 	}
 	
 	public String checkName(String name) {
@@ -98,7 +98,7 @@ public class Person {
 	}
 
 	public static void main(String[] args) {
-		new Person();
+		new OldPerson();
 		//Person person2 = new Person();
 		System.out.println(personIdList);
 		System.out.println(personList);

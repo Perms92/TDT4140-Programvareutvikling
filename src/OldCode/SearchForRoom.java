@@ -2,6 +2,10 @@ package OldCode;
 
 import java.util.ArrayList;
 
+<<<<<<< HEAD:src/OldCode/SearchForRoom.java
+import OldCode.Database;
+=======
+>>>>>>> 086b70c87ebef183a5700208582ccc448f701885:src/OldCode/SearchForRoom.java
 import RooMe.Room;
 
 public class SearchForRoom {

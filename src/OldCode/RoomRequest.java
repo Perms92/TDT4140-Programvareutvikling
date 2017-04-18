@@ -13,7 +13,7 @@ public class RoomRequest {
 	public static ArrayList<RoomRequest> reqList;
 
 	
-	public RoomRequest(Person person, int tid, String subject){
+	public RoomRequest(OldPerson person, int tid, String subject){
 		this.personID = person.getPersonId();
 		setReqID();
 		setTime(tid);

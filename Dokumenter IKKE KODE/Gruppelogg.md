@@ -28,3 +28,9 @@ Uke 8: Olav og Kristian ble litt for sen.
 Uke 9: Fredag - Møte med stud.ass om hvordan vi lå an i prosjektet.
 
 Uke 10: Bytte av gruppeleder fra Olav til Kristian.
+
+
+TAR I BRUK DENNE IGJEN FOR NOEN NOTATER:
+Gjort noen større endringer i oppsettet som medfører at en i GUI-en bør få endret til at en person blir laget når han skriver inn navnet sitt i CRITERIA-delen av programmet (ikke nødv. å se på booking enda). Vi bør også definere en god og stor testdatabase som vi ikke endrer videre, og lage en initialize-new-semester hvor vi sletter alle timeplaner til personer og alle kriterier, og nullstiller timeplanene til alle rom. Dette kan da gjøres når vi legger inn kriterier på nytt for å teste og dermed unngå overlapp. Dette kan vi jo gjøre via GUI hvis vi vil. 
+
+Mangler det å dra ut timeplan info til noe utskriftbart, spesielt utforende er det nok ikke, men bør få til å joine rom- og person-tabellen så man kan se hvilke fag man har på timeplanen også, hittil er det bare rommene.
