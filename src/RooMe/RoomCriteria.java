@@ -7,22 +7,25 @@ import java.util.ArrayList;
 import Database.Database;
 
 public class RoomCriteria{
-	
-	
+
+	static ArrayList<RoomCriteria> list = new ArrayList<RoomCriteria>();
 	public String PersonName;
 	public String fag;
 	private int capacity;
 	private boolean projector;
 	private boolean blackboard;
-	private boolean whiteboard;
-	
+	private boolean hearingaid;
+
+	public ArrayList<Room> criterionCombos = new ArrayList<Room>();
+
 	protected RoomCriteria(String PersonName, String fag, int capacity, boolean projector, boolean blackboard, boolean whiteboard) {
 		setPersonName(PersonName);
 		setFag(fag);
 		setCapacity(capacity);
 		setProjector(projector);
 		setBlackboard(blackboard);
-		setWhiteboard(whiteboard);
+		setHearingaid(whiteboard);
+
 	}
 	
 	public static void addRoomCriteria(String personName, String fag, int capacity, boolean projector, boolean blackboard, boolean whiteboard) throws SQLException{
@@ -124,9 +127,14 @@ public class RoomCriteria{
 		this.blackboard = blackboard;
 	}
 
-	public boolean isWhiteboard() {
-		return whiteboard;
+	public boolean isHearingaid() {
+		return hearingaid;
 	}
+	public void setHearingaid(boolean whiteboard) {
+		this.hearingaid = whiteboard;
+	}
+
+	
 	
 	public String toString() {
 		String PersonName = getPersonName();
@@ -141,22 +149,19 @@ public class RoomCriteria{
 		if (isBlackboard()) {
 			textblackboard = "Yes";
 		}
-		if (isWhiteboard()) {
+		if (isHearingaid()) {
 			textwhiteboard = "Yes";
 		}
 		return  PersonName + " 	|	 " + fag + " 	|	 " + capacity + " 	|	 " + textprojector + " 	|	 " + textblackboard + " 	|	 " + textwhiteboard + "\n"; 
 	}
 
-	public void setWhiteboard(boolean whiteboard) {
-		this.whiteboard = whiteboard;
-	}
 
 	public static void main(String[] args) throws SQLException {
 		//addRoomCriteria("Kristian Langvann", "TMA4100", 200, true, false, false);
 		getRoomCriterias();
 		ArrayList<RoomCriteria> testList = listOfCriterion();
 		System.out.println(testList);
-		
+
 	}
 	
 }

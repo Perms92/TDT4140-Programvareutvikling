@@ -3,7 +3,8 @@ package GUI;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import RooMe.ListOfCriteria;
+
+import OldCode.ListOfCriteria;
 import RooMe.Room;
 import RooMe.RoomCriteria;
 import RooMe.SearchForRoomDB;
@@ -163,36 +164,32 @@ public class View extends Application{
 		Text whiteboard = new Text("Do you need a blackboard?");
 		whiteboard.getStyleClass().add("description");
 		grid.add(whiteboard, 0, 3);
-				
-		Text blackboard = new Text("Do you need a whiteboard?");
-		blackboard.getStyleClass().add("description");
-		grid.add(blackboard, 0, 4);
 
 		Text experimentable = new Text("Do you need hearing aid?");
 		experimentable.getStyleClass().add("description");
-		grid.add(experimentable, 0, 5);
+		grid.add(experimentable, 0, 4);
 				
 		Text studentCount = new Text("How many students do you need space for?");
 		studentCount.getStyleClass().add("description");
-		grid.add(studentCount, 0, 6);
+		grid.add(studentCount, 0, 5);
 		
 		Text dateText = new Text("Which date do you need the room?");
 		dateText.getStyleClass().add("description");
-		grid.add(dateText, 0, 7);
+		grid.add(dateText, 0, 6);
 		
 		Text fromTimeText = new Text("From what time do you need the room?");
 		fromTimeText.getStyleClass().add("description");
-		grid.add(fromTimeText, 0, 8);
+		grid.add(fromTimeText, 0, 7);
 		
 		Text toTimeText = new Text("To what time do you need the room?");
 		toTimeText.getStyleClass().add("description");
-		grid.add(toTimeText, 0, 9);
+		grid.add(toTimeText, 0, 8);
 
 		//add labels
 		Text warnings = new Text("");
 		warnings.getStyleClass().add("description");
 		warnings.setId("warning");
-		grid.add(warnings, 0, 10);
+		grid.add(warnings, 0, 9);
 	
 		//add inputs
 		TextField nameField = new TextField();
@@ -216,35 +213,31 @@ public class View extends Application{
 		CheckBox cb3 = new CheckBox();
 		grid.add(cb3,1,4);
 		
-		CheckBox cb4 = new CheckBox();
-		grid.add(cb4,1,5);
-		
 		TextField amount = new TextField();
 		amount.setMaxSize(150.0, 25.0);
 		amount.setMinSize(150.0, 25.0);
-		grid.add(amount, 1, 6);
+		grid.add(amount, 1, 5);
 			
 		DatePicker dateField = new DatePicker();
 		dateField.setMaxSize(150.0, 25.0);
 		dateField.setMinSize(150.0, 25.0);
-		grid.add(dateField, 1, 7);
+		grid.add(dateField, 1, 6);
 		
 		TextField fromTime = new TextField();
 		fromTime.setMaxSize(150.0, 25.0);
 		fromTime.setMinSize(150.0, 25.0);
-		grid.add(fromTime, 1, 8);
+		grid.add(fromTime, 1, 7);
 		
 		TextField toTime = new TextField();
 		toTime.setMaxSize(150.0, 25.0);
 		toTime.setMinSize(150.0, 25.0);
-		grid.add(toTime, 1, 9);
+		grid.add(toTime, 1, 8);
 	
 
 		//make all unchecked at start
 		cb1.setSelected(false);
 		cb2.setSelected(false);
 		cb3.setSelected(false);
-		cb4.setSelected(false);
 		
 		//add search button that triggers function when clicked
 		Button searchButton = new Button("Search for rooms");
@@ -267,25 +260,23 @@ public class View extends Application{
 						int capacity = Integer.parseInt(amount.getText());
 						boolean button1 = cb1.isSelected(); //projector
 						boolean button2 = cb2.isSelected(); //blackboard
-						boolean button3 = cb3.isSelected(); //whiteboard
-						boolean button4 = cb4.isSelected(); //hearingaid
+						boolean button3 = cb3.isSelected(); //hearingaid
 						String ftime = fromTime.getText();
 						String ttime = toTime.getText();
 						LocalDate date = dateField.getValue();
 						
-						//checking what we have
+	/*					//checking what we have
 						System.out.println(button1);
 						System.out.println(button2);
 						System.out.println(button3);
-						System.out.println(button4);
 						System.out.println(ftime);
 						System.out.println(ttime);
-						System.out.println(date);
+						System.out.println(date);			*/
 						
 						//searching with text inputs when everything is valid
 						//SearchForRoom search = Controller.Search(database, capacity, button2, button3, button4); //, Controller.checkValue(cb4.isSelected()))
 						try {
-							SearchForRoomDB search = Controller.Search(capacity, button1, button2, button3);
+							Controller.Search(capacity, button1, button2, button3);
 						} catch (SQLException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
@@ -310,9 +301,8 @@ public class View extends Application{
 						warnings.setText(warningText);
 					}
 				}
-				//when every field is okay we can continue
 				else {
-					System.out.println(fromTime.getText() + toTime.getText());
+		//			System.out.println(fromTime.getText() + toTime.getText());
 					if (Controller.validateName(nameField.getText()) == false) {
 						warningText += "You must write your name \n";
 					}
@@ -371,18 +361,14 @@ public class View extends Application{
 		Text whiteboard = new Text("Do you need a blackboard?");
 		whiteboard.getStyleClass().add("description");
 		grid.add(whiteboard, 0, 3);
-				
-		Text blackboard = new Text("Do you need a whiteboard?");
-		blackboard.getStyleClass().add("description");
-		grid.add(blackboard, 0, 4);
 
 		Text experimentable = new Text("Do you need hearing aid?");
 		experimentable.getStyleClass().add("description");
-		grid.add(experimentable, 0, 5);
+		grid.add(experimentable, 0, 4);
 				
 		Text studentCount = new Text("How many students do you need space for?");
 		studentCount.getStyleClass().add("description");
-		grid.add(studentCount, 0, 6);
+		grid.add(studentCount, 0, 5);
 
 		//add labels
 		Text warnings = new Text("");
@@ -410,21 +396,17 @@ public class View extends Application{
 		CheckBox cb3 = new CheckBox();
 		grid.add(cb3,1,4);
 				
-		CheckBox cb4 = new CheckBox();
-		grid.add(cb4,1,5);
-				
 		TextField amount = new TextField();
 		amount.setMaxSize(150.0, 30.0);
 		amount.setMinSize(150.0, 30.0);
-		grid.add(amount, 1, 6);
+		grid.add(amount, 1, 5);
 
 		//make all unchecked at start
 		cb1.setSelected(false);
 		cb2.setSelected(false);
 		cb3.setSelected(false);
-		cb4.setSelected(false);
 
-		ListOfCriteria criteriaList = new ListOfCriteria();
+//		ListOfCriteria criteriaList = new ListOfCriteria();
 				
 		//add search button that triggers function when clicked
 		Button saveButton = new Button("Save your criteria");
@@ -445,8 +427,7 @@ public class View extends Application{
 						int capacity = Integer.parseInt(amount.getText());
 						boolean button1 = cb1.isSelected(); //projector
 						boolean button2 = cb2.isSelected(); //blackboard
-						boolean button3 = cb3.isSelected(); //whiteboard
-						boolean button4 = cb4.isSelected(); //hearingaid
+						boolean button3 = cb3.isSelected(); //hearingaid
 						
 			/*			//checking what we have
 						System.out.println(button1);
@@ -590,7 +571,7 @@ public class View extends Application{
 		cb3.setSelected(false);
 		cb4.setSelected(false);
 
-		ListOfCriteria criteriaList = new ListOfCriteria();
+	//	ListOfCriteria criteriaList = new ListOfCriteria();
 				
 		//add search button that triggers function when clicked
 		Button saveButton = new Button("Save your criteria");
@@ -617,7 +598,7 @@ public class View extends Application{
 		//		criteriaList.addCriteria(crit);
 						
 				//iterate through all criterias}
-				System.out.println(criteriaList.getCriteria(0));
+	//			System.out.println(criteriaList.getCriteria(0));
 						
 			}
 		});
@@ -684,36 +665,36 @@ public class View extends Application{
 		}
 		
 		//add labels
-				Text warnings = new Text("");
-				warnings.getStyleClass().add("description");
-				grid.add(warnings, 2, 8);
+		Text warnings = new Text("");
+		warnings.getStyleClass().add("description");
+		grid.add(warnings, 2, 8);
 				
 			
-				Text infoField = new Text("");
-				infoField.getStyleClass().add("description");
-				grid.add(infoField, 0, 0);
+		Text infoField = new Text("");
+		infoField.getStyleClass().add("description");
+		grid.add(infoField, 0, 0);
 				
-				String infotext = "Name | Capacity	| Projector	| Whiteboard	| Blackboard";
-            	infoField.setText(infotext);
+		String infotext = "Name | Capacity	| Projector	| Whiteboard	| Blackboard";
+         infoField.setText(infotext);
 				
 		//button to select room
-				Button selectButton = new Button("Select");
-				selectButton.getStyleClass().add("button");
-				grid.add(selectButton, 2, 7);
-		        selectButton.setOnAction(new EventHandler<ActionEvent>() {
+		Button selectButton = new Button("Select");
+		selectButton.getStyleClass().add("button");
+		grid.add(selectButton, 2, 7);
+		selectButton.setOnAction(new EventHandler<ActionEvent>() {
 
-		            @Override
-		            public void handle(ActionEvent arg0) {
-		            	//warningstring and room result
+		     @Override
+		     public void handle(ActionEvent arg0) {
+		     //warningstring and room result
 						
-		            	System.out.println("Your room has been booked");
+		//   System.out.println("Your room has been booked");
 		            	
-		            	String warningText = "Your room has been booked";
-		            	warnings.setText(warningText);
-		            }
-		        });
+		     String warningText = "Your room has been booked";
+		     warnings.setText(warningText);
+		     }
+		});
 		
-		//button to go back into serach
+		//button to go back into search
 		Button backButton = new Button("Go back");
 		backButton.getStyleClass().add("button");
 		grid.add(backButton, 2, 0);
