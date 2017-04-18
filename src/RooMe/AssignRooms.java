@@ -2,9 +2,6 @@ package RooMe;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 
 public class AssignRooms {
 	/*
@@ -41,6 +38,7 @@ public class AssignRooms {
 	public static void InitCrits() {
 		try {
 			RoomCriteria.listOfCriterion();
+			//System.out.println("listOfCriterion");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -141,7 +139,7 @@ public class AssignRooms {
 		noRooms  = new ArrayList<>();
 		for (int i = 0; i < rom.size(); i++ ) {
 			if (rom.get(i).size() == 0) {
-//				noRooms.add(crit.get(i));
+				noRooms.add(crit.get(i));
 //				listOfLists.remove(i);
 		//		System.out.println(crit.get(0));
 	//			System.out.println("no rooms " + noRooms);
@@ -157,10 +155,10 @@ public class AssignRooms {
 				}
 			}
 		}
-		System.out.println("ikke tildelt rom " + noRooms);
+//		System.out.println("ikke tildelt rom " + noRooms);
 		System.out.println("New time");
 		System.out.println(listOfLists);
-		delegateRoomsInput(listOfLists, noRooms);
+//		delegateRoomsInput(listOfLists, noRooms);
 	}
 	
 	//end tag
