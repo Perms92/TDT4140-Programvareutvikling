@@ -67,7 +67,7 @@ public class RoomCriteria{
 	}
 	
 	public static ArrayList<RoomCriteria> listOfCriterion() throws SQLException{
-		ArrayList<RoomCriteria> list = new ArrayList<RoomCriteria>();
+		//ArrayList<RoomCriteria> list = new ArrayList<RoomCriteria>();
 		String sql = "select * from thblaauw_tdt4145database.Criterias";
 		Database.connect();
 			try {

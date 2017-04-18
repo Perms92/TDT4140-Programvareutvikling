@@ -27,10 +27,11 @@ public class AssignRooms {
 	public AssignRooms() {
 		InitCrits();
 		InitRooms();
-//		System.out.println(criteriaList);
-//		System.out.println(rooms);
+		System.out.println(criteriaList);
+		System.out.println(rooms + "\n \n");
 		CombineSearch();
 		SortCriterias();
+		System.out.println(listOfLists);
 		delegateRooms();
 	//	delegateRoomsInput(listOfLists, criteriaList);
 	}
@@ -71,7 +72,7 @@ public class AssignRooms {
 	public static void CombineSearch() {
 		for (RoomCriteria crit : criteriaList) {
 			for (Room room : rooms) {
-				if (crit.getCapacity() < room.getCapacity()) {
+				if (crit.getCapacity() <= room.getCapacity()) {
 					if ((crit.isProjector() == room.isProjector()) || crit.isProjector() == false) {
 						if ((crit.isBlackboard() == room.isBlackboard()) || crit.isBlackboard() == false) {
 							if ((crit.isHearingaid() == room.isWhiteboard()) || crit.isHearingaid() == false) {
@@ -81,11 +82,13 @@ public class AssignRooms {
 					}
 				}			
 			}
+			System.out.println(crit.getPersonName()+":  " + crit.criterionCombos + "\n \n");
 		}
 	}
 	
 	//list to sort criteria in
 	public static ArrayList<ArrayList<Room>> listOfLists = new ArrayList<>();
+	public static ArrayList<RoomCriteria> sortedCriterias = new ArrayList<>();
 	
 	public static void SortCriterias () {
 		int size = 0;
@@ -94,6 +97,8 @@ public class AssignRooms {
 			for (RoomCriteria crit : criteriaList) {
 				if (crit.criterionCombos.size() == size) {
 					listOfLists.add(crit.criterionCombos);
+					sortedCriterias.add(crit);
+					System.out.println(crit.getPersonName() + crit.getFag() + crit.getCapacity());
 				}
 				if (crit.criterionCombos.size() > maxRes) {
 					maxRes = crit.criterionCombos.size();
@@ -114,7 +119,7 @@ public class AssignRooms {
 			}
 			//if (listOfLists.get(i).size() == 1) {
 			else {	
-				Combo com = new Combo((criteriaList.get(i)), (listOfLists.get(i)).get(0));
+				Combo com = new Combo(sortedCriterias.get(i), (listOfLists.get(i)).get(0));
 				combos.add(com);
 	//			criteriaList.remove(i);
 				Room room = (listOfLists.get(i).get(0)); //this one is given somewhere

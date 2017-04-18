@@ -193,9 +193,9 @@ public class Timetable {
 	
 	
 	//FLYTTES?
-	public static void bookClassforSemester(Person person, Room room, String subject, int day, int startTime, int endTime) throws SQLException {
-		updatePersonTable(person.getName(), room.getName(), day, startTime, endTime);
-		updateRoomTable(room.getName(), subject, day, startTime, endTime);
+	public static void bookClassforSemester(String person, String room, String subject, int day, int startTime, int endTime) throws SQLException {
+		updatePersonTable(person, room, day, startTime, endTime);
+		updateRoomTable(room, subject, day, startTime, endTime);
 	}
 		
 	
@@ -203,9 +203,9 @@ public class Timetable {
 	public static void main(String[] args) throws SQLException {
 		//Room testRoom = new Room("R100", 50, false, false, false);
 		//updatePersonTable(testPerson.getName(), "TDT4100", 1, 8, 14);
-		Room testRoom = new Room(true, "R1000", 100, true, true, true);
-		Person testPerson = new Person("Slutt for dagen", true);
-		bookClassforSemester(testPerson, testRoom, "TDT8008", 3, 9, 11);
+		//Room testRoom = new Room(true, "R1000", 100, true, true, true);
+		//Person testPerson = new Person("Slutt for dagen", true);
+		bookClassforSemester("Slutt for dan", "R10000", "TDT8008", 3, 9, 11);
 	}
 
 }
