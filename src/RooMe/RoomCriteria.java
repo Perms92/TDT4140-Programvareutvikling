@@ -130,6 +130,7 @@ public class RoomCriteria{
 	public boolean isHearingaid() {
 		return hearingaid;
 	}
+	
 	public void setHearingaid(boolean whiteboard) {
 		this.hearingaid = whiteboard;
 	}
@@ -154,6 +155,7 @@ public class RoomCriteria{
 		}
 		return  PersonName + " 	|	 " + fag + " 	|	 " + capacity + " 	|	 " + textprojector + " 	|	 " + textblackboard + " 	|	 " + textwhiteboard + "\n"; 
 	}
+
 
 
 	public static void main(String[] args) throws SQLException {

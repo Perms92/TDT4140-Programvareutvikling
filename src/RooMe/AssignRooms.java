@@ -24,6 +24,17 @@ public class AssignRooms {
 	 * sjekk treff mot hverandre og fordel slik at alle klaffer
 	 */
 	
+	public AssignRooms() {
+		InitCrits();
+		InitRooms();
+//		System.out.println(criteriaList);
+//		System.out.println(rooms);
+		CombineSearch();
+		SortCriterias();
+		delegateRooms();
+	//	delegateRoomsInput(listOfLists, criteriaList);
+	}
+	
 	//list with input criterias that we use to search for rooms
 	public static ArrayList<RoomCriteria> criteriaList;
 	
@@ -43,6 +54,7 @@ public class AssignRooms {
 	public static SearchForRoomDB roomDB;
 	public static ArrayList<Room> rooms;
 	
+	//updating local room list from database
 	public static void InitRooms() {
 		try {
 			roomDB = new SearchForRoomDB(0, false, false, false);
@@ -54,13 +66,8 @@ public class AssignRooms {
 			rooms = roomDB.acceptedRooms;
 		}
 	}
-
-	public static void IterateList(ArrayList list) {
-		for (Object ob : list) {
-			System.out.println("Objekt: " + ob);
-		}
-	}
 	
+	//function that adds possible rooms into the criteriaclass
 	public static void CombineSearch() {
 		for (RoomCriteria crit : criteriaList) {
 			for (Room room : rooms) {
@@ -77,42 +84,84 @@ public class AssignRooms {
 		}
 	}
 	
-	public static void Combos () {
-		for (RoomCriteria crit : criteriaList) {
-			System.out.println("possible rooms " + crit.criterionCombos.size());
-		}
-	}
-	
 	//list to sort criteria in
-	public static ArrayList listOfLists = new ArrayList<>();
+	public static ArrayList<ArrayList<Room>> listOfLists = new ArrayList<>();
 	
 	public static void SortCriterias () {
-		int i = 0;
 		int size = 0;
-
-		while (i < (criteriaList.size())) {
+		int maxRes = 0; //size of longest list in criteriaList
+		while  (size < maxRes + 1) {
 			for (RoomCriteria crit : criteriaList) {
 				if (crit.criterionCombos.size() == size) {
 					listOfLists.add(crit.criterionCombos);
-					i++;
 				}
-				else {
-				}		
+				if (crit.criterionCombos.size() > maxRes) {
+					maxRes = crit.criterionCombos.size();
+				}
 			}	
 			size++;
 		}
 	}
 	
+	public static ArrayList<Combo> combos = new ArrayList<>();
+	public static ArrayList<RoomCriteria> noRooms  = new ArrayList<>();
+	
+	public static void delegateRooms() {
+		for (int i = 0; i < listOfLists.size(); i++ ) {
+			if (listOfLists.get(i).size() == 0) {
+				noRooms.add(criteriaList.get(i));
+				System.out.println("no rooms " + noRooms);
+			}
+			//if (listOfLists.get(i).size() == 1) {
+			else {	
+				Combo com = new Combo((criteriaList.get(i)), (listOfLists.get(i)).get(0));
+				combos.add(com);
+	//			criteriaList.remove(i);
+				Room room = (listOfLists.get(i).get(0)); //this one is given somewhere
+	//			System.out.println("added" +  (listOfLists.get(i)));
+				for (ArrayList<Room> list : listOfLists) {
+					if (list.contains(room)) {
+						list.remove((room));
+	//					System.out.println("contains" + list + (listOfLists.get(i)) );
+					}
 
-	/*
-	public static void main(String[] args) {
-		InitCrits();
-		InitRooms();
-		CombineSearch();
-		Combos();
-		SortCriterias();
-//		System.out.println(listOfLists);
+				}
+			}
+		}
+		System.out.println("New time");
+		
 	}
-	*/
+	
+	public static void main(String[] args) {
+		new AssignRooms();
+		System.out.println(combos);
+	}
+
+	public static void delegateRoomsInput(ArrayList<ArrayList<Room>> rom, ArrayList<RoomCriteria> crit) {
+		noRooms  = new ArrayList<>();
+		for (int i = 0; i < rom.size(); i++ ) {
+			if (rom.get(i).size() == 0) {
+//				noRooms.add(crit.get(i));
+//				listOfLists.remove(i);
+		//		System.out.println(crit.get(0));
+	//			System.out.println("no rooms " + noRooms);
+			}
+			else {	
+				Combo com = new Combo((crit.get(i)), (rom.get(i)).get(0));
+				combos.add(com);
+				Room room = (rom.get(i).get(0)); //this one is given somewhere
+				for (ArrayList<Room> list : rom) {
+					if (list.contains(room)) {
+						list.remove((room));
+					}
+				}
+			}
+		}
+		System.out.println("ikke tildelt rom " + noRooms);
+		System.out.println("New time");
+		System.out.println(listOfLists);
+		delegateRoomsInput(listOfLists, noRooms);
+	}
+	
 	//end tag
 }
