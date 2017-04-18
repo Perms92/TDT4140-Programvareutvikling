@@ -140,8 +140,8 @@ public class Room{
 	
 		
 	public static void main(String[] args) throws SQLException {
-		//addRoom("R9", 71, true, false, true);
-		//addRoom("R10", 71, true, false, true);
+		//addRoom("R11", 51, true, true, true);
+		//addRoom("R12", 69, true, false, false);
 		//deleteRoom("R1");
 		printRooms();
 		}

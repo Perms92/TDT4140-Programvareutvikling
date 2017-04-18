@@ -24,12 +24,13 @@ public class AssignRooms {
 	public AssignRooms() {
 		InitCrits();
 		InitRooms();
-//		System.out.println(criteriaList);
-//		System.out.println(rooms);
+		System.out.println("kriterier " + criteriaList);
+		System.out.println("rom " + rooms);
 		CombineSearch();
 		SortCriterias();
-		delegateRooms();
-	//	delegateRoomsInput(listOfLists, criteriaList);
+		System.out.println("mulige rom " + listOfLists);
+	//	delegateRooms();
+		delegateRoomsInput(listOfLists, criteriaList);
 	}
 	
 	//list with input criterias that we use to search for rooms
@@ -68,12 +69,15 @@ public class AssignRooms {
 	//function that adds possible rooms into the criteriaclass
 	public static void CombineSearch() {
 		for (RoomCriteria crit : criteriaList) {
+			
 			for (Room room : rooms) {
-				if (crit.getCapacity() < room.getCapacity()) {
-					if ((crit.isProjector() == room.isProjector()) || crit.isProjector() == false) {
-						if ((crit.isBlackboard() == room.isBlackboard()) || crit.isBlackboard() == false) {
-							if ((crit.isHearingaid() == room.isWhiteboard()) || crit.isHearingaid() == false) {
+				
+				if (crit.getCapacity() <= room.getCapacity()) { // if room as bigger capacity than needed
+					if ((crit.isProjector() == room.isProjector()) || (crit.isProjector() == false)) { //if room has projector or crit doesnt need
+						if ((crit.isBlackboard() == room.isBlackboard()) || (crit.isBlackboard() == false)) { //if room has blackboard or crit doesnt need
+							if ((crit.isHearingaid() == room.isWhiteboard()) || (crit.isHearingaid() == false)) { //if room has hearingaid or crit doesnt need
 								crit.criterionCombos.add(room);
+				//				System.out.println(crit);
 							}
 						}
 					}
@@ -90,11 +94,16 @@ public class AssignRooms {
 		int maxRes = 0; //size of longest list in criteriaList
 		while  (size < maxRes + 1) {
 			for (RoomCriteria crit : criteriaList) {
+				//this if sentence adds criterion with  (0, 1, 2...n) possible roomcombinations in the list, to keep the list ordered
 				if (crit.criterionCombos.size() == size) {
 					listOfLists.add(crit.criterionCombos);
+	//				System.out.println("kriterie " + crit);
+	//				System.out.println(crit.criterionCombos);			
 				}
+				//this if-sentence finds the criterion with be most acceptable rooms and therefore how many iterations we need
 				if (crit.criterionCombos.size() > maxRes) {
 					maxRes = crit.criterionCombos.size();
+
 				}
 			}	
 			size++;
@@ -108,13 +117,11 @@ public class AssignRooms {
 		for (int i = 0; i < listOfLists.size(); i++ ) {
 			if (listOfLists.get(i).size() == 0) {
 				noRooms.add(criteriaList.get(i));
-				System.out.println("no rooms " + noRooms);
+	//			System.out.println("no rooms " + noRooms);
 			}
-			//if (listOfLists.get(i).size() == 1) {
 			else {	
 				Combo com = new Combo((criteriaList.get(i)), (listOfLists.get(i)).get(0));
 				combos.add(com);
-	//			criteriaList.remove(i);
 				Room room = (listOfLists.get(i).get(0)); //this one is given somewhere
 	//			System.out.println("added" +  (listOfLists.get(i)));
 				for (ArrayList<Room> list : listOfLists) {
@@ -127,11 +134,20 @@ public class AssignRooms {
 			}
 		}
 		System.out.println("New time");
-		
 	}
 	
 	public static void main(String[] args) {
 		new AssignRooms();
+/*		InitCrits();
+		InitRooms();
+//		System.out.println("kriterier " + criteriaList);
+//		System.out.println("rom " + rooms);
+		CombineSearch();
+		SortCriterias();
+//		System.out.println("mulige rom " + listOfLists);
+//		System.out.println("kriterie " + criteriaList.get(0) + " mulige rom " + (listOfLists.get(0)));//.get(0));
+		
+		*/
 		System.out.println(combos);
 	}
 
@@ -140,23 +156,24 @@ public class AssignRooms {
 		for (int i = 0; i < rom.size(); i++ ) {
 			if (rom.get(i).size() == 0) {
 				noRooms.add(crit.get(i));
-//				listOfLists.remove(i);
-		//		System.out.println(crit.get(0));
 	//			System.out.println("no rooms " + noRooms);
 			}
 			else {	
 				Combo com = new Combo((crit.get(i)), (rom.get(i)).get(0));
 				combos.add(com);
 				Room room = (rom.get(i).get(0)); //this one is given somewhere
+	//			System.out.println("added" +  (listOfLists.get(i)));
 				for (ArrayList<Room> list : rom) {
 					if (list.contains(room)) {
 						list.remove((room));
+	//					System.out.println("contains" + list + (listOfLists.get(i)) );
 					}
+
 				}
 			}
 		}
-//		System.out.println("ikke tildelt rom " + noRooms);
 		System.out.println("New time");
+		System.out.println("ikke tildelt rom " + noRooms);
 		System.out.println(listOfLists);
 //		delegateRoomsInput(listOfLists, noRooms);
 	}
