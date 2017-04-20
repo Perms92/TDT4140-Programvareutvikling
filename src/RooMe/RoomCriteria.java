@@ -11,35 +11,46 @@ public class RoomCriteria{
 	static ArrayList<RoomCriteria> list = new ArrayList<RoomCriteria>();
 	
 	public String PersonName;
-	public String fag;
+	public String subject;
 	private int capacity;
 	private boolean projector;
 	private boolean blackboard;
 	private boolean hearingaid;
+	private int hours;
 
-	public ArrayList<Room> criterionCombos = new ArrayList<Room>();
+	public ArrayList<Room> possibleRooms = new ArrayList<Room>();
 
-	protected RoomCriteria(String PersonName, String fag, int capacity, boolean projector, boolean blackboard, boolean whiteboard) {
+	public RoomCriteria(String PersonName, String subject, int capacity, boolean projector, boolean blackboard, boolean whiteboard, int hours) {
 		setPersonName(PersonName);
-		setFag(fag);
+		setSubject(subject);
 		setCapacity(capacity);
 		setProjector(projector);
 		setBlackboard(blackboard);
 		setHearingaid(whiteboard);
+		setHours(hours);
 
 	}
 	
-	public static void addRoomCriteria(String personName, String fag, int capacity, boolean projector, boolean blackboard, boolean whiteboard) throws SQLException{
+	public int getHours() {
+		return hours;
+	}
+
+	public void setHours(int hours) {
+		this.hours = hours;
+	}
+
+	public static void addRoomCriteria(String personName, String subject, int capacity, boolean projector, boolean blackboard, boolean whiteboard, int hours) throws SQLException{
 		Database.connect();
 		String sql = "INSERT INTO thblaauw_tdt4145database.Criterias\n"
-				+ "VALUES(?,?,?,?,?,?)";
+				+ "VALUES(?,?,?,?,?,?,?)";
 		PreparedStatement statement = Database.conn.prepareStatement(sql);
 		statement.setString(1, personName);
-		statement.setString(2, fag);
+		statement.setString(2, subject);
 		statement.setInt(3, capacity);
 		statement.setBoolean(4, projector);
 		statement.setBoolean(5, blackboard);
 		statement.setBoolean(6, whiteboard);
+		statement.setInt(6, hours);
 		statement.executeUpdate();
 		Database.disconnect();
 	}
@@ -48,16 +59,17 @@ public class RoomCriteria{
 		Database.connect();
 		try {
 			Database.rs = Database.sment.executeQuery("select * from thblaauw_tdt4145database.Criterias");
-			System.out.printf("%-20s %-9s %-10s %-11s %-12s %-12s","Foreleser", "Fag", "Capacity", "Projector", "Blackboard", "Whiteboard"+"\n");
+			System.out.printf("%-20s %-9s %-10s %-11s %-12s %-12s %-2s","Foreleser", "Subject", "Capacity", "Projector", "Blackboard", "Whiteboard", "Hours"+"\n");
 			System.out.println("---------------------------------------------------------------------------------------------");
 			while (Database.rs.next()){
-				System.out.printf("%-20s %-9s %-10s %-11s %-12s %-12s"
+				System.out.printf("%-20s %-9s %-10s %-11s %-12s %-12s %-2s"
 						+ "", Database.rs.getString(1),
 									Database.rs.getString(2),
 									Database.rs.getInt(3),
 									Database.rs.getBoolean(4),
 									Database.rs.getBoolean(5),
-									Database.rs.getBoolean(6));
+									Database.rs.getBoolean(6),
+									Database.rs.getInt(7));
 				System.out.println("");
 			}
 		} catch (SQLException e) {
@@ -76,7 +88,7 @@ public class RoomCriteria{
 				while (Database.rs.next()){
 					RoomCriteria aCrit = 
 					new RoomCriteria(Database.rs.getString(1), Database.rs.getString(2), Database.rs.getInt(3), 
-							Database.rs.getBoolean(4), Database.rs.getBoolean(5), Database.rs.getBoolean(6));
+							Database.rs.getBoolean(4), Database.rs.getBoolean(5), Database.rs.getBoolean(6), Database.rs.getInt(7));
 					list.add(aCrit);
 					} 
 				}
@@ -86,7 +98,9 @@ public class RoomCriteria{
 			return list;
 	}
 		
-	
+	public void removeBookedHours() {
+		setHours(getHours()-2);
+	}
 	
 	public String getPersonName() {
 		return PersonName;
@@ -96,12 +110,12 @@ public class RoomCriteria{
 		PersonName = personName;
 	}
 
-	public String getFag() {
-		return fag;
+	public String getSubject() {
+		return subject;
 	}
 
-	public void setFag(String fag) {
-		this.fag = fag;
+	public void setSubject(String subject) {
+		this.subject = subject;
 	}
 
 	public int getCapacity() {
@@ -128,6 +142,14 @@ public class RoomCriteria{
 		this.blackboard = blackboard;
 	}
 
+	public ArrayList<Room> getPossibleRooms() {
+		return possibleRooms;
+	}
+
+	public void setPossibleRooms(ArrayList<Room> possibleRooms) {
+		this.possibleRooms = possibleRooms;
+	}
+
 	public boolean isHearingaid() {
 		return hearingaid;
 	}
@@ -140,7 +162,7 @@ public class RoomCriteria{
 	
 	public String toString() {
 		String PersonName = getPersonName();
-		String fag = getFag();
+		String subject = getSubject();
 		String capacity = Integer.toString(getCapacity()) + "	";
 		String textprojector = "No	";
 		String textblackboard = "No	";
@@ -154,16 +176,25 @@ public class RoomCriteria{
 		if (isHearingaid()) {
 			textwhiteboard = "Yes";
 		}
-		return  PersonName + " 	|	 " + fag + " 	|	 " + capacity + " 	|	 " + textprojector + " 	|	 " + textblackboard + " 	|	 " + textwhiteboard + "\n"; 
+		System.out.printf("%-20s %-9s %-10s %-11s %-12s %-12s %-2s"
+				+ "", PersonName, subject, capacity, textprojector, textblackboard, textwhiteboard, String.valueOf(hours)+"\n");
+		return (""); 
+	}
+	
+	public static void printList(ArrayList<RoomCriteria> testList) {
+		System.out.printf("%-20s %-9s %-10s %-11s %-12s %-12s %-5s","Foreleser", "Subject", "Capacity", "Projector", "Blackboard", "Whiteboard", "Hours"+"\n");
+		System.out.println("---------------------------------------------------------------------------------------------");
+		testList.toString();
 	}
 
 
-
 	public static void main(String[] args) throws SQLException {
-		//addRoomCriteria("Kristian Langvann", "TMA4100", 200, true, false, false);
-		getRoomCriterias();
-		ArrayList<RoomCriteria> testList = listOfCriterion();
-		System.out.println(testList);
+		RoomCriteria test = new RoomCriteria("Kristian Langvann", "TMA4100", 200, true, false, false, 5);
+		test.removeBookedHours();
+		System.out.println(test);
+		test.removeBookedHours();
+		System.out.println(test);
+
 
 	}
 	

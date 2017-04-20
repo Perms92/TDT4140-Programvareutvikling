@@ -202,9 +202,9 @@ public class Timetable {
 	
 	
 	//FLYTTES?
-	public static void bookClassforSemester(Person person, Room room, String subject, int day, int startTime, int endTime) throws SQLException {
-		updatePersonTable(person.getName(), room.getName(), day, startTime, endTime);
-		updateRoomTable(room.getName(), subject, day, startTime, endTime);
+	public static void bookClassforSemester(String personName, String roomName, String subject, int day, int startTime, int endTime) throws SQLException {
+		updatePersonTable(personName, roomName, day, startTime, endTime);
+		updateRoomTable(roomName, subject, day, startTime, endTime);
 	}
 		
 	

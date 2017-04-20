@@ -15,7 +15,7 @@ public class Room{
 	private ArrayList<Timetable> timeTables = new ArrayList<Timetable>();
 //	private int roomID;
 	
-	protected Room(boolean update, String name, int capacity, boolean projector, boolean blackboard, boolean whiteboard) throws SQLException {
+	public Room(boolean update, String name, int capacity, boolean projector, boolean blackboard, boolean whiteboard) throws SQLException {
 		setName(name);
 		setCapacity(capacity);
 		setProjector(projector);
@@ -143,7 +143,17 @@ public class Room{
 		//addRoom("R11", 51, true, true, true);
 		//addRoom("R12", 69, true, false, false);
 		//deleteRoom("R1");
-		printRooms();
+		Room R1 = new Room(true, "R1", 80, false, false, false);
+		Room R11 = new Room(true, "R11", 51, true, true, true);
+		Room R12 = new Room(true, "R12", 69, true, false, false);
+		Room R2 = new Room(true, "R2", 90, true, true, true);
+		Room R3 = new Room(true, "R3", 70, false, true, true);
+		Room R4 = new Room(true, "R4", 60, true, false, true);
+		Room R5 = new Room(true, "R5", 55, true, true, false);
+		Room R6 = new Room(true, "R6", 65, true, false, false);
+		Room R7 = new Room(true, "R7", 75, false, true, false);
+		Room R8 = new Room(true, "R8", 85, false, false, true);
+		Room R9 = new Room(true, "R9", 71, true, false, false);
 		}
 
 	

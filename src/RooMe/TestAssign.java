@@ -117,7 +117,7 @@ public class TestAssign {
 //			System.out.println("i " + i);
 			if ((listOfLists.get(i)).size() == 0) {
 				noRooms.add(sortedCriteria.get(i));
-//				System.out.println("added" + (criteriaList.get(i)).getFag());
+//				System.out.println("added" + (criteriaList.get(i)).getSubject());
 			}
 			else {	
 				Combo com = new Combo((sortedCriteria.get(i)), (listOfLists.get(i)).get(0));
