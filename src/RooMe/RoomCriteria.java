@@ -101,6 +101,7 @@ public class RoomCriteria{
 	public void removeBookedHours() {
 		setHours(getHours()-2);
 	}
+
 	
 	public String getPersonName() {
 		return PersonName;
@@ -189,13 +190,7 @@ public class RoomCriteria{
 
 
 	public static void main(String[] args) throws SQLException {
-		RoomCriteria test = new RoomCriteria("Kristian Langvann", "TMA4100", 200, true, false, false, 5);
-		test.removeBookedHours();
-		System.out.println(test);
-		test.removeBookedHours();
-		System.out.println(test);
-
-
+		
 	}
 	
 }

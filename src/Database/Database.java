@@ -1,7 +1,9 @@
 package Database;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 
 import RooMe.Room;
 import RooMe.RoomCriteria;
@@ -14,10 +16,12 @@ public class Database {
 	//ForBedreKode(FBK): Innkapsle attributtene og legg til getters
 	public static ArrayList<Room> allRooms = new ArrayList<Room>();
 	public static ArrayList<RoomCriteria> allCriteria = new ArrayList<RoomCriteria>();
+	public static Set<String> distinctPersons = new HashSet<>();
 	
 	public Database() throws SQLException {
 		fetchRooms();
 		fetchCriteria();
+		fetchDistinctPersons();
 	}
 	public static Statement getStatement(){
 		return sment;
@@ -75,8 +79,18 @@ public class Database {
 			}
 	}
 	
-	
-	
+	public void fetchDistinctPersons() {
+		String sql = "select * from thblaauw_tdt4145database.Criterias";
+		try {
+			Database.rs = Database.sment.executeQuery(sql);
+			while (Database.rs.next()){
+				distinctPersons.add(Database.rs.getString(1));
+				} 
+			}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	public ArrayList<Room> getAllRooms(){
 		return allRooms;
@@ -85,14 +99,11 @@ public class Database {
 		return allCriteria;
 	}
 	
+	public Set<String> getDistinctPersons() {
+		return distinctPersons;
+	}
+	
 	public static void removeEqualRoom(String roomName, ArrayList<Room> list) {
-		/*Room toBeRemoved = null;
-		for (Room room : list) {
-			if (roomName.equals(room.getName())) {
-				toBeRemoved = room;
-			}
-		list.remove(toBeRemoved);
-		}*/
 		Iterator<Room> iter = list.iterator();
 
 		while (iter.hasNext()) {
@@ -103,11 +114,41 @@ public class Database {
 		}
 	}
 	
+	public static ArrayList<RoomCriteria> extractDuplicates(ArrayList<RoomCriteria> critList) {
+		ArrayList<RoomCriteria> extracted = new ArrayList<RoomCriteria>();
+		Iterator<RoomCriteria> critIter = critList.iterator();
+		for (RoomCriteria crit : critList) {
+			int i =critList.indexOf(crit);
+			for (int next = i+1; next < critList.size(); next++) {
+				if (extracted.contains(crit)) {
+				}
+				else if (crit.getPersonName().equals(critList.get(next).getPersonName())) {
+						System.out.println("adding" + critList.get(next));
+						extracted.add(critList.get(next));
+					
+				}
+			}
+		} 
+		critList.removeAll(extracted);
+		return extracted;
+	}
+	
+	
+	
 	public static void main(String[] args) throws SQLException {
-		Database test = new Database();
+		Database.connect();
+		Database forTest = new Database();
+		System.out.println("EXTRACTING");
+		ArrayList<RoomCriteria> isWorking = extractDuplicates(forTest.getAllCriteria());
+		System.out.println("HER?");
+		System.out.println(forTest.getAllCriteria());
+		System.out.println("extracted:");
+		System.out.println(isWorking);
+		Database.disconnect();
+	/*	Database test = new Database();
 		System.out.println(test.getAllRooms());
 		System.out.println(test.getAllCriteria());
-
+		System.out.println(test.getDistinctPersons());*/
 	}
 	
 

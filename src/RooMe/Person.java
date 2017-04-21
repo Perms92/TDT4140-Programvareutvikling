@@ -38,6 +38,7 @@ public class Person {
 		}
 		}
 	
+	
 	public void addPerson() throws SQLException {
 		Database.connect();
 		String sql = "INSERT INTO thblaauw_tdt4145database.Person\n"

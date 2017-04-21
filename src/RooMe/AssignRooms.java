@@ -45,28 +45,35 @@ public class AssignRooms {
 		assignCombosToTimeTable(0,1);
 		System.out.println("Kommer fort ikke i rekkefølge");
 		System.out.println("NoRooms etter 1 forsøk: " + noRooms + "\n" +"listOfLists etter 1 forsøk: " + listOfLists);
-		while (!(noRooms.isEmpty())) {
-		AssignRemainingRooms();
-		}
+		int hourscount = 2;
+		int daycount = 1;
+			while (!(noRooms.isEmpty())) {
+				System.out.println("NEW ROND IN WHILE");
+				delegateRemainingRooms();
+				printlistOfLists();
+				System.out.println(combos);
+				System.out.println("Counter and daycount: " + daycount + ", " + hourscount);
+				assignCombosToTimeTable(hourscount, daycount);
+					if (hourscount < 16) {
+						hourscount +=2;
+						System.out.println("counted up");
+					}
+					else {
+						hourscount = 0;
+						daycount +=1;
+						System.out.println("counted a day!");
+					}
+			}
 	}
 	
-	public void AssignRemainingRooms() throws SQLException {
-		int counter = 2;
-		int daycount = 1;
+	public void delegateRemainingRooms() throws SQLException {
 		listOfLists.clear();
 		critsBelong.clear();
 		combos.clear();
 		CombineSearch(noRooms);
 		SortCriterias(noRooms);
 		delegateRooms(listOfLists);
-		assignCombosToTimeTable(daycount, counter);
-		if (counter < 16) {
-				counter +=2;
-			}
-			else {
-				counter = 0;
-				daycount +=1;
-			}
+		
 	}
 	
 	//function that adds possible rooms into the criteriaclass
@@ -101,13 +108,14 @@ public class AssignRooms {
 	}
 	
 	
-	
-	public static void delegateRooms(ArrayList<ArrayList<Room>> listOfCritMatches) throws SQLException {
+	public static void delegateRooms(ArrayList<ArrayList<Room>> listOfCritMatches, Database database) throws SQLException {
 		noRooms.clear();
 		for (int i = 0; i < listOfCritMatches.size(); i++ ) {
 			if (listOfCritMatches.get(i).isEmpty()) {
 				noRooms.add(critsBelong.get(i));
 	//			System.out.println("no rooms " + noRooms);
+			}
+			else if (database.getDistinctPersons().contains(critsBelong.get(i).getPersonName())) {
 			}
 			else {	
 				Combo com = new Combo(critsBelong.get(i), (listOfCritMatches.get(i)).get(0));
@@ -119,9 +127,6 @@ public class AssignRooms {
 				}
 			}
 		}
-		System.out.println("New time");
-		System.out.println("Crits without room: " + noRooms.size());
-		System.out.println(noRooms);
 	}
 	
 	public static void printlistOfLists() {
@@ -136,23 +141,20 @@ public class AssignRooms {
 	
 	
 	public void assignCombosToTimeTable(int hours, int day) throws SQLException {
-		int time = 8;
 		int plus;
 		for (Combo combo : combos) {
 			if (combo.getCrit().getHours() == 1) {
 				 plus = 1;
 			}
 			else { plus = 2;}
-			System.out.println("PLUS: " + plus);
-			Timetable.bookClassforSemester(combo.getCrit().getPersonName(), combo.getRoom().getName(), combo.getCrit().getSubject(), day, time+hours, time+hours+plus);
-			System.out.println("Combo: " + combo + " has been written down in a timetable");
+			Timetable.bookClassforSemester(combo.getCrit().getPersonName(), combo.getRoom().getName(), combo.getCrit().getSubject(), day, 8+hours, 8+hours+plus);
+			System.out.println("Combo: " + combo + " has been written down in a timetable for day " + day + ", and " + (8+hours) + "'o clock." );
 			combo.getCrit().removeBookedHours();
-			System.out.println("hours removed" + combo.getCrit());
 			if (combo.getCrit().getHours() > 0) {
 				noRooms.add(combo.getCrit());
 				System.out.println("added " + combo + "bc it it has " + combo.getCrit().getHours()  + " hours left.");
 			}
-		System.out.println("new round");
+
 	}
 	}
 	
