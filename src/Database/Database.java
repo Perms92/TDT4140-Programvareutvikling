@@ -1,6 +1,8 @@
 package Database;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -114,21 +116,41 @@ public class Database {
 		}
 	}
 	
-	public static ArrayList<RoomCriteria> extractDuplicates(ArrayList<RoomCriteria> critList) {
+	public static ArrayList<RoomCriteria> extractDuplicates(ArrayList<RoomCriteria> critList, ArrayList<ArrayList<Room>> listOfLists) {
+		//method removes criteria from same person leaving only one, 
+		//namely the first criterion (in assign rooms, the one with the most matches)
+		//also removes equivalent matches from the matrix
+		
 		ArrayList<RoomCriteria> extracted = new ArrayList<RoomCriteria>();
-		Iterator<RoomCriteria> critIter = critList.iterator();
+		ArrayList<Integer> matchingIndexes = new ArrayList<Integer>();
 		for (RoomCriteria crit : critList) {
 			int i =critList.indexOf(crit);
 			for (int next = i+1; next < critList.size(); next++) {
+				RoomCriteria indexedCrit = critList.get(next);
+				//must iterate through whole list, then extract to avoid ConcurrentModificationException
 				if (extracted.contains(crit)) {
+					//Crit already added as this is a duplicate - do nothing
 				}
-				else if (crit.getPersonName().equals(critList.get(next).getPersonName())) {
-						System.out.println("adding" + critList.get(next));
-						extracted.add(critList.get(next));
+				//IMPROVEMENT: this code only works when no one has the (exact) same name, let name be username or use PersonID
+				else if (crit.getPersonName().equals(indexedCrit.getPersonName())) {
+						System.out.println("adding" + indexedCrit);
+						extracted.add(indexedCrit);
+						// will remove matches for the indexedCrit, but then indexes changes
+						matchingIndexes.add((Integer) next);
+						
 					
 				}
 			}
 		} 
+		Collections.sort(matchingIndexes);
+		System.out.println("These are to be removed:");
+		System.out.println("Indexes: " + matchingIndexes);
+		for (int size=matchingIndexes.size()-1; size >=0; size--) {
+			int removeFromMatrix = matchingIndexes.get(size);
+			listOfLists.remove(removeFromMatrix);
+			System.out.println("Index " + removeFromMatrix + "removed");
+			System.out.println("New size = " + listOfLists.size());
+		}
 		critList.removeAll(extracted);
 		return extracted;
 	}
@@ -136,15 +158,7 @@ public class Database {
 	
 	
 	public static void main(String[] args) throws SQLException {
-		Database.connect();
-		Database forTest = new Database();
-		System.out.println("EXTRACTING");
-		ArrayList<RoomCriteria> isWorking = extractDuplicates(forTest.getAllCriteria());
-		System.out.println("HER?");
-		System.out.println(forTest.getAllCriteria());
-		System.out.println("extracted:");
-		System.out.println(isWorking);
-		Database.disconnect();
+		
 	/*	Database test = new Database();
 		System.out.println(test.getAllRooms());
 		System.out.println(test.getAllCriteria());

@@ -48,13 +48,13 @@ public class AssignRooms {
 		int hourscount = 2;
 		int daycount = 1;
 			while (!(noRooms.isEmpty())) {
-				System.out.println("NEW ROND IN WHILE");
+				System.out.println("NEW ROUND IN WHILE");
 				delegateRemainingRooms();
 				printlistOfLists();
 				System.out.println(combos);
-				System.out.println("Counter and daycount: " + daycount + ", " + hourscount);
+				System.out.println("Daycount and hourscount: " + daycount + ", " + hourscount);
 				assignCombosToTimeTable(hourscount, daycount);
-					if (hourscount < 16) {
+					if (hourscount < 6) {
 						hourscount +=2;
 						System.out.println("counted up");
 					}
@@ -108,14 +108,19 @@ public class AssignRooms {
 	}
 	
 	
-	public static void delegateRooms(ArrayList<ArrayList<Room>> listOfCritMatches, Database database) throws SQLException {
+	//Possible Idea: make list of list with criterias combined so we can afford som tumbles in the arraylists ListOfLists and Critsbelong
+	
+	public static void delegateRooms(ArrayList<ArrayList<Room>> listOfCritMatches) throws SQLException {
 		noRooms.clear();
+		noRooms.addAll(Database.extractDuplicates(critsBelong, listOfCritMatches));
+		System.out.println("duplicates extracted, no rooms: ");
+		System.out.println(noRooms);
+		System.out.println("size of noRooms: " + noRooms.size());
+		System.out.println("size of listOfLists: " + listOfLists.size());
 		for (int i = 0; i < listOfCritMatches.size(); i++ ) {
 			if (listOfCritMatches.get(i).isEmpty()) {
 				noRooms.add(critsBelong.get(i));
 	//			System.out.println("no rooms " + noRooms);
-			}
-			else if (database.getDistinctPersons().contains(critsBelong.get(i).getPersonName())) {
 			}
 			else {	
 				Combo com = new Combo(critsBelong.get(i), (listOfCritMatches.get(i)).get(0));
@@ -124,6 +129,7 @@ public class AssignRooms {
 	//			System.out.println("added" +  (listOfLists.get(i)));
 				for (ArrayList<Room> list : listOfCritMatches) { //removes the room as a possibility elsewhere
 					Database.removeEqualRoom(room.getName(), list);
+					
 				}
 			}
 		}
@@ -132,7 +138,7 @@ public class AssignRooms {
 	public static void printlistOfLists() {
 		System.out.println(listOfLists.size());
 		for (int i = 0; i < listOfLists.size(); i++) {
-			System.out.println("Crit "+ i + ": " + critsBelong.get(i).getPersonName() + " Subject : " + critsBelong.get(i).getSubject() + "Mulige rom: " +listOfLists.get(i).size());
+				System.out.println("Crit "+ i + ": " + critsBelong.get(i).getPersonName() + " Subject : " + critsBelong.get(i).getSubject() + "Mulige rom: " +listOfLists.get(i).size());
 			System.out.println(listOfLists.get(i));
 		}
 	}
