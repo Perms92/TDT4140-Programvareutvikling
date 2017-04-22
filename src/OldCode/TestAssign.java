@@ -1,7 +1,12 @@
-package RooMe;
+package OldCode;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import RooMe.Combo;
+import RooMe.Room;
+import RooMe.RoomCriteria;
+import RooMe.SearchForRoomDB;
 
 public class TestAssign {
 	/*
