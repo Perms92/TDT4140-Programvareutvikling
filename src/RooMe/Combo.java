@@ -18,10 +18,36 @@ public class Combo {
 		this.crit = crit;
 		this.room = room;
 	}
+	
+	
+
+	public RoomCriteria getCrit() {
+		return crit;
+	}
+
+
+
+	public void setCrit(RoomCriteria crit) {
+		this.crit = crit;
+	}
+
+
+
+	public Room getRoom() {
+		return room;
+	}
+
+
+
+	public void setRoom(Room room) {
+		this.room = room;
+	}
+
+
 
 	@Override
 	public String toString() {
-		return "Combo [name=" + crit.getPersonName() + ", subject=" + crit.getFag() + ", has been assigned room=" + room.getName() + "] \n";
+		return "Combo [name=" + crit.getPersonName() + ", subject=" + crit.getSubject() + ", has been assigned room=" + room.getName() + "] \n";
 	}
 	
 	

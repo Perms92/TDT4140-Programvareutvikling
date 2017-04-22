@@ -38,6 +38,7 @@ public class Person {
 		}
 		}
 	
+	
 	public void addPerson() throws SQLException {
 		Database.connect();
 		String sql = "INSERT INTO thblaauw_tdt4145database.Person\n"
@@ -79,8 +80,12 @@ public class Person {
 	
 
 	public static void main(String[] args) throws SQLException {
-		Person Trym = new Person("Trym Blaauw", true);
-
+		Person eirik = new Person("Eirik", true);
+		/*
+		Person André = new Person("Kristian tre", true);
+		Person Kristian = new Person("Kristian to", true);
+		Person KristianFem = new Person("Kristian fem", true);
+		*/
 	}
 
 }

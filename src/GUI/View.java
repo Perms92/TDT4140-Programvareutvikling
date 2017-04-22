@@ -437,7 +437,8 @@ public class View extends Application{
 				*/		
 						//searching with text inputs when everything is valid
 						try {
-							RoomCriteria.addRoomCriteria(name, subject, capacity, button1, button2, button3);
+							//SETT INN VALGFRITT TIMER I STEDEN FOR 2
+							RoomCriteria.addRoomCriteria(name, subject, capacity, button1, button2, button3, 2);
 						} catch (SQLException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();

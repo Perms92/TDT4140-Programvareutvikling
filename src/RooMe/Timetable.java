@@ -172,6 +172,15 @@ public class Timetable {
 		Database.disconnect();
 	}
 	
+	public static void resetTimeTables() throws SQLException {
+		//Subject can at most be 7 characters long
+		Database.connect();
+		Database.sment.executeUpdate(
+		"UPDATE thblaauw_tdt4145database.TimeTable "
+		+ "SET `8` = null, `9` = null, `10` = null, `11` = null, `12` = null, `13` = null, `14` = null, `15` = null");
+		Database.disconnect();
+	}
+	
 	//FLYTTES?
 	public static void updatePersonTable(String personName, String roomName, int day, int startTime, int endTime) throws SQLException {
 		Database.connect();
@@ -193,9 +202,9 @@ public class Timetable {
 	
 	
 	//FLYTTES?
-	public static void bookClassforSemester(String person, String room, String subject, int day, int startTime, int endTime) throws SQLException {
-		updatePersonTable(person, room, day, startTime, endTime);
-		updateRoomTable(room, subject, day, startTime, endTime);
+	public static void bookClassforSemester(String personName, String roomName, String subject, int day, int startTime, int endTime) throws SQLException {
+		updatePersonTable(personName, roomName, day, startTime, endTime);
+		updateRoomTable(roomName, subject, day, startTime, endTime);
 	}
 		
 	
@@ -205,7 +214,8 @@ public class Timetable {
 		//updatePersonTable(testPerson.getName(), "TDT4100", 1, 8, 14);
 		//Room testRoom = new Room(true, "R1000", 100, true, true, true);
 		//Person testPerson = new Person("Slutt for dagen", true);
-		bookClassforSemester("Slutt for dan", "R10000", "TDT8008", 3, 9, 11);
+		//bookClassforSemester(testPerson, testRoom, "TDT8008", 3, 9, 11);
+		resetTimeTables();
 	}
 
 }
