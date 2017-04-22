@@ -212,7 +212,7 @@ public class Timetable {
 	public static void main(String[] args) throws SQLException {
 		//Room testRoom = new Room("R100", 50, false, false, false);
 		//updatePersonTable(testPerson.getName(), "TDT4100", 1, 8, 14);
-		//Room testRoom = new Room(true, "R1000", 100, true, true, true);
+		//Room testRoom = new Room(true, "R1000", 100, true, true, true); 
 		//Person testPerson = new Person("Slutt for dagen", true);
 		//bookClassforSemester(testPerson, testRoom, "TDT8008", 3, 9, 11);
 		resetTimeTables();
