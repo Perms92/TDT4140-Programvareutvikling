@@ -10,6 +10,11 @@ import Database.Database;
 public class SearchForRoomDB {
 	//public for now while testing GUI
 	public static ArrayList<Room> acceptedRooms = new ArrayList<Room>();
+	
+	public ArrayList<Room> getAcceptedRooms() {
+		return acceptedRooms;
+	}
+
 	//Let user know that we did a search without some of its criteria because no room matched them all
 	public boolean error;
 	public String errorMessage;
@@ -19,16 +24,19 @@ public class SearchForRoomDB {
 	}
 	
 	
-	public static ArrayList<Room> 
+	
+	
+
+	
+	public ArrayList<Room> 
 	findMatches(int capacity, boolean projector, boolean blackboard, boolean whiteboard)
 	throws SQLException{
 		acceptedRooms = new ArrayList<Room>();
 		String sql = "select * from thblaauw_tdt4145database.Room "
-				+ "WHERE Room.Capacity > " + capacity + " AND "
+				+ "WHERE Room.Capacity >= " + capacity + " AND "
 				+ "(Room.Projector = true OR Room.Projector = " + projector + ") AND "
 				+ "(Room.blackboard = true OR Room.blackboard = " + blackboard + ") AND "
 				+ "(Room.Whiteboard = true OR Room.whiteboard = " + whiteboard + ")";
-		System.out.println(sql);
 		Database.connect();
 			try {
 				Database.rs = Database.sment.executeQuery(sql);
@@ -58,7 +66,7 @@ public class SearchForRoomDB {
 	}
 	
 	public static void main(String[] args) throws SQLException {
-		SearchForRoomDB testSok = new SearchForRoomDB(70, true, false, true);
+		SearchForRoomDB testSok = new SearchForRoomDB(100, true, false, true);
 		System.out.println(testSok);
 	}
 

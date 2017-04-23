@@ -1,11 +1,30 @@
 package Database;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
+import RooMe.Room;
+import RooMe.RoomCriteria;
+	
 public class Database {
+	
 	public static Connection conn=null;
 	public static Statement sment=null;
 	public static ResultSet rs=null;
 	//ForBedreKode(FBK): Innkapsle attributtene og legg til getters
+	public static ArrayList<Room> allRooms = new ArrayList<Room>();
+	public static ArrayList<RoomCriteria> allCriteria = new ArrayList<RoomCriteria>();
+	public static Set<String> distinctPersons = new HashSet<>();
+	
+	public Database() throws SQLException {
+		fetchRooms();
+		fetchCriteria();
+		fetchDistinctPersons();
+	}
 	public static Statement getStatement(){
 		return sment;
 	}
@@ -29,159 +48,121 @@ public class Database {
 	}
 	
 	
-	public static void main(String[] args) {
-		connect();
-		disconnect();
-	}
-	
-	
-	
-	
-	/*public static void printOvelserInOkt(Date date){
-		Database.connect();
-		try {
-			rs=sment.executeQuery("select Navn from oyvorsh_treningsdatabase.Ovelse as ove,"
-					+ " oyvorsh_treningsdatabase.OktHarOvelse as harOve"
-					+ " WHERE harOve.oID = ove.oID"
-					+ " AND harOve.Dato = '" + date+"'");
-			System.out.println("Ovelser");
-			System.out.println("-------");
-			while (rs.next()){
-				System.out.println(rs.getString(1));
+	public static void fetchRooms() throws SQLException{
+		allRooms = new ArrayList<Room>();
+		String sql = "select * from thblaauw_tdt4145database.Room";
+			try {
+				Database.rs = Database.sment.executeQuery(sql);
+				while (Database.rs.next()){
+					Room roomMatch = 
+					new Room(false, Database.rs.getString(1), Database.rs.getInt(2),Database.rs.getBoolean(3),Database.rs.getBoolean(4), Database.rs.getBoolean(5));
+					allRooms.add(roomMatch); 
+					} 
+				}
+			catch (SQLException e) {
+				e.printStackTrace();
 			}
-			System.out.println(); //print new line
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		Database.disconnect();
 	}
 	
-	public static void printOvelser(){
-		Database.connect();
-		try {
-			rs=sment.executeQuery("select * from oyvorsh_treningsdatabase.Ovelse");
-			System.out.println("OvelsesID  Ovelse");
-			System.out.println("-------------------");
-			while (rs.next()){
-				System.out.println(rs.getString(1)+"          "+rs.getString(4));
+	public static void fetchCriteria() throws SQLException{
+		//ArrayList<RoomCriteria> list = new ArrayList<RoomCriteria>();
+		String sql = "select * from thblaauw_tdt4145database.Criterias";
+			try {
+				Database.rs = Database.sment.executeQuery(sql);
+				while (Database.rs.next()){
+					RoomCriteria aCrit = 
+					new RoomCriteria(Database.rs.getString(1), Database.rs.getString(2), Database.rs.getInt(3), 
+							Database.rs.getBoolean(4), Database.rs.getBoolean(5), Database.rs.getBoolean(6), Database.rs.getInt(7));
+					allCriteria.add(aCrit);
+					} 
+				}
+			catch (SQLException e) {
+				e.printStackTrace();
 			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		Database.disconnect();
 	}
 	
-	public static void printHistory(String fraTid, String tilTid){
-		Database.connect();
-		String sql=" ";
+	public void fetchDistinctPersons() {
+		String sql = "select * from thblaauw_tdt4145database.Criterias";
 		try {
-			rs=sment.executeQuery(sql);
-			System.out.println("Treningsøkter i perioden: "+fraTid+tilTid+":");
-			System.out.println("Dato  Varighet  Øvelser");
-			while (rs.next()){
-				System.out.println(rs.getString(1)+rs.getString(2));
+			Database.rs = Database.sment.executeQuery(sql);
+			while (Database.rs.next()){
+				distinctPersons.add(Database.rs.getString(1));
+				} 
 			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
+	
+	public ArrayList<Room> getAllRooms(){
+		return allRooms;
+	}
+	public ArrayList<RoomCriteria> getAllCriteria() {
+		return allCriteria;
+	}
+	
+	public Set<String> getDistinctPersons() {
+		return distinctPersons;
+	}
+	
+	public static void removeEqualRoom(String roomName, ArrayList<Room> list) {
+		Iterator<Room> iter = list.iterator();
 
-	public static ResultSet getRs() {
-		return rs;
-	}
-	
+		while (iter.hasNext()) {
+		    Room next = iter.next();
 
-	public static void setRs(ResultSet rs) {
-		Database.rs = rs;
-	}
-	
-	
-	public static void addGoal(Goal goal) throws SQLException{
-		Database.connect();
-		String sql = "INSERT INTO oyvorsh_treningsdatabase.Maal\n"
-				+ "(oID, Beskrivelse, fraDato, tilDato)\n"
-				+ "VALUES(?, ?, ?, ?)";
-		
-		PreparedStatement statement = conn.prepareStatement(sql);
-		statement.setInt(1, goal.getoID());
-		statement.setString(2, goal.getBeskrivelse());
-		statement.setDate(3, goal.getTilDato());
-		statement.setDate(4, goal.getFraDato());
-		statement.executeUpdate();
-		Database.disconnect();
-	}
-
-	public static void addTreningsokt(Treningsokt treningsokt) throws SQLException {
-		Database.connect();
-		String sql = "INSERT INTO oyvorsh_treningsdatabase.Treningsokt\n"
-				+ "(Dato, Tidspunkt, Varighet, Egenvurdering, Fysisk_Form, Notat)\n"
-				+ "VALUES(?, ?, ?, ?, ?, ?)";
-		
-		PreparedStatement statement = conn.prepareStatement(sql);
-		
-		statement.setDate(1, treningsokt.getDato());
-		statement.setString(2, treningsokt.getTidspunkt());
-		statement.setString(3, treningsokt.getVarighet());
-		statement.setString(4, treningsokt.getEgenvurdering());
-		statement.setString(5, treningsokt.getFysiskForm());
-		statement.setString(6, treningsokt.getNotat());
-		
-		statement.executeUpdate();
-		Database.disconnect();
-		
-	}
-	
-	public static void addOvelseTilOkt(int oID, Treningsokt treningsokt) throws SQLException{
-		Database.connect();
-		String sql = "INSERT INTO oyvorsh_treningsdatabase.OktHarOvelse\n"
-				+ "(Dato, oID)\n"
-				+ "VALUES(?, ?)";
-		
-		PreparedStatement statement = conn.prepareStatement(sql);
-		
-		statement.setDate(1, treningsokt.getDato());
-		statement.setInt(2, oID);
-		
-		statement.executeUpdate();
-		
-		Database.disconnect();
-	}
-	
-
-	public static void deleteOktFraDato(Date dato) {
-		Database.connect();
-		try {
-		sment.executeUpdate("DELETE FROM oyvorsh_treningsdatabase.Treningsokt"
-				+ " WHERE Treningsokt.Dato ='"+ dato+"'");
-		sment.executeUpdate("DELETE FROM oyvorsh_treningsdatabase.OktHarOvelse"
-				+ " WHERE OktHarOvelse.Dato = '" + dato +"'");
-		System.out.println("Øktene fra "+dato+" er slettet\n");
-		} catch (SQLException e) {
-			e.printStackTrace();
+		    if (roomName.equals(next.getName()))
+		        iter.remove();
 		}
-		Database.disconnect();
-		}
-
-	// Finds the best date <3
-	public static String getBestDate() {
-		Database.connect();
-		
-		int best = 0;
-		Date bDate = Date.valueOf("2000-01-01");		
-		// Fetch ranking-list
-		try { rs=sment.executeQuery("select Dato, Egenvurdering from oyvorsh_treningsdatabase.Treningsokt");
-			while (rs.next()){ 
-				if (Integer.valueOf(rs.getString(2)) > best) { 
-					best = Integer.valueOf(rs.getString(2)); 
-					bDate = Date.valueOf(rs.getString(1)); 
-					} } }
-		catch (SQLException e) { System.out.println("pikk"); e.printStackTrace(); }
-		Database.disconnect();	
-		return "Din beste økt var " + bDate + " , og ble rangert til " + best + " på skala fra 1-10. "; 
-	}*/
+	}
 	
-
+	public static ArrayList<RoomCriteria> extractDuplicates(ArrayList<RoomCriteria> critList, ArrayList<ArrayList<Room>> listOfLists) {
+		//method removes criteria from same person leaving only one, 
+		//namely the first criterion (in assign rooms, the one with the most matches)
+		//also removes equivalent matches from the matrix
+		
+		ArrayList<RoomCriteria> extracted = new ArrayList<RoomCriteria>();
+		ArrayList<Integer> matchingIndexes = new ArrayList<Integer>();
+		for (RoomCriteria crit : critList) {
+			int i =critList.indexOf(crit);
+			for (int next = i+1; next < critList.size(); next++) {
+				RoomCriteria indexedCrit = critList.get(next);
+				//must iterate through whole list, then extract to avoid ConcurrentModificationException
+				if (extracted.contains(crit)) {
+					//Crit already added as this is a duplicate - do nothing
+				}
+				//IMPROVEMENT: this code only works when no one has the (exact) same name, let name be username or use PersonID
+				else if (crit.getPersonName().equals(indexedCrit.getPersonName())) {
+						System.out.println("adding" + indexedCrit);
+						extracted.add(indexedCrit);
+						// will remove matches for the indexedCrit, but then indexes changes
+						matchingIndexes.add((Integer) next);
+						
+					
+				}
+			}
+		} 
+		Collections.sort(matchingIndexes);
+		System.out.println("These are to be removed:");
+		System.out.println("Indexes: " + matchingIndexes);
+		for (int size=matchingIndexes.size()-1; size >=0; size--) {
+			int removeFromMatrix = matchingIndexes.get(size);
+			listOfLists.remove(removeFromMatrix);
+			System.out.println("Index " + removeFromMatrix + "removed");
+			System.out.println("New size = " + listOfLists.size());
+		}
+		critList.removeAll(extracted);
+		return extracted;
+	}
+	
+	
+	
+	public static void main(String[] args) throws SQLException {
+		
+	/*	Database test = new Database();
+		System.out.println(test.getAllRooms());
+		System.out.println(test.getAllCriteria());
+		System.out.println(test.getDistinctPersons());*/
+	}
+	
 }
