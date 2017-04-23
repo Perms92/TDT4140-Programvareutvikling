@@ -185,7 +185,7 @@ public class RoomCriteria{
 	public static void printList(ArrayList<RoomCriteria> testList) {
 		System.out.printf("%-20s %-9s %-10s %-11s %-12s %-12s %-5s","Foreleser", "Subject", "Capacity", "Projector", "Blackboard", "Whiteboard", "Hours"+"\n");
 		System.out.println("---------------------------------------------------------------------------------------------");
-		testList.toString();
+		System.out.println(testList);
 	}
 
 
