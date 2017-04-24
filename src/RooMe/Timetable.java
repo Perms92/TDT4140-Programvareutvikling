@@ -261,10 +261,10 @@ public class Timetable {
 	public String toString() {
 		
 		if (roomOwner == null) {
-			return String.format("%-3s %-20s %-5s %-7s %-7s %-7s %-7s %-7s %-7s %-7s %-7s", "   ", getpersonOwner(), getDay(), getEight(), getNine(), getTen(), getEleven(), getTwelve(), getThirteen(), getFourteen(), getFifteen()+ "\n");
+			return String.format("%-3s %-20s %-5s %-7s %-7s %-7s %-7s %-7s %-7s %-7s %-7s", "", getpersonOwner(), getDay(), getEight(), getNine(), getTen(), getEleven(), getTwelve(), getThirteen(), getFourteen(), getFifteen()+ "\n");
 		}
 		else {
-		return String.format("%-3s %-20s %-5s %-7s %-7s %-7s %-7s %-7s %-7s %-7s %-7s", "   ", getroomOwner(), getDay(), getEight(), getNine(), getTen(), getEleven(), getTwelve(), getThirteen(), getFourteen(), getFifteen()+ "\n");
+		return String.format("%-3s %-20s %-5s %-7s %-7s %-7s %-7s %-7s %-7s %-7s %-7s", "", getroomOwner(), getDay(), getEight(), getNine(), getTen(), getEleven(), getTwelve(), getThirteen(), getFourteen(), getFifteen()+ "\n");
 		}
 	}
 	
