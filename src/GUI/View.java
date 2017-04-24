@@ -262,16 +262,7 @@ public class View extends Application{
 						String ttime = toTime.getText();
 						LocalDate date = dateField.getValue();
 						
-	/*					//checking what we have
-						System.out.println(button1);
-						System.out.println(button2);
-						System.out.println(button3);
-						System.out.println(ftime);
-						System.out.println(ttime);
-						System.out.println(date);			*/
-						
 						//searching with text inputs when everything is valid
-						//SearchForRoom search = Controller.Search(database, capacity, button2, button3, button4); //, Controller.checkValue(cb4.isSelected()))
 						try {
 							Controller.Search(capacity, button1, button2, button3);
 						} catch (SQLException e1) {
@@ -292,8 +283,8 @@ public class View extends Application{
 							warningText += "You must choose a date in the future \n";
 						}
 						if (Controller.validateTime(fromTime.getText(), toTime.getText()) == false) {
-							warningText += "You must choose a endtime later than starttime,\n"
-									+ "both starttime and endtime should be on the form hh:mm.\n";
+							warningText += "You must choose a endtime later than starttime,\n";
+							warningText += "both starttime and endtime should be on the form hh:mm.\n";
 						}
 						warnings.setText(warningText);
 					}
@@ -310,7 +301,8 @@ public class View extends Application{
 						warningText += "You must choose a date in the future \n";
 					}
 					if (Controller.validateTime(fromTime.getText(), toTime.getText()) == false) {
-						warningText += "You must choose a endtime later than starttime \n";
+						warningText += "You must choose a endtime later than starttime,\n";
+						warningText += "both starttime and endtime should be on the form hh:mm.\n";
 					}
 					warnings.setText(warningText);
 				}
@@ -520,7 +512,6 @@ public class View extends Application{
 						
 						
 				if ((pField.getText()).equals("password")) {
-					
 					genButton.getScene().setRoot(loadScreenFive());
 				}
 				else {
@@ -595,7 +586,7 @@ public class View extends Application{
 		//add labels
 		Text warnings = new Text("");
 		warnings.getStyleClass().add("description");
-		warnings.setId("warning");
+//		warnings.setId("warning");
 		grid.add(warnings, 2, 8);
 				
 			
@@ -657,12 +648,27 @@ public class View extends Application{
 	Text warnings = new Text("");
 	nameField.getStyleClass().add("description");
 	warnings.setId("warning");
-	grid.add(warnings, 0, 3);
+	grid.add(warnings, 1, 4);
 	
 	//add labels
-	Text results = new Text("");
+	Text results = new Text("Name	|	Day   |   8	  |   9   |   10   |   11   |   12   |   13   |   14   |  15 ");
 	results.getStyleClass().add("description");
-	grid.add(results, 0, 4);
+	grid.add(results, 0, 2);
+	
+	Text newField1 = new Text();
+	grid.add(newField1, 0, 3);
+	
+	Text newField2 = new Text();
+	grid.add(newField2, 0, 4);
+	
+	Text newField3 = new Text();
+	grid.add(newField3, 0, 5);
+	
+	Text newField4 = new Text();
+	grid.add(newField4, 0, 6);
+	
+	Text newField5 = new Text();
+	grid.add(newField5, 0, 7);
 
 	//add inputs
 	TextField nField = new TextField();
@@ -697,24 +703,21 @@ public class View extends Application{
 				if(cb.isSelected() == false) {
 					Database.connect();
 					list = Controller.getPersonTable(name);
-					System.out.println(list.toString());
-					resultText = "Name____|____Day___8____9___10___11___12___13___14___15 \n";
-					for (int i = 0; i < (list).size(); i++) {
-						resultText += list.get(i);
-					}
-					results.setText(resultText);
+					newField1.setText(list.get(0).toString());
+					newField2.setText(list.get(1).toString());
+					newField3.setText(list.get(2).toString());
+					newField4.setText(list.get(3).toString());
+					newField5.setText(list.get(4).toString());
 				}
 				//check timetable for a room
 				if (cb.isSelected() == true) {
 					Database.connect();
 					list = Controller.getRoomTable(name);
-					System.out.println(list.toString());
-					resultText = "Name____|____Day___8____9___10___11___12___13___14___15 \n";
-					for (int i = 0; i < (list).size(); i++) {
-						resultText += list.get(i);
-						System.out.println((list.get(i)).getEight());
-					}
-					results.setText(resultText);
+					newField1.setText(list.get(0).toString());
+					newField2.setText(list.get(1).toString());
+					newField3.setText(list.get(2).toString());
+					newField4.setText(list.get(3).toString());
+					newField5.setText(list.get(4).toString());
 				}
 			}			
 							
@@ -724,7 +727,7 @@ public class View extends Application{
 
 	Button backButton = new Button("Go back"); 
 	backButton.getStyleClass().add("button");
-	grid.add(backButton, 0, 2);
+	grid.add(backButton, 1, 3);
     backButton.setOnAction(new EventHandler<ActionEvent>() {
 
         @Override
