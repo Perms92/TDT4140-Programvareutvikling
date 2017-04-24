@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import RooMe.Person;
 import RooMe.Room;
 import RooMe.RoomCriteria;
 	
@@ -67,14 +68,22 @@ public class Database {
 	public static void fetchCriteria() throws SQLException{
 		//ArrayList<RoomCriteria> list = new ArrayList<RoomCriteria>();
 		String sql = "select * from thblaauw_tdt4145database.Criterias";
-			try {
+		//may need to make new timetables for persons who arent registered 
+		ArrayList<String> persons = new ArrayList<String>();	
+		try {
 				Database.rs = Database.sment.executeQuery(sql);
 				while (Database.rs.next()){
+					persons.add(Database.rs.getString(1));
 					RoomCriteria aCrit = 
 					new RoomCriteria(Database.rs.getString(1), Database.rs.getString(2), Database.rs.getInt(3), 
 							Database.rs.getBoolean(4), Database.rs.getBoolean(5), Database.rs.getBoolean(6), Database.rs.getInt(7));
 					allCriteria.add(aCrit);
 					} 
+				for (String name : persons) {
+					if (Person.getPerson(name) == null) {
+						new Person(name, true);
+					}
+				}
 				}
 			catch (SQLException e) {
 				e.printStackTrace();

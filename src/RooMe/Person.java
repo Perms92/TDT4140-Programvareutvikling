@@ -9,9 +9,6 @@ public class Person {
 	
 	private String Name;
 	private boolean Employed;
-	//aktuelt?
-	private ArrayList<String> Subjects = new ArrayList<String>();
-	//nja
 	private ArrayList<Timetable> timeTables = new ArrayList<Timetable>();
 	
 	
@@ -40,19 +37,30 @@ public class Person {
 	
 	
 	public void addPerson() throws SQLException {
-		Database.connect();
 		String sql = "INSERT INTO thblaauw_tdt4145database.Person\n"
 				+ "VALUES('"+getName()+"')";
 		Database.sment.executeUpdate(sql);
-		Database.disconnect();
 	}
 	
-	public void createTimeTables() throws SQLException {
-		Database.connect();
-		String sql = "INSERT INTO thblaauw_tdt4145database.Person\n"
-				+ "VALUES('"+getName()+"')";
+	public static void deletePerson(String name) throws SQLException {
+		String sql = "DELETE FROM thblaauw_tdt4145database.Person\n"
+				+ "WHERE Person.Name = '" +name+ "'";
+		String sql2 = "DELETE FROM thblaauw_tdt4145database.TimeTable\n"
+				+ "WHERE TimeTable.Person = '" +name+ "'";
 		Database.sment.executeUpdate(sql);
-		Database.disconnect();
+		Database.sment.executeUpdate(sql2);
+	}
+	
+	//Just a validation-method
+	public static String getPerson(String name) throws SQLException {
+		String sql = "SELECT * FROM thblaauw_tdt4145database.Person\n"
+				+ "WHERE Person.Name = '" +name+ "'";
+		Database.rs = Database.sment.executeQuery(sql);
+		if (Database.rs.next()) {
+			return Database.rs.getString(1);
+		}
+		return null;
+		
 	}
 	
 	public String getName() {
@@ -70,17 +78,10 @@ public class Person {
 		Employed = employed;
 	}
 
-	public ArrayList<String> getSubjects() {
-		return Subjects;
-	}
 
-	public void setSubjects(ArrayList<String> subjects) {
-		this.Subjects = subjects;
-	}
 	
 
 	public static void main(String[] args) throws SQLException {
-		Person eirik = new Person("Eirik", true);
 		/*
 		Person André = new Person("Kristian tre", true);
 		Person Kristian = new Person("Kristian to", true);

@@ -25,12 +25,40 @@ public class Timetable {
 		checkSingularity();
 	}
 	
-	public static ArrayList<Timetable> getPersonTimeTable(String personOwner) {
+	
+	public int countBookedHours() {
+		int count = 0;
+		if ((eight != null)) {
+			count++;
+		}
+		if ((nine != null)) {
+			count++;
+		}
+		if ((ten != null)) {
+			count++;
+		}
+		if ((eleven != null)) {
+			count++;
+		}
+		if ((twelve != null)) {
+			count++;
+		}
+		if ((thirteen != null)) {
+			count++;
+		}
+		if ((fourteen != null)) {
+			count++;
+		}
+		if ((fifteen != null)) {
+			count++;
+		}
+		return count;
+	}
+	
+	public static ArrayList<Timetable> getPersonTimeTable(String personOwner) throws SQLException {
 		ArrayList<Timetable> personTableAllDays = new ArrayList<Timetable>();
 		String sql = "select * from thblaauw_tdt4145database.TimeTable "
 				+ "WHERE TimeTable.Person = '" + personOwner +"'";
-		System.out.println(sql);
-		try {
 			Database.rs = Database.sment.executeQuery(sql);
 			while (Database.rs.next()){
 				Timetable personTable = new Timetable(Database.rs.getString(2), null, Database.rs.getInt(3));
@@ -44,20 +72,14 @@ public class Timetable {
 				personTable.setFifteen(Database.rs.getString(11));
 				personTableAllDays.add(personTable);
 			}
-		}
-		catch (SQLException e) {
-			e.printStackTrace();
-		}
 		return personTableAllDays;
 		
 	}
 	
-	public static ArrayList<Timetable> getRoomTimeTable(String roomOwner) {
+	public static ArrayList<Timetable> getRoomTimeTable(String roomOwner) throws SQLException {
 		ArrayList<Timetable> roomTableAllDays = new ArrayList<Timetable>();
 		String sql = "select * from thblaauw_tdt4145database.TimeTable "
 				+ "WHERE TimeTable.Room = '" + roomOwner +"'";
-		System.out.println(sql);
-		try {
 			Database.rs = Database.sment.executeQuery(sql);
 			while (Database.rs.next()){
 				Timetable roomTable = new Timetable(null, Database.rs.getString(1), Database.rs.getInt(3));
@@ -71,11 +93,6 @@ public class Timetable {
 				roomTable.setFifteen(Database.rs.getString(11));
 				roomTableAllDays.add(roomTable);
 			}
-		}
-		catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
 		return roomTableAllDays;
 	}
 
@@ -105,10 +122,9 @@ public class Timetable {
 		this.year = year;
 	}
 	
-
 	public String getEight() {
 		return eight;
-	}
+		}
 	public void setEight(String eight) {
 		this.eight = eight;
 	}
@@ -154,13 +170,6 @@ public class Timetable {
 	public void setFifteen(String fifteen) {
 		this.fifteen = fifteen;
 	}
-	public String getSixteen() {
-		return sixteen;
-	}
-	public void setSixteen(String sixteen) {
-		this.sixteen = sixteen;
-	}
-
 
 	public String getroomOwner() {
 		return roomOwner;
@@ -178,7 +187,6 @@ public class Timetable {
 	}
 	
 	public void addTimetable() throws SQLException {
-		Database.connect();
 		String sql = "INSERT INTO thblaauw_tdt4145database.TimeTable\n"
 				+ "VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 		PreparedStatement statement = Database.conn.prepareStatement(sql);
@@ -200,13 +208,11 @@ public class Timetable {
 		statement.setString(10, getFourteen());
 		statement.setString(11, getFifteen());
 		statement.executeUpdate();
-		Database.disconnect();
 	}
 	
 	//FLYTTES?
 	public static void updateRoomTable(String roomOwner, String subject, int day, int startTime, int endTime) throws SQLException {
 		//Subject can at most be 7 characters long
-		Database.connect();
 		int bookingDuration = endTime - startTime;
 		int count = 1; 
 		StringBuilder sql = new StringBuilder(
@@ -219,21 +225,17 @@ public class Timetable {
 		}
 		sql.append("`" + (endTime-1) + "` = '" + subject + "'\n" + "WHERE Room = '" + roomOwner +"' AND Day = " + day);
 		Database.sment.executeUpdate(sql.toString());
-		Database.disconnect();
 	}
 	
 	public static void resetTimeTables() throws SQLException {
 		//Subject can at most be 7 characters long
-		Database.connect();
 		Database.sment.executeUpdate(
 		"UPDATE thblaauw_tdt4145database.TimeTable "
 		+ "SET `8` = null, `9` = null, `10` = null, `11` = null, `12` = null, `13` = null, `14` = null, `15` = null");
-		Database.disconnect();
 	}
 	
 	//FLYTTES?
 	public static void updatePersonTable(String personOwner, String roomOwner, int day, int startTime, int endTime) throws SQLException {
-		Database.connect();
 		int bookingDuration = endTime - startTime;
 		int count = 1; 
 		StringBuilder sql = new StringBuilder(
@@ -246,7 +248,6 @@ public class Timetable {
 		}
 		sql.append("`" + (endTime-1) + "` = '" + roomOwner + "'\n" + "WHERE Person = '" + personOwner +"' AND Day = " + day);
 		Database.sment.executeUpdate(sql.toString());
-		Database.disconnect();
 	}
 		
 	
@@ -259,7 +260,6 @@ public class Timetable {
 		
 	
 	public String toString() {
-		
 		if (roomOwner == null) {
 			return String.format("%-3s %-20s %-5s %-7s %-7s %-7s %-7s %-7s %-7s %-7s %-7s", "   ", getpersonOwner(), getDay(), getEight(), getNine(), getTen(), getEleven(), getTwelve(), getThirteen(), getFourteen(), getFifteen()+ "\n");
 		}
@@ -268,7 +268,7 @@ public class Timetable {
 		}
 	}
 	
-	public static void printTableArray(ArrayList<Timetable> tableList, boolean headline){
+	/* NEED THIS?public static void printTableArray(ArrayList<Timetable> tableList, boolean headline){
 		if (headline == true) {
 		System.out.printf("%-3s %-20s %-5s %-7s %-7s %-7s %-7s %-7s %-7s %-7s %-7s", "   ","Room/Person", "Day", "8", "9", "10", "11", "12", "13", "14", "15"+"\n");
 		System.out.println("-------------------------------------------------------------------------------------------------");
@@ -276,21 +276,9 @@ public class Timetable {
 		for (Timetable table : tableList) {
 			System.out.println(table);
 		}
-	}
+	}*/
 	
 	public static void main(String[] args) throws SQLException {
-		//Room testRoom = new Room("R100", 50, false, false, false);
-		//updatePersonTable(testPerson.getName(), "TDT4100", 1, 8, 14);
-		//Room testRoom = new Room(true, "R1000", 100, true, true, true); 
-		//Person testPerson = new Person("Slutt for dagen", true);
-		//bookClassforSemester(testPerson, testRoom, "TDT8008", 3, 9, 11);
-		Database.connect();
-		ArrayList<Timetable> testPersonTable = getPersonTimeTable("André Blaauw");
-		ArrayList<Timetable> testRoomTable = getRoomTimeTable("R11");
-		printTableArray(testPersonTable, true);
-		printTableArray(testRoomTable, false);
-		Database.disconnect();
-		//resetTimeTables();
 	}
 
 }

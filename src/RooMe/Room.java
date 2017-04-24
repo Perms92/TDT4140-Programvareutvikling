@@ -31,6 +31,27 @@ public class Room{
 			}
 	}
 	
+	//Just a validation-method
+		public static String getRoom(String name) throws SQLException {
+			String sql = "SELECT * FROM thblaauw_tdt4145database.Room\n"
+					+ "WHERE Room.Name = '" +name+ "'";
+			Database.rs = Database.sment.executeQuery(sql);
+			if (Database.rs.next()) {
+				return Database.rs.getString(1);
+			}
+			return null;
+			
+		}
+		
+	public static void deleteRoom(String name) throws SQLException {
+			String sql = "DELETE FROM thblaauw_tdt4145database.Room\n"
+					+ "WHERE Room.Name = '" +name+ "'";
+			String sql2 = "DELETE FROM thblaauw_tdt4145database.TimeTable\n"
+					+ "WHERE TimeTable.Room = '" +name+ "'";
+			Database.sment.executeUpdate(sql);
+			Database.sment.executeUpdate(sql2);
+		}
+	
 	public ArrayList<Timetable> getTimeTables() {
 		return timeTables;
 	}
@@ -85,7 +106,6 @@ public class Room{
 
 
 	public static void addRoom(String name, int capacity, boolean projector, boolean blackboard, boolean whiteboard) throws SQLException{
-		Database.connect();
 		String sql = "INSERT INTO thblaauw_tdt4145database.Room\n"
 				+ "VALUES(?,?,?,?,?)";
 		PreparedStatement statement = Database.conn.prepareStatement(sql);
@@ -95,11 +115,10 @@ public class Room{
 		statement.setBoolean(4, blackboard);
 		statement.setBoolean(5, whiteboard);
 		statement.executeUpdate();
-		Database.disconnect();
 	}
 	
-	public static void printRooms() {
-		Database.connect();
+	/* public static void printRooms() {
+	TRENGER VI DENNE?
 		try {
 			Database.rs = Database.sment.executeQuery("select * from thblaauw_tdt4145database.Room");
 			System.out.println("Room         Capacity     Projector       Blackboard     Whiteboard");
@@ -115,45 +134,12 @@ public class Room{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Database.disconnect();
-	}
-	
-	public static void deleteRoom(String name) throws SQLException {
-
-		Database.connect();
-	//Lag metoden slik at du ikke kan lage to rom med samme navn, uavhengig av caps (R1 og r1 går ikke).
-
-	// SKAL IKKE VÆRE MULIG Å GI NULL SOM NAVN LENGER
-	 if (name == "null") {
-		try {
-	
-			Database.sment.executeUpdate("DELETE FROM thblaauw_tdt4145database.Room"
-					+ " WHERE Room.Name ='" + name + "'");
-			System.out.println("The room with name: "+name+" is deleted from the database.\n");
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			Database.disconnect();
-	 	}
-	 }
-
-	
+	}*/
 		
 	public static void main(String[] args) throws SQLException {
 		//addRoom("R11", 51, true, true, true);
 		//addRoom("R12", 69, true, false, false);
 		//deleteRoom("R1");
-		Room R1 = new Room(true, "R1", 80, false, false, false);
-		Room R11 = new Room(true, "R11", 51, true, true, true);
-		Room R12 = new Room(true, "R12", 69, true, false, false);
-		Room R2 = new Room(true, "R2", 90, true, true, true);
-		Room R3 = new Room(true, "R3", 70, false, true, true);
-		Room R4 = new Room(true, "R4", 60, true, false, true);
-		Room R5 = new Room(true, "R5", 55, true, true, false);
-		Room R6 = new Room(true, "R6", 65, true, false, false);
-		Room R7 = new Room(true, "R7", 75, false, true, false);
-		Room R8 = new Room(true, "R8", 85, false, false, true);
-		Room R9 = new Room(true, "R9", 71, true, false, false);
 		}
 
 	
