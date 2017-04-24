@@ -37,9 +37,12 @@ When you run the program you will see the start page with
 certain buttons telling you which functions you can choose between.
 
 The first button would provide the ability to search for an book a room within the database we have provided.
+
 The second button is where to click if you want to fill in and save your criteria for lectures in a coming semester,
 this is also the main functionality of our program. This is because these criteria is used for the timetables generated.
+
 The third button is where you have to go to generate e timetable with every criteria in the database. This is secured by a password but there is no security hiding this.
+
 The fourth button is used to check the timetable for a single person or for a room.
 
 ## Project shape:
