@@ -10,11 +10,10 @@ is good documentation. This starts with a solid README file. At its core a READM
 //What does your project do? Share the vision of the need that your project is trying to meet.
 
 The project RooME is a school project at NTNU Gløshaugen, Norway, in the subject TDT4140 Programvareutvikling.
-What we are trying to produce is a software system that gathers information from different people, 
-and produces a timetable based on criteria from these. 
+What we are trying to produce is a software system that gathers information from different people, intended to be lecturers at the university. With these criteria we attempt to produce a timetable that corresponds between the criteria from lecturers and the rooms in the institute.
 
-The goal is to automate the process of planning a semesterplan for every student and lecturer, 
-reducing both time and cost of the process.
+The goal is to automate the process of planning a semester for every student and lecturer, 
+reducing both time and cost of the process. Additional functionality is intended to be booking rooms for students.
 
    
 ## Setup:
@@ -32,16 +31,16 @@ Step 5: ?
 
 
 ## Usage:
-How is it used? Once it's up and running provide some very descriptive examples of usage.
+//How is it used? Once it's up and running provide some very descriptive examples of usage.
 
 When you run the program you will see the start page with 
 certain buttons telling you which functions you can choose between.
 
 The first button would provide the ability to search for an book a room within the database we have provided.
 The second button is where to click if you want to fill in and save your criteria for lectures in a coming semester,
-this is also the main functionality of our program.
-The third button is planned to be used for changing a previous added criteria, while there is no functionality for this yet.
-The fourth button will turn into a help/information page about the program.
+this is also the main functionality of our program. This is because these criteria is used for the timetables generated.
+The third button is where you have to go to generate e timetable with every criteria in the database. This is secured by a password but there is no security hiding this.
+The fourth button is used to check the timetable for a single person or for a room.
 
 ## Project shape:
 Is it in good shape? Do you have code climate, codeship,
