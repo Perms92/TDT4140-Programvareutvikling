@@ -46,23 +46,31 @@ The third button is where you have to go to generate e timetable with every crit
 The fourth button is used to check the timetable for a single person or for a room.
 
 ## Project shape:
-Is it in good shape? Do you have code climate, codeship,
- or other tools running to indicate the health of the project? Include information on dependencies as well.
+//Is it in good shape? Do you have code climate, codeship,
+//or other tools running to indicate the health of the project? Include information on dependencies as well.
 
 As the three of us implementing the system are considered beginners in software engineering with ongoing studies, 
-the project is self reflects this. Meaning both code climate, codeship and others aspects of our code should be considered
-primitive and eventually full of errors or other faults.
+the project itself reflects this. Meaning both code climate, codeship and others aspects of our code should be considered
+primitive and eventually full of errors or other faults. We have som basic automatic testing, we have reviewed most of the code manually and have some fault proofing, however there is a lot to be done on the project to reach a certain standard.
+
+However the program works as intended, with minor to none errors.
 
 ## How to help
-How can others help? Collaboration yields amazing software. 
-Make it easy for others to get involved by letting them know how to submit new features, 
-report issues, or offer other assistance.
+//How can others help? Collaboration yields amazing software. 
+//Make it easy for others to get involved by letting them know how to submit new features, 
+//report issues, or offer other assistance.
 
 People outside our project group should not participate in the project until our deadline 27th of April 2017.
-After this date those who want can either fork the repo making their version, or ask to join our repo.
+After this date those who want can contribute in different ways.
+
+Our lack of experience is greatly impacting the visual design of our program, so there is a lot to be done in the actual graphics design. The design done in JavaFX isn't optimal for anything but user-testing in our development process. This could of course be improved, with both online web-connections and better local software as a solution.
+
+We do not use any APIs at the moment, so the program could be better integrated with rooms in institutions that would like to use it. The rooms for our database is made manually by us.
+
+The algorithm for both searching for rooms and producing a timetable for every room/Subject could be improved and optimized quite a lot. There is neither any way to find a room if the available rooms cannot cover all the criteria that is stored. The program only knows it cannot fulfill everything.
 
 ## Licenes Information
-License information Don't forget to let others know what license your project is released under. 
-Not sure? Oreilly has an open book on understanding licensing.
+//License information Don't forget to let others know what license your project is released under. 
+//Not sure? Oreilly has an open book on understanding licensing.
 
-We have to come back to licensing the project.
+The project is not released under any licenses.
