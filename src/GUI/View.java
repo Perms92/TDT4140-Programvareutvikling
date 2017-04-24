@@ -4,12 +4,11 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import OldCode.ListOfCriteria;
+import Database.Database;
 import RooMe.Room;
 import RooMe.RoomCriteria;
 import RooMe.SearchForRoomDB;
-
-
+import RooMe.Timetable;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -31,9 +30,6 @@ public class View extends Application{
 		launch(args);
 	}
 	
-
-	//static OldDatabase database = Controller.database;
-
 	public static ArrayList<Room> roomlist = new ArrayList<Room>();
 	
 	//this runs when program starts
@@ -95,19 +91,36 @@ public class View extends Application{
 			}
 		});
 		
-		//add a button that goes into criteria saving
-		Button editButton = new Button("Edit a previous request");
-		editButton.getStyleClass().add("button");
-		editButton.setMinSize(200.0,30.0);
-		editButton.setMaxSize(200.0,30.0);
-		grid.add(editButton, 0, 5);
+		//add a button that generates time table
+		Button genButton = new Button("Generate timetable");
+		genButton.getStyleClass().add("button");
+		genButton.setMinSize(200.0,30.0);
+		genButton.setMaxSize(200.0,30.0);
+		grid.add(genButton, 0, 5);
 
-		editButton.setOnAction(new EventHandler<ActionEvent>() {
+		genButton.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				//generating timetables
+				System.out.println("Genereate knapp");
+				genButton.getScene().setRoot(loadScreenFour());
+						
+			}
+		});
+		
+		//add a button that goes into criteria saving
+		Button checkButton = new Button("Check your timetable");
+		checkButton.getStyleClass().add("button");
+		checkButton.setMinSize(200.0,30.0);
+		checkButton.setMaxSize(200.0,30.0);
+		grid.add(checkButton, 0, 6);
+
+		checkButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
 				//going into the edit request view
-				editButton.getScene().setRoot(loadScreenFour());
-						
+				checkButton.getScene().setRoot(loadScreenSeven());
+							
 			}
 		});
 		
@@ -119,25 +132,9 @@ public class View extends Application{
 			}
 		});
 		
-		//testbutton
-		Button testButton = new Button("Help!");
-		testButton.getStyleClass().add("button");
-		testButton.setMinSize(200.0,30.0);
-		testButton.setMaxSize(200.0,30.0);
-		grid.add(testButton, 0, 6);
-
-		testButton.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent e) {
-				//opening book room window
-				bookButton.getScene().setRoot(loadScreenFive());
-				
-			}
-		});
-		
 		return grid;
 	}
-	
+
 	//this page is the book room page
 	public static GridPane loadScreenTwo() {
         
@@ -189,7 +186,7 @@ public class View extends Application{
 		Text warnings = new Text("");
 		warnings.getStyleClass().add("description");
 		warnings.setId("warning");
-		grid.add(warnings, 0, 9);
+		grid.add(warnings, 0, 10);
 	
 		//add inputs
 		TextField nameField = new TextField();
@@ -242,7 +239,7 @@ public class View extends Application{
 		//add search button that triggers function when clicked
 		Button searchButton = new Button("Search for rooms");
 		searchButton.getStyleClass().add("button");
-		grid.add(searchButton, 2, 7);
+		grid.add(searchButton, 1, 9);
 
 		searchButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -324,7 +321,7 @@ public class View extends Application{
 		//button to go back to first page
 		Button backButton = new Button("Go back");
 		backButton.getStyleClass().add("button");
-		grid.add(backButton, 2, 0);
+		grid.add(backButton, 0, 9);
         backButton.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
@@ -373,7 +370,8 @@ public class View extends Application{
 		//add labels
 		Text warnings = new Text("");
 		fag.getStyleClass().add("description");
-		grid.add(warnings, 1, 8);
+		warnings.setId("warning");
+		grid.add(warnings, 0, 7);
 				
 		//add inputs
 		TextField nameField = new TextField();
@@ -405,13 +403,11 @@ public class View extends Application{
 		cb1.setSelected(false);
 		cb2.setSelected(false);
 		cb3.setSelected(false);
-
-//		ListOfCriteria criteriaList = new ListOfCriteria();
 				
 		//add search button that triggers function when clicked
 		Button saveButton = new Button("Save your criteria");
 		saveButton.getStyleClass().add("button");
-		grid.add(saveButton, 1, 7);
+		grid.add(saveButton, 1, 6);
 				
 		saveButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -473,7 +469,7 @@ public class View extends Application{
 		
 		Button backButton = new Button("Go back");
 		backButton.getStyleClass().add("button");
-		grid.add(backButton, 0, 7);
+		grid.add(backButton, 0, 6);
         backButton.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
@@ -484,7 +480,7 @@ public class View extends Application{
 		return grid;
     }
 	
-	//this page is the edit a previous request //currently not in use
+	//this page is to generate timetables in the databse, must write in password "password"
 	public static GridPane loadScreenFour() {
         
 		GridPane grid = new GridPane();
@@ -494,120 +490,51 @@ public class View extends Application{
 		grid.setPadding(new Insets(30, 30, 30, 30));
 
 		//add labels
-		Text name = new Text("What is your name?");
-		name.getStyleClass().add("description");
-		grid.add(name, 0, 0);
-				
-		Text fag = new Text("Which subject are you teaching?");
-		fag.getStyleClass().add("description");
-		grid.add(fag, 0, 1);
-
-		Text projector = new Text("Trenger du projector?");
-		projector.getStyleClass().add("description");
-		grid.add(projector, 0, 2);
-
-		Text whiteboard = new Text("Trenger du blackboard?");
-		whiteboard.getStyleClass().add("description");
-		grid.add(whiteboard, 0, 3);
-				
-		Text blackboard = new Text("Trenger du whiteboard?");
-		blackboard.getStyleClass().add("description");
-		grid.add(blackboard, 0, 4);
-
-		Text experimentable = new Text("Trenger du å gjøre eksperiment?");
-		experimentable.getStyleClass().add("description");
-		grid.add(experimentable, 0, 5);
-				
-		Text studentCount = new Text("Hvor mange elever har du?");
-		studentCount.getStyleClass().add("description");
-		grid.add(studentCount, 0, 6);
-
-		Text ny2 = new Text("TBA");
-		ny2.getStyleClass().add("description");
-		grid.add(ny2, 0, 7);
-
+		Text password = new Text("Password:");
+		password.getStyleClass().add("description");
+		grid.add(password, 0, 0);
 
 		//add labels
 		Text warnings = new Text("");
-		fag.getStyleClass().add("description");
-		grid.add(warnings, 1, 8);
-				
-		//add labels
-		Text resultRooms = new Text("");
-		fag.getStyleClass().add("description");
-		grid.add(resultRooms, 1, 9);
+		warnings.getStyleClass().add("description");
+		warnings.setId("warning");
+		grid.add(warnings, 1, 2);
 
 		//add inputs
-		TextField nameField = new TextField();
-		nameField.setMaxSize(200.0, 30.0);
-		nameField.setMinSize(200.0, 30.0);
-		grid.add(nameField,1,0);
+		TextField pField = new TextField();
+		pField.setMaxSize(150.0, 30.0);
+		pField.setMinSize(150.0, 30.0);
+		grid.add(pField,1,0);
 				
-		TextField subjectField = new TextField();
-		subjectField.setMaxSize(200.0, 30.0);
-		subjectField.setMinSize(200.0, 30.0);
-		grid.add(subjectField,1,1);
-				
-		//A checkbox without a caption
-		CheckBox cb1 = new CheckBox();
-		grid.add(cb1,1,2);
-				
-		CheckBox cb2 = new CheckBox();
-		grid.add(cb2,1,3);
-		
-		CheckBox cb3 = new CheckBox();
-		grid.add(cb3,1,4);
-				
-		CheckBox cb4 = new CheckBox();
-		grid.add(cb4,1,5);
-				
-		TextField amount = new TextField();
-		amount.setMaxSize(200.0, 30.0);
-		amount.setMinSize(200.0, 30.0);
-		grid.add(amount, 1, 6);
-
-		//make all unchecked at start
-		cb1.setSelected(false);
-		cb2.setSelected(false);
-		cb3.setSelected(false);
-		cb4.setSelected(false);
-
-	//	ListOfCriteria criteriaList = new ListOfCriteria();
 				
 		//add search button that triggers function when clicked
-		Button saveButton = new Button("Save your criteria");
-		saveButton.getStyleClass().add("button");
-		grid.add(saveButton, 1, 7);
+		Button genButton = new Button("Generate timetable");
+		genButton.getStyleClass().add("button");
+		grid.add(genButton, 1, 1);
 				
-		saveButton.setOnAction(new EventHandler<ActionEvent>() {
+		genButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
 			//feilhåndtering før funksjoner
 				String warningText = "";
 						
-				warnings.setText(warningText);
 						
-				if ((amount.getText()).equals("")) {
-					amount.setText("0");
-						
-					warningText = warningText + "You have to select how many students you need space for\n";
+				if ((pField.getText()).equals("password")) {
+					
+					genButton.getScene().setRoot(loadScreenFive());
+				}
+				else {
+					warningText += "Wrong password";
 					warnings.setText(warningText);
 				}
-									
-			
-		//		RoomCriteria crit = new RoomCriteria(Integer.parseInt((amount.getText())), Controller.checkValue(cb1.isSelected()), Controller.checkValue(cb2.isSelected()), Controller.checkValue(cb3.isSelected()), Controller.checkValue(cb2.isSelected()));
-		//		criteriaList.addCriteria(crit);
-						
-				//iterate through all criterias}
-	//			System.out.println(criteriaList.getCriteria(0));
-						
+											
 			}
 		});
 
 		
 		Button backButton = new Button("Go back");
 		backButton.getStyleClass().add("button");
-		grid.add(backButton, 0, 7);
+		grid.add(backButton, 0, 1);
         backButton.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
@@ -626,14 +553,15 @@ public class View extends Application{
 		grid.setVgap(10);
 		grid.setPadding(new Insets(30, 30, 30, 30));
 		
+		//Generating timetables for every criteria in database
+		Controller.Assign();
 		
-		Text projector = new Text("Under construction?");
-		projector.getStyleClass().add("description");
-		grid.add(projector, 0, 2);
+		Text info = new Text("Timetable successfully generated");
+		grid.add(info,0,0);
 		
 		Button backButton = new Button("Go back");
 		backButton.getStyleClass().add("button");
-		grid.add(backButton, 0, 7);
+		grid.add(backButton, 0, 1);
         backButton.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
@@ -658,7 +586,6 @@ public class View extends Application{
 		for (int i = 0; i < roomlist.size(); i++) {
 			
 			Text room = new Text(roomlist.get(i).toString());
-			room.getStyleClass().add("description"); //find out what this does
 			grid.add(room, 0, (i)+1);
 			
 			RadioButton rb = new RadioButton("");
@@ -668,6 +595,7 @@ public class View extends Application{
 		//add labels
 		Text warnings = new Text("");
 		warnings.getStyleClass().add("description");
+		warnings.setId("warning");
 		grid.add(warnings, 2, 8);
 				
 			
@@ -708,6 +636,107 @@ public class View extends Application{
         });
 		return grid;
 	}
+	
+	public static GridPane loadScreenSeven() {
+	GridPane grid = new GridPane();
+	grid.setAlignment(Pos.CENTER);
+	grid.setHgap(50);
+	grid.setVgap(10);
+	grid.setPadding(new Insets(30, 30, 30, 30));
+	
+	
+	//add labels
+	Text nameField = new Text("Name:");
+	nameField.getStyleClass().add("description");
+	grid.add(nameField, 0, 0);
+	
+	Text infoField = new Text("Check to search for room timetables");
+	grid.add(infoField,0,1);
+	
+	//add labels
+	Text warnings = new Text("");
+	nameField.getStyleClass().add("description");
+	warnings.setId("warning");
+	grid.add(warnings, 0, 3);
+	
+	//add labels
+	Text results = new Text("");
+	results.getStyleClass().add("description");
+	grid.add(results, 0, 4);
+
+	//add inputs
+	TextField nField = new TextField();
+	nField.setMaxSize(150.0, 30.0);
+	nField.setMinSize(150.0, 30.0);
+	grid.add(nField,1,0);
+					
+	CheckBox cb = new CheckBox();
+	grid.add(cb,1,1);
+	
+	//add search button that triggers function when clicked
+	Button genButton = new Button("Show timetable");
+	genButton.getStyleClass().add("button");
+	grid.add(genButton, 1, 2);
+					
+	genButton.setOnAction(new EventHandler<ActionEvent>() {
+		@Override
+		public void handle(ActionEvent e) {
+		//feilhåndtering før funksjoner
+			ArrayList<Timetable> list = new ArrayList<Timetable>();
+			String warningText = "";
+			warnings.setText(warningText);
+			String resultText = "";
+			String name = nField.getText();
+			
+			if (nField.getText().equals("")) {
+				warningText += "You must write your name";
+				warnings.setText(warningText);
+			}
+			else {
+				//Check timetable for a person
+				if(cb.isSelected() == false) {
+					Database.connect();
+					list = Controller.getPersonTable(name);
+					System.out.println(list.toString());
+					resultText = "Name____|____Day___8____9___10___11___12___13___14___15 \n";
+					for (int i = 0; i < (list).size(); i++) {
+						resultText += list.get(i);
+					}
+					results.setText(resultText);
+				}
+				//check timetable for a room
+				if (cb.isSelected() == true) {
+					Database.connect();
+					list = Controller.getRoomTable(name);
+					System.out.println(list.toString());
+					resultText = "Name____|____Day___8____9___10___11___12___13___14___15 \n";
+					for (int i = 0; i < (list).size(); i++) {
+						resultText += list.get(i);
+						System.out.println((list.get(i)).getEight());
+					}
+					results.setText(resultText);
+				}
+			}			
+							
+									
+		}
+	});
+
+	Button backButton = new Button("Go back"); 
+	backButton.getStyleClass().add("button");
+	grid.add(backButton, 0, 2);
+    backButton.setOnAction(new EventHandler<ActionEvent>() {
+
+        @Override
+        public void handle(ActionEvent arg0) {
+            backButton.getScene().setRoot(loadScreenOne());             
+        }
+    });
+	
+	return grid;
+	}
+
+	
 
 
 //end tag

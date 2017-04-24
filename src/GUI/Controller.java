@@ -3,20 +3,41 @@ package GUI;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 
-import OldCode.Database;
-import OldCode.SearchForRoom;
+import Database.Database;
+import RooMe.AssignRooms;
 import RooMe.SearchForRoomDB;
+import RooMe.Timetable;
 
 public class Controller {
 	
-	//must make database outside functions to avoid duplicates
-	//static OldDatabase database = new OldDatabase("Test");
-	
-
 	public static SearchForRoomDB Search(int amount, boolean cb1, boolean cb2, boolean cb3) throws SQLException {
 		SearchForRoomDB search = new SearchForRoomDB(amount, cb1, cb2, cb3);
 		return search;
+	}
+	
+	
+	public static void Assign() {
+		Database.connect();
+		AssignRooms test;
+		try {
+			test = new AssignRooms();
+			test.AssignAllRooms();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		Database.disconnect();
+	}
+	
+	public static ArrayList<Timetable> getRoomTable(String name) {
+		return Timetable.getRoomTimeTable(name);
+	}
+	
+	public static ArrayList<Timetable> getPersonTable(String name) {
+		return Timetable.getPersonTimeTable(name);
 	}
 	
 	
