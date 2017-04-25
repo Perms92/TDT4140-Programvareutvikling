@@ -37,11 +37,11 @@ public class SearchForRoomDB {
 				+ "(Room.Projector = true OR Room.Projector = " + projector + ") AND "
 				+ "(Room.blackboard = true OR Room.blackboard = " + blackboard + ") AND "
 				+ "(Room.Whiteboard = true OR Room.whiteboard = " + whiteboard + ")";
-		Database.connect();
 			try {
 				Database.rs = Database.sment.executeQuery(sql);
 				while (Database.rs.next()){
 					Room roomMatch = 
+							//false so it doesn't create new room in database
 					new Room(false, Database.rs.getString(1), Database.rs.getInt(2),Database.rs.getBoolean(3),Database.rs.getBoolean(4), Database.rs.getBoolean(5));
 					acceptedRooms.add(roomMatch); 
 					} 
@@ -66,8 +66,7 @@ public class SearchForRoomDB {
 	}
 	
 	public static void main(String[] args) throws SQLException {
-		SearchForRoomDB testSok = new SearchForRoomDB(100, true, false, true);
-		System.out.println(testSok);
+		
 	}
 
 	

@@ -102,7 +102,8 @@ public class AssignRooms {
 					maxRes = crit.possibleRooms.size();
 
 				}
-			}	
+			}
+			//skal denne flyttes inn et hakk?
 			size++;
 		}
 	}
@@ -165,10 +166,6 @@ public class AssignRooms {
 	}
 	
 	public static void main(String[] args) throws SQLException {
-		Database.connect();
-		AssignRooms test = new AssignRooms();
-		test.AssignAllRooms();
-		Database.disconnect();
 		/*Room testRom = listOfLists.get(1).get(1);
 		System.out.println(testRom);
 		listOfLists.get(1).remove(testRom);

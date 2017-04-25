@@ -20,7 +20,7 @@ public class RoomCriteria{
 
 	public ArrayList<Room> possibleRooms = new ArrayList<Room>();
 
-	public RoomCriteria(String PersonName, String subject, int capacity, boolean projector, boolean blackboard, boolean whiteboard, int hours) {
+	public RoomCriteria(String PersonName, String subject, int capacity, boolean projector, boolean blackboard, boolean whiteboard, int hours) throws SQLException {
 		setPersonName(PersonName);
 		setSubject(subject);
 		setCapacity(capacity);
@@ -40,7 +40,6 @@ public class RoomCriteria{
 	}
 
 	public static void addRoomCriteria(String personName, String subject, int capacity, boolean projector, boolean blackboard, boolean whiteboard, int hours) throws SQLException{
-		Database.connect();
 		String sql = "INSERT INTO thblaauw_tdt4145database.Criterias\n"
 				+ "VALUES(?,?,?,?,?,?,?)";
 		PreparedStatement statement = Database.conn.prepareStatement(sql);
@@ -50,13 +49,33 @@ public class RoomCriteria{
 		statement.setBoolean(4, projector);
 		statement.setBoolean(5, blackboard);
 		statement.setBoolean(6, whiteboard);
-		statement.setInt(6, hours);
+		statement.setInt(7, hours);
 		statement.executeUpdate();
-		Database.disconnect();
 	}
 	
-	public static void getRoomCriterias() {
-		Database.connect();
+	//Just a validation-method
+			public static String getPersonOfRoomCriteria(String name) throws SQLException {
+				String sql = "SELECT * FROM thblaauw_tdt4145database.Criterias\n"
+						+ "WHERE Criterias.PersonNavn = '" +name+ "'";
+				Database.rs = Database.sment.executeQuery(sql);
+				if (Database.rs.next()) {
+					return Database.rs.getString(1);
+				}
+				return null;
+				
+			}
+			
+		public static void deleteRoomCriteria(String name) throws SQLException {
+				String sql = "DELETE FROM thblaauw_tdt4145database.Criterias\n"
+						+ "WHERE Criterias.PersonNavn = '" +name+ "'";
+				Database.sment.executeUpdate(sql);
+			}
+	
+	
+	
+	/* NOT USED
+	 public static void getRoomCriterias() {
+	 
 		try {
 			Database.rs = Database.sment.executeQuery("select * from thblaauw_tdt4145database.Criterias");
 			System.out.printf("%-20s %-9s %-10s %-11s %-12s %-12s %-2s","Foreleser", "Subject", "Capacity", "Projector", "Blackboard", "Whiteboard", "Hours"+"\n");
@@ -76,14 +95,11 @@ public class RoomCriteria{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Database.disconnect(); 
-	}
+	}*/
 	
 	public static ArrayList<RoomCriteria> listOfCriterion() throws SQLException{
 		//ArrayList<RoomCriteria> list = new ArrayList<RoomCriteria>();
 		String sql = "select * from thblaauw_tdt4145database.Criterias";
-		Database.connect();
-			try {
 				Database.rs = Database.sment.executeQuery(sql);
 				while (Database.rs.next()){
 					RoomCriteria aCrit = 
@@ -91,10 +107,6 @@ public class RoomCriteria{
 							Database.rs.getBoolean(4), Database.rs.getBoolean(5), Database.rs.getBoolean(6), Database.rs.getInt(7));
 					list.add(aCrit);
 					} 
-				}
-			catch (SQLException e) {
-				e.printStackTrace();
-			}
 			return list;
 	}
 		
@@ -190,7 +202,6 @@ public class RoomCriteria{
 
 
 	public static void main(String[] args) throws SQLException {
-		
-	}
+	} 
 	
 }
